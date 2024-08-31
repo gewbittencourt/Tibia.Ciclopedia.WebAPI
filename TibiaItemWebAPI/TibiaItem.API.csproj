@@ -8,12 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.4.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.28.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TibiaItem.Application\TibiaItem.Application.csproj" />
     <ProjectReference Include="..\TibiaItem.Domain\TibiaItem.Domain.csproj" />
+    <ProjectReference Include="..\TibiaItem.Infrastructure.MongoDb\TibiaItem.Infrastructure.MongoDb.csproj" />
   </ItemGroup>
 
 </Project>

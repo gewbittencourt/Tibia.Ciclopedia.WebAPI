@@ -9,6 +9,6 @@ namespace TibiaItem.Domain.Interface
 {
 	public interface IItemRepository
 	{
-		Task CreateNewTask(Item item, CancellationToken cancellationToken);
+		Task CreateNewItem(Item item, CancellationToken cancellationToken);
 	}
 }

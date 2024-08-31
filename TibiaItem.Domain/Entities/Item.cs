@@ -19,12 +19,27 @@ namespace TibiaItem.Domain.Entities
 		public decimal Price { get; private set; }
 
 		public DateTime Date { get; private set; }
+
+		public Item(string name, string type, SlotsInfo slots, decimal price)
+		{
+			Name = name;
+			Type = type;
+			Slots = slots;
+			Price = price;
+
+		}
+
+		public void NewItem()
+		{
+			Id = Guid.NewGuid();
+			Date = DateTime.Now;
+		}
 	}
 
 
 	public class SlotsInfo
 	{
-		public bool PossuiSlots { get; set; }
-		public int Quantidade { get; set; }
+		public bool HaveSlots { get; set; }
+		public int Quantity { get; set; }
 	}
 }

@@ -16,7 +16,7 @@ namespace TibiaItem.Application.Handlers
 
 	public class SlotsInfo
 	{
-		public bool PossuiSlots { get; set; }
-		public int Quantidade { get; set; }
+		public bool HaveSlots { get; set; }
+		public int Quantity { get; set; }
 	}
 }
