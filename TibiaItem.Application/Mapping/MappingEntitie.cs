@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TibiaItem.Application.Handlers;
+using TibiaItem.Application.UseCases.CreateItem;
 using TibiaItem.Domain.Entities;
 
 namespace TibiaItem.Application.Mapping
@@ -15,12 +15,12 @@ namespace TibiaItem.Application.Mapping
 		public MappingEntitie()
 		{
 			// Mapeamento de CreateItemRequest para Item
-			CreateMap<CreateItemRequest, Item>()
+			CreateMap<CreateItemInput, Item>()
 				.ForMember(dest => dest.Slots, opt => opt.MapFrom(src => src.Slots))
 				.AfterMap((src, dest) => dest.NewItem());
 
 			// Mapeamento de SlotsInfo (de Application.Handlers para Domain.Entities)
-			CreateMap<Handlers.SlotsInfo, Domain.Entities.SlotsInfo>();
+			CreateMap<UseCases.CreateItem.SlotsInfo, Domain.Entities.SlotsInfo>();
 		}
 	}
 }

@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using TibiaItem.Application.BaseOutput;
 
-namespace TibiaItem.Application.Handlers
+namespace TibiaItem.Application.UseCases.CreateItem
 {
-	public class CreateItemRequest : IRequest<Object>
+	public class CreateItemInput : IRequest<Output<bool>>
 	{
 		public string Name { get; set; }
 
@@ -10,7 +11,7 @@ namespace TibiaItem.Application.Handlers
 
 		public SlotsInfo Slots { get; set; }
 
-		public decimal Price { get; set; }
+		public double Price { get; set; }
 	}
 
 

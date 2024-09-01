@@ -6,30 +6,31 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using TibiaItem.Application.BaseOutput;
 using TibiaItem.Domain.Entities;
 using TibiaItem.Domain.Interface;
 
-namespace TibiaItem.Application.Handlers
+namespace TibiaItem.Application.UseCases.CreateItem
 {
-	internal class CreateItemHandler : IRequestHandler<CreateItemRequest, Object>
+	internal class CreateItem : IRequestHandler<CreateItemInput, Output<bool>>
 
 	{
 
 		private readonly IItemRepository _itemRepository;
 		private readonly IMapper _mapper;
 
-		public CreateItemHandler(IItemRepository repository, IMapper mapper)
+		public CreateItem(IItemRepository repository, IMapper mapper)
 		{
 			_itemRepository = repository;
 			_mapper = mapper;
 		}
 
-		public async Task<Object> Handle(CreateItemRequest request, CancellationToken cancellationToken)
+		public async Task<Output<bool>> Handle(CreateItemInput request, CancellationToken cancellationToken)
 		{
 			var item = _mapper.Map<Item>(request);
 			item.NewItem();
 			await _itemRepository.CreateNewItem(item, cancellationToken);
-			return true;
-        }
+			return Output<bool>.Success(true);
+		}
 	}
 }

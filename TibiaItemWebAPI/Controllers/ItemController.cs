@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TibiaItem.Application.Handlers;
+using TibiaItem.Application.UseCases.CreateItem;
 using TibiaItem.Domain.Entities;
 using TibiaItem.Domain.Interface;
 
@@ -17,7 +17,7 @@ namespace TibiaItem.API.Controllers
 
 
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody] CreateItemRequest request)
+		public async Task<IActionResult> Create([FromBody] CreateItemInput request)
 		{
 			var result = await _mediator.Send(request);
 			return Ok(result);
