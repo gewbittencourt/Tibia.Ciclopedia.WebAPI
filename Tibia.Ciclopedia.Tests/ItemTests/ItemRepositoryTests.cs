@@ -50,7 +50,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 
 
 		[Fact]
-		public async Task CreateNewItem_ShouldInsertItemIntoCollection()
+		public async Task CreateNewItem_ShouldInsertItemIntoCollection_WhenSuccessfull()
 		{
 			// Arrange
 			var item = new Item();
@@ -133,5 +133,80 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 			Assert.IsType<Item[]>(result);
 			Assert.All(result, item => Assert.Equal(name, item.Name));
 		}
+
+
+		[Fact]
+
+		public async Task UpdateAll_ReturnBool_WhenSuccessfull()
+		{
+			//Arrange
+			var item = new Item(name: "test", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 100, image: "linktest", levelRequired: 100);
+			var updatedTask = new Item(name: "test1", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 100, image: "linktest", levelRequired: 100);
+			var mockResult = new UpdateResult.Acknowledged(1, 1, null);
+
+			var mockCursor = new Mock<IAsyncCursor<Item>>();
+			mockCursor.SetupSequence(x => x.MoveNext(It.IsAny<CancellationToken>())).Returns(true).Returns(false);
+			mockCursor.SetupSequence(x => x.MoveNextAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true).ReturnsAsync(false);
+			mockCursor.Setup(x => x.Current).Returns(new List<Item> { item });
+
+			_mockMongoCollection.Setup(x => x.FindAsync(
+				It.IsAny<FilterDefinition<ItemCollection>>(),
+				It.IsAny<FindOptions<ItemCollection, Item>>(),
+				It.IsAny<CancellationToken>())).ReturnsAsync(mockCursor.Object);
+
+
+			_mockMongoCollection.Setup(x => x.UpdateOneAsync(
+			It.IsAny<FilterDefinition<ItemCollection>>(),
+			It.IsAny<UpdateDefinition<ItemCollection>>(),
+			null,
+			It.IsAny<CancellationToken>())).ReturnsAsync(mockResult);
+
+
+
+			//Act
+			var result = await _itemRepository.UpdateAllItem(updatedTask, It.IsAny<CancellationToken>());
+
+			//Asserts
+			Assert.NotNull(result);
+			Assert.True(result);
+		}
+
+		[Fact]
+		public async Task UpdatePriceItem_ReturnBool_WhenSuccessfull()
+		{
+			//Arrange
+			var item = new Item(name: "test", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 100, image: "linktest", levelRequired: 100);
+			var updatedTask = new Item(name: "test", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 1000, image: "linktest", levelRequired: 100);
+			var mockResult = new UpdateResult.Acknowledged(1, 1, null);
+
+			var mockCursor = new Mock<IAsyncCursor<Item>>();
+			mockCursor.SetupSequence(x => x.MoveNext(It.IsAny<CancellationToken>())).Returns(true).Returns(false);
+			mockCursor.SetupSequence(x => x.MoveNextAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true).ReturnsAsync(false);
+			mockCursor.Setup(x => x.Current).Returns(new List<Item> { item });
+
+			_mockMongoCollection.Setup(x => x.FindAsync(
+				It.IsAny<FilterDefinition<ItemCollection>>(),
+				It.IsAny<FindOptions<ItemCollection, Item>>(),
+				It.IsAny<CancellationToken>())).ReturnsAsync(mockCursor.Object);
+
+
+			_mockMongoCollection.Setup(x => x.UpdateOneAsync(
+			It.IsAny<FilterDefinition<ItemCollection>>(),
+			It.IsAny<UpdateDefinition<ItemCollection>>(),
+			null,
+			It.IsAny<CancellationToken>())).ReturnsAsync(mockResult);
+
+
+
+			//Act
+			var result = await _itemRepository.UpdateItemPrice(updatedTask, It.IsAny<CancellationToken>());
+
+			//Asserts
+			Assert.NotNull(result);
+			Assert.True(result);
+		}
+
+
+
 	}
 }

@@ -15,7 +15,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 		public void NewItem_ShouldSetIdAndDate()
 		{
 			// Arrange
-			var item = new Item(name: "test", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 100, image: "linktest");
+			var item = new Item(name: "test", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 100, image: "linktest", levelRequired: 100);
 
 			// Act
 			item.NewItem();

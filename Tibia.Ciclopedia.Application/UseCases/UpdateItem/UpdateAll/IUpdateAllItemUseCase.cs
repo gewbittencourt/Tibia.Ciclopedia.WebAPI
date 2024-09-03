@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.BaseOutput;
+using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAll;
 
 namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem
 {
-	public interface IUpdateAllItemUseCase : IRequestHandler<UpdateAllItemInput, Output<bool>>
+	public interface IUpdateAllItemUseCase : IRequestHandler<UpdateAllItemCommand, Output<bool>>
 	{
 	}
 }

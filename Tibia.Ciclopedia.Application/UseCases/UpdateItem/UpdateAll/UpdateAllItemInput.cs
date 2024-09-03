@@ -12,7 +12,6 @@ namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem
 {
 	public class UpdateAllItemInput : IRequest<Output<bool>>
 	{
-		public Guid Id { get; set; }
 		public string Name { get; set; }
 		public ItemType Type { get; set; }
 		public Vocations Vocations { get; set; }

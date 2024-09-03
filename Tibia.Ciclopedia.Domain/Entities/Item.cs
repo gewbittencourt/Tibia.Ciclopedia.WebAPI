@@ -29,7 +29,7 @@ namespace Tibia.Ciclopedia.Domain.Entities
 
 
 
-		public Item(string name, string type, string vocations, SlotsInfo slots, double price, string image)
+		public Item(string name, string type, string vocations, SlotsInfo slots, double price, string image, int levelRequired)
 		{
 			Name = name;
 			Type = type;
@@ -37,6 +37,7 @@ namespace Tibia.Ciclopedia.Domain.Entities
 			Slots = slots;
 			Price = price;
 			Image = image;
+			LevelRequired = levelRequired;
 		}
 
 		public Item()

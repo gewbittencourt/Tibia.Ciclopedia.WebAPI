@@ -14,6 +14,9 @@ using Tibia.Ciclopedia.Domain.Entities;
 using Tibia.Ciclopedia.Domain.ValueObjects.Enums;
 using Tibia.Ciclopedia.Domain.ValueObjects;
 using TibiaItem.API.Controllers;
+using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
+using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAll;
+using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests
 {
@@ -72,7 +75,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 			var request = new GetByNameItemsInput { Name = "TestItem" };
 			var itemlist = new List<Item>
 			{
-				 new Item(name: "test", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 100, image: "linktest")
+				 new Item(name: "test", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 100, image: "linktest", levelRequired:100)
 			};
 			var expectedResponse = Output<IEnumerable<Item>>.Success(itemlist);
 
@@ -81,6 +84,41 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 
 			// Act
 			var result = await _controller.GetByName(request);
+
+			// Assert
+			var okResult = Assert.IsType<OkObjectResult>(result);
+			Assert.Equal(expectedResponse, okResult.Value);
+		}
+
+		[Fact]
+		public async Task UpdatePrice_ShouldReturnOkResult()
+		{
+			var expectedResponse = Output<bool>.Success(true);
+			// Arrange
+			var request = new UpdateItemPriceInput();
+			_mediatorMock.Setup(m => m.Send(It.IsAny<UpdateItemPriceInput>(), default))
+				.ReturnsAsync(expectedResponse);
+
+			// Act
+			var result = await _controller.UpdatePrice(request);
+
+			// Assert
+			var okResult = Assert.IsType<OkObjectResult>(result);
+			Assert.Equal(expectedResponse, okResult.Value);
+		}
+
+		[Fact]
+		public async Task UpdateAll_ShouldReturnOkResult()
+		{
+			// Arrange
+			var id = Guid.NewGuid();
+			var expectedResponse = Output<bool>.Success(true);
+			var request = new UpdateAllItemInput();
+			_mediatorMock.Setup(m => m.Send(It.IsAny<UpdateAllItemCommand>(), default))
+				.ReturnsAsync(expectedResponse);
+
+			// Act
+			var result = await _controller.UpdateAll(id, request);
 
 			// Assert
 			var okResult = Assert.IsType<OkObjectResult>(result);
