@@ -40,6 +40,8 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 			return _mapper.Map<IEnumerable<Item>>(itemCollection);
 		}
 
+
+
 		public async Task<IEnumerable<Item>> GetByNameItems(string name, CancellationToken cancellationToken)
 		{
 			var filter = Builders<ItemCollection>.Filter.Regex(x => x.Name, new BsonRegularExpression(name, "i"));
@@ -47,5 +49,44 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 			return _mapper.Map<IEnumerable<Item>>(itemCollection);
 		}
 
+
+		public async Task<Item> GetByIdItems(Guid id, CancellationToken cancellationToken)
+		{
+			var filter = Builders<ItemCollection>.Filter.Eq(x => x.ItemID, id);
+			var itemCollection = await _item.Find(filter).FirstOrDefaultAsync(cancellationToken);
+			return _mapper.Map<Item>(itemCollection);
+		}
+
+
+		public async Task<bool> UpdateItemPrice(Item item, CancellationToken cancellationToken)
+		{
+
+			var filter = Builders<ItemCollection>.Filter.Eq(x => x.ItemID, item.Id);
+
+			var update = Builders<ItemCollection>.Update
+				.Set(x => x.Price, item.Price)
+				.Set(x => x.Date, item.Date);
+			var result = await _item.UpdateOneAsync(filter, update, null, cancellationToken);
+
+			return result.ModifiedCount == 1;
+		}
+
+		public async Task<bool> UpdateAllItem(Item item, CancellationToken cancellationToken)
+		{
+			var filter = Builders<ItemCollection>.Filter.Eq(x => x.ItemID, item.Id);
+
+			var update = Builders<ItemCollection>.Update
+				.Set(x => x.Name, item.Name)
+				.Set(x => x.Type, item.Type)
+				.Set(x => x.Vocations, item.Vocations)
+				.Set(x => x.LevelRequired, item.LevelRequired)
+				.Set(x => x.Slots, item.Slots)
+				.Set(x => x.Price, item.Price)
+				.Set(x => x.Image, item.Image)
+				.Set(x => x.Date, item.Date);
+			var result = await _item.UpdateOneAsync(filter, update, null, cancellationToken);
+
+			return result.ModifiedCount == 1;
+		}
 	}
 }

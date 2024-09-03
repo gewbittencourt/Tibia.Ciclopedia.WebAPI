@@ -4,6 +4,8 @@ using Tibia.Ciclopedia.Application.UseCases.CreateItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
+using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
+using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
 using Tibia.Ciclopedia.Domain.Entities;
 using Tibia.Ciclopedia.Domain.Interface;
 
@@ -42,6 +44,24 @@ namespace TibiaItem.API.Controllers
 			var result = await _mediator.Send(request);
 			return Ok(result);
 		}
+
+
+		[HttpPut]
+		[Route("UpdatePrice")]
+		public async Task<IActionResult> UpdatePrice([FromQuery] UpdateItemPriceInput request)
+		{
+			var result = await _mediator.Send(request);
+			return Ok(result);
+		}
+
+		[HttpPut]
+		[Route("UpdateAll")]
+		public async Task<IActionResult> UpdateAll([FromBody] UpdateAllItemInput request)
+		{
+			var result = await _mediator.Send(request);
+			return Ok(result);
+		}
+
 
 	}
 }

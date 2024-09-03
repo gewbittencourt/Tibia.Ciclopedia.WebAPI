@@ -19,17 +19,15 @@ namespace Tibia.Ciclopedia.Domain.Entities
 
 		public SlotsInfo Slots { get; private set; }
 
+		public int LevelRequired { get; private set; }
+
 		public double Price { get; private set; }
 
 		public DateTime Date { get; private set; }
 
-		public string Image {  get; private set; }
+		public string Image { get; private set; }
 
-		public void NewItem()
-		{
-			Id = Guid.NewGuid();
-			Date = DateTime.Now;
-		}
+
 
 		public Item(string name, string type, string vocations, SlotsInfo slots, double price, string image)
 		{
@@ -43,6 +41,27 @@ namespace Tibia.Ciclopedia.Domain.Entities
 
 		public Item()
 		{
+		}
+
+		public void NewItem()
+		{
+			Id = Guid.NewGuid();
+			Date = DateTime.Now;
+		}
+
+		public void UpdatePriceItem(Double price)
+		{
+			Date = DateTime.Now;
+			Price = price;
+		}
+
+		public void UpdateAllItem(string name, string type, string vocations, SlotsInfo slots, string image)
+		{
+			Name = name;
+			Type = type;
+			Vocations = vocations;
+			Slots = slots;
+			Image = image;
 		}
 	}
 }

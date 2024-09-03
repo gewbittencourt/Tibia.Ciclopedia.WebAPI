@@ -8,6 +8,8 @@ using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
 using Tibia.Ciclopedia.Application.UseCases.CreateItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
+using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
+using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
 
 namespace TibiaItemWebAPI
 {
@@ -42,10 +44,13 @@ namespace TibiaItemWebAPI
 				return database.GetCollection<ItemCollection>(nameof(ItemCollection));
 			});
 
+
 			builder.Services.AddScoped<IItemRepository, ItemRepository>();
 			builder.Services.AddScoped<ICreateItemUseCase, CreateItem>();
 			builder.Services.AddScoped<IGetAllItemUseCase, GetAllItem>();
 			builder.Services.AddScoped<IGetByNameItemsUseCase, GetByNameItems>();
+			builder.Services.AddScoped<IUpdateItemPriceUseCase, UpdateItemPrice>();
+			builder.Services.AddScoped<IUpdateAllItemUseCase, UpdateAllItem>();
 
 			var app = builder.Build();
 

@@ -9,5 +9,11 @@ namespace Tibia.Ciclopedia.Domain.Interface
 		Task<IEnumerable<Item>> GetAllItems(CancellationToken cancellationToken);
 
 		Task<IEnumerable<Item>> GetByNameItems(String name, CancellationToken cancellationToken);
+
+		Task<Item> GetByIdItems(Guid id, CancellationToken cancellationToken);
+
+		Task<bool> UpdateItemPrice(Item item, CancellationToken cancellationToken);
+
+		Task<bool> UpdateAllItem(Item item, CancellationToken cancellationToken);
 	}
 }
