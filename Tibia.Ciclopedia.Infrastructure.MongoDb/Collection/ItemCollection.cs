@@ -17,30 +17,30 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 
 		[BsonId]
 		[BsonIgnoreIfDefault]
-		public ObjectId Id { get; private set; }
+		public ObjectId Id { get;  set; }
 
 		[BsonElement("ItemId")]
-		public Guid ItemID { get; private set; }
+		public Guid ItemID { get;  set; }
 
 		[BsonElement("ItemName")]
-		public string Name { get; private set; }
+		public string Name { get;  set; }
 
 		[BsonElement("ItemType")]
-		public string Type { get; private set; }
+		public string Type { get;  set; }
 
 		[BsonElement("Vocations")]
-		public string Vocations { get; private set; }
+		public string Vocations { get;  set; }
 
 		[BsonElement("ItemSlots")]
-		public SlotsInfo Slots { get; private set; }
+		public SlotsInfo Slots { get;  set; }
 
 		[BsonElement("ItemPrice")]
-		public double Price { get; private set; }
+		public double Price { get;  set; }
 
 		[BsonElement("CreationDate")]
-		public DateTime Date { get; private set; }
+		public DateTime Date { get;  set; }
 
 		[BsonElement("ImageLink")]
-		public string Image { get; private set; }
+		public string Image { get;  set; }
 	}
 }

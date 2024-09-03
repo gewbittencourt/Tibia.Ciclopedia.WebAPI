@@ -6,10 +6,12 @@ using Tibia.Ciclopedia.Infrastructure.MongoDb.Mapping;
 using MappingItem = Tibia.Ciclopedia.Application.Mapping.MappingItem;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
 using Tibia.Ciclopedia.Application.UseCases.CreateItem;
+using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
+using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
 
 namespace TibiaItemWebAPI
 {
-	public class Program
+    public class Program
 	{
 		public static void Main(string[] args)
 		{
@@ -42,6 +44,8 @@ namespace TibiaItemWebAPI
 
 			builder.Services.AddScoped<IItemRepository, ItemRepository>();
 			builder.Services.AddScoped<ICreateItemUseCase, CreateItem>();
+			builder.Services.AddScoped<IGetAllItemUseCase, GetAllItem>();
+			builder.Services.AddScoped<IGetByNameItemsUseCase, GetByNameItems>();
 
 			var app = builder.Build();
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -32,5 +33,19 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 			await _item.InsertOneAsync(itemCollection, new InsertOneOptions(), cancellationToken);
 
 		}
+
+		public async Task<IEnumerable<Item>> GetAllItems(CancellationToken cancellationToken)
+		{
+			var itemCollection = await _item.Find(_ => true).ToListAsync(cancellationToken);
+			return _mapper.Map<IEnumerable<Item>>(itemCollection);
+		}
+
+		public async Task<IEnumerable<Item>> GetByNameItems(string name, CancellationToken cancellationToken)
+		{
+			var filter = Builders<ItemCollection>.Filter.Regex(x => x.Name, new BsonRegularExpression(name, "i"));
+			var itemCollection = await _item.Find(filter).ToListAsync(cancellationToken);
+			return _mapper.Map<IEnumerable<Item>>(itemCollection);
+		}
+
 	}
 }

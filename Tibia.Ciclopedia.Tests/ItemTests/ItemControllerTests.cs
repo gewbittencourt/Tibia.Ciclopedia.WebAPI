@@ -8,6 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.BaseOutput;
 using Tibia.Ciclopedia.Application.UseCases.CreateItem;
+using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
+using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
+using Tibia.Ciclopedia.Domain.Entities;
+using Tibia.Ciclopedia.Domain.ValueObjects.Enums;
+using Tibia.Ciclopedia.Domain.ValueObjects;
 using TibiaItem.API.Controllers;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests
@@ -35,6 +40,47 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 
 			// Act
 			var result = await _controller.Create(request);
+
+			// Assert
+			var okResult = Assert.IsType<OkObjectResult>(result);
+			Assert.Equal(expectedResponse, okResult.Value);
+		}
+
+		[Fact]
+		public async Task GetAll_ReturnsOkResult_WithListOfItems()
+		{
+			// Arrange
+
+			var expectedResponse = Output<IEnumerable<Item>>.Success(new List<Item>());
+
+
+			_mediatorMock.Setup(mediator => mediator.Send(new GetAllItemInput(), It.IsAny<CancellationToken>()))
+						 .ReturnsAsync(expectedResponse);
+
+			// Act
+			var result = await _controller.GetAll();
+
+			// Assert
+			var okResult = Assert.IsType<OkObjectResult>(result);
+		}
+
+
+		[Fact]
+		public async Task GetByName_ReturnsOkResult_WithListOfItems()
+		{
+			// Arrange
+			var request = new GetByNameItemsInput { Name = "TestItem" };
+			var itemlist = new List<Item>
+			{
+				 new Item(name: "test", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 100, image: "linktest")
+			};
+			var expectedResponse = Output<IEnumerable<Item>>.Success(itemlist);
+
+			_mediatorMock.Setup(mediator => mediator.Send(request, It.IsAny<CancellationToken>()))
+						 .ReturnsAsync(expectedResponse);
+
+			// Act
+			var result = await _controller.GetByName(request);
 
 			// Assert
 			var okResult = Assert.IsType<OkObjectResult>(result);

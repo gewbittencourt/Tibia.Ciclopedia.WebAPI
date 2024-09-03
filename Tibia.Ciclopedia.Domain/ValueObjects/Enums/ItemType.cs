@@ -9,11 +9,11 @@ namespace Tibia.Ciclopedia.Domain.ValueObjects.Enums
 	public enum ItemType
 	{
 		SwordOneHand = 0,
-		SwordTwoHand = 1,
+		SwordTwoHands = 1,
 		AxeOneHand = 2,
-		AxeTwoHand = 3,
+		AxeTwoHands = 3,
 		ClubOneHand = 4,
-		ClubTwoHand = 5,
+		ClubTwoHands = 5,
 		Bow = 6,
 		Crossbow = 7,
 		Distance = 8,
