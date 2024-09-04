@@ -44,7 +44,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 
 			var item = new Item();
 
-			item.UpdateAllItem(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SlotsInfo>(), It.IsAny<string>());
+			item.UpdateAllItem(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SlotsInfo>(), It.IsAny<string>(), It.IsAny<int>());
 			item.UpdatePriceItem(It.IsAny<double>());
 
 			_mockItemRepository.Setup(repo => repo.GetByIdItems(itemId, It.IsAny<CancellationToken>()))

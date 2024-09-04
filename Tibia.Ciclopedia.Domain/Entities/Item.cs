@@ -56,13 +56,14 @@ namespace Tibia.Ciclopedia.Domain.Entities
 			Price = price;
 		}
 
-		public void UpdateAllItem(string name, string type, string vocations, SlotsInfo slots, string image)
+		public void UpdateAllItem(string name, string type, string vocations, SlotsInfo slots, string image, int levelRequired)
 		{
 			Name = name;
 			Type = type;
 			Vocations = vocations;
 			Slots = slots;
 			Image = image;
+			LevelRequired = levelRequired;
 		}
 	}
 }
