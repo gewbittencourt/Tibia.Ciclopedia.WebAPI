@@ -139,7 +139,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 
 		public async Task UpdateAll_ReturnBool_WhenSuccessfull()
 		{
-			//Arrange
+			// Arrange
 			var item = new Item(name: "test", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 100, image: "linktest", levelRequired: 100);
 			var updatedTask = new Item(name: "test1", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 100, image: "linktest", levelRequired: 100);
 			var mockResult = new UpdateResult.Acknowledged(1, 1, null);
@@ -163,10 +163,10 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 
 
 
-			//Act
+			// Act
 			var result = await _itemRepository.UpdateAllItem(updatedTask, It.IsAny<CancellationToken>());
 
-			//Asserts
+			// Asserts
 			Assert.NotNull(result);
 			Assert.True(result);
 		}
@@ -174,7 +174,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 		[Fact]
 		public async Task UpdatePriceItem_ReturnBool_WhenSuccessfull()
 		{
-			//Arrange
+			// Arrange
 			var item = new Item(name: "test", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 100, image: "linktest", levelRequired: 100);
 			var updatedTask = new Item(name: "test", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 1000, image: "linktest", levelRequired: 100);
 			var mockResult = new UpdateResult.Acknowledged(1, 1, null);
@@ -198,11 +198,28 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 
 
 
-			//Act
+			// Act
 			var result = await _itemRepository.UpdateItemPrice(updatedTask, It.IsAny<CancellationToken>());
 
-			//Asserts
+			// Asserts
 			Assert.NotNull(result);
+			Assert.True(result);
+		}
+
+		[Fact]
+		public async Task DeleteItem_ReturnBool_WhenSuccessfull()
+		{
+			//Arrange
+			var item = new Item();
+			var mockResult = new DeleteResult.Acknowledged(1);
+			_mockMongoCollection.Setup(mongo => mongo.DeleteOneAsync(It.IsAny<FilterDefinition<ItemCollection>>(), It.IsAny<CancellationToken>())).ReturnsAsync(mockResult);
+
+
+			//Act
+			var result = await _itemRepository.Deletetem(item, It.IsAny<CancellationToken>());
+
+
+			//Asserts
 			Assert.True(result);
 		}
 

@@ -10,7 +10,6 @@ namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice
 {
     public class UpdateItemPriceInput : IRequest<Output<bool>>
     {
-        public Guid Id { get; set; }
         public double Price { get; set; }
     }
 }

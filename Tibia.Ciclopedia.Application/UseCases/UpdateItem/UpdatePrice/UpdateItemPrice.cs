@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.BaseOutput;
+using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdatePrice;
 using Tibia.Ciclopedia.Domain.Interface;
 
 namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice
@@ -18,10 +19,10 @@ namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice
 		{
 			_itemRepository = repository;
 		}
-		public async Task<Output<bool>> Handle(UpdateItemPriceInput request, CancellationToken cancellationToken)
+		public async Task<Output<bool>> Handle(UpdateItemPriceCommand request, CancellationToken cancellationToken)
 		{
 			var item = await _itemRepository.GetByIdItems(request.Id, cancellationToken);
-			item.UpdatePriceItem(request.Price);
+			item.UpdatePriceItem(request.Input.Price);
 			var result = await _itemRepository.UpdateItemPrice(item, cancellationToken);
 			return Output<bool>.Success(result);
 		}

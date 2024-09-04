@@ -17,6 +17,8 @@ using TibiaItem.API.Controllers;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAll;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
+using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdatePrice;
+using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests
 {
@@ -93,14 +95,17 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 		[Fact]
 		public async Task UpdatePrice_ShouldReturnOkResult()
 		{
-			var expectedResponse = Output<bool>.Success(true);
+
 			// Arrange
+			var expectedResponse = Output<bool>.Success(true);
+			var id = Guid.NewGuid();
 			var request = new UpdateItemPriceInput();
-			_mediatorMock.Setup(m => m.Send(It.IsAny<UpdateItemPriceInput>(), default))
+
+			_mediatorMock.Setup(m => m.Send(It.IsAny<UpdateItemPriceCommand>(), default))
 				.ReturnsAsync(expectedResponse);
 
 			// Act
-			var result = await _controller.UpdatePrice(request);
+			var result = await _controller.UpdatePrice(id, request);
 
 			// Assert
 			var okResult = Assert.IsType<OkObjectResult>(result);
@@ -121,6 +126,23 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 			var result = await _controller.UpdateAll(id, request);
 
 			// Assert
+			var okResult = Assert.IsType<OkObjectResult>(result);
+			Assert.Equal(expectedResponse, okResult.Value);
+		}
+
+		[Fact]
+		public async Task DeleteItem_ShouldReturnOkResult()
+		{
+			// Arrange
+			var id = new Guid();
+			var request = new DeleteItemInput { Id = id };
+			var expectedResponse = Output<bool>.Success(true);
+			_mediatorMock.Setup(m => m.Send(request, default)).ReturnsAsync(expectedResponse);
+
+			//Act
+			var result = await _controller.Delete(request);
+
+			// Asserts
 			var okResult = Assert.IsType<OkObjectResult>(result);
 			Assert.Equal(expectedResponse, okResult.Value);
 		}

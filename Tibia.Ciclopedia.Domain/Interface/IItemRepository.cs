@@ -15,5 +15,7 @@ namespace Tibia.Ciclopedia.Domain.Interface
 		Task<bool> UpdateItemPrice(Item item, CancellationToken cancellationToken);
 
 		Task<bool> UpdateAllItem(Item item, CancellationToken cancellationToken);
+
+		Task<bool> Deletetem(Item item, CancellationToken cancellationToken);
 	}
 }

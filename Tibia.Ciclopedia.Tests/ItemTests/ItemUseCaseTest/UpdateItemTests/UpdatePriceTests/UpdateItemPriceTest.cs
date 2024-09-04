@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
+using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdatePrice;
 using Tibia.Ciclopedia.Domain.Entities;
 using Tibia.Ciclopedia.Domain.Interface;
 
@@ -41,12 +42,13 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 
 			var input = new UpdateItemPriceInput
 			{
-				Id = itemId,
 				Price = newPrice
 			};
 
+			var command = new UpdateItemPriceCommand(itemId, input);
+
 			// Act
-			var result = await _updateItemPriceUseCase.Handle(input, CancellationToken.None);
+			var result = await _updateItemPriceUseCase.Handle(command, CancellationToken.None);
 
 			// Assert
 			Assert.True(result.IsValid);

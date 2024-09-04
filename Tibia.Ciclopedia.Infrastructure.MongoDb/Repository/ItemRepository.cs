@@ -88,5 +88,12 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 
 			return result.ModifiedCount == 1;
 		}
+
+		public async Task<bool> Deletetem(Item item, CancellationToken cancellationToken)
+		{
+			var filter = Builders<ItemCollection>.Filter.Eq(x => x.ItemID, item.Id);
+			var result = await _item.DeleteOneAsync(filter, cancellationToken);
+			return result.DeletedCount == 1;
+		}
 	}
 }

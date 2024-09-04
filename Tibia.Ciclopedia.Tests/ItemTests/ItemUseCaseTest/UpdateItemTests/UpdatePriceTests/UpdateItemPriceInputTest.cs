@@ -19,12 +19,10 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 			// Act
 			var input = new UpdateItemPriceInput
 			{
-				Id = id,
 				Price = price
 			};
 
 			// Assert
-			Assert.Equal(id, input.Id);
 			Assert.Equal(price, input.Price);
 		}
 	}

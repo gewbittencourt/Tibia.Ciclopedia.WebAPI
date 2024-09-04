@@ -10,6 +10,7 @@ using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
+using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 
 namespace TibiaItemWebAPI
 {
@@ -51,6 +52,7 @@ namespace TibiaItemWebAPI
 			builder.Services.AddScoped<IGetByNameItemsUseCase, GetByNameItems>();
 			builder.Services.AddScoped<IUpdateItemPriceUseCase, UpdateItemPrice>();
 			builder.Services.AddScoped<IUpdateAllItemUseCase, UpdateAllItem>();
+			builder.Services.AddScoped<IDeleteItemUseCase, DeleteItem>();
 
 			var app = builder.Build();
 

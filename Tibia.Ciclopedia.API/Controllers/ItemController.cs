@@ -1,12 +1,14 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Tibia.Ciclopedia.Application.UseCases.CreateItem;
+using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAll;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
+using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdatePrice;
 using Tibia.Ciclopedia.Domain.Entities;
 using Tibia.Ciclopedia.Domain.Interface;
 
@@ -31,7 +33,7 @@ namespace TibiaItem.API.Controllers
 		}
 
 		[HttpGet]
-		[Route("GetAll")]
+		[Route("")]
 		public async Task<IActionResult> GetAll()
 		{
 			var result = await _mediator.Send(new GetAllItemInput());
@@ -39,7 +41,7 @@ namespace TibiaItem.API.Controllers
 		}
 
 		[HttpGet]
-		[Route("GetByName")]
+		[Route("Name")]
 		public async Task<IActionResult> GetByName([FromQuery] GetByNameItemsInput request)
 		{
 			var result = await _mediator.Send(request);
@@ -48,19 +50,28 @@ namespace TibiaItem.API.Controllers
 
 
 		[HttpPut]
-		[Route("UpdatePrice")]
-		public async Task<IActionResult> UpdatePrice([FromQuery] UpdateItemPriceInput request)
+		[Route("Price")]
+		public async Task<IActionResult> UpdatePrice([FromQuery] Guid id ,[FromBody] UpdateItemPriceInput request)
 		{
-			var result = await _mediator.Send(request);
+			var result = await _mediator.Send(new UpdateItemPriceCommand(id, request));
 			return Ok(result);
 		}
 
 		[HttpPut]
-		[Route("UpdateAll")]
+		[Route("")]
 		public async Task<IActionResult> UpdateAll([FromQuery] Guid id, [FromBody] UpdateAllItemInput request)
 		{
 			var result = await _mediator.Send(new UpdateAllItemCommand(id, request));
 			return Ok(result);
+		}
+
+		[HttpDelete]
+		[Route("")]
+		public async Task<IActionResult> Delete([FromQuery] DeleteItemInput request)
+		{
+			var result = await _mediator.Send(request);
+			return Ok(result);
+
 		}
 
 
