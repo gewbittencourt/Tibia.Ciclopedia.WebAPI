@@ -11,6 +11,7 @@ using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
 using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
+using Tibia.Ciclopedia.Infrastructure.MongoDb.Module;
 
 namespace TibiaItemWebAPI
 {
@@ -36,23 +37,8 @@ namespace TibiaItemWebAPI
 
 			builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
-			var mongoclient = new MongoClient(configuration.GetConnectionString("MongoDb"));
-
-			builder.Services.AddSingleton<IMongoClient>(mongoclient);
-			builder.Services.AddSingleton(sp =>
-			{
-				var database = mongoclient.GetDatabase(ItemCollection.CollectionName);
-				return database.GetCollection<ItemCollection>(nameof(ItemCollection));
-			});
-
-
-			builder.Services.AddScoped<IItemRepository, ItemRepository>();
-			builder.Services.AddScoped<ICreateItemUseCase, CreateItem>();
-			builder.Services.AddScoped<IGetAllItemUseCase, GetAllItem>();
-			builder.Services.AddScoped<IGetByNameItemsUseCase, GetByNameItems>();
-			builder.Services.AddScoped<IUpdateItemPriceUseCase, UpdateItemPrice>();
-			builder.Services.AddScoped<IUpdateAllItemUseCase, UpdateAllItem>();
-			builder.Services.AddScoped<IDeleteItemUseCase, DeleteItem>();
+			builder.Services.AddMongo(configuration);
+			builder.Services.AddServices();
 
 			var app = builder.Build();
 

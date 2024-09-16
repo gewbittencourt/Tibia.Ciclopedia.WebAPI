@@ -8,11 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
     <PackageReference Include="MongoDB.Bson" Version="2.28.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.28.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Tibia.Ciclopedia.Application\Tibia.Ciclopedia.Application.csproj" />
     <ProjectReference Include="..\Tibia.Ciclopedia.Domain\Tibia.Ciclopedia.Domain.csproj" />
   </ItemGroup>
 
