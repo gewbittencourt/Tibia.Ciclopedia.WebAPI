@@ -18,6 +18,15 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 	public static class InfrastructureModule
 	{
 
+		public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+		{
+			services
+				.AddRepositories()
+				.AddMongo(configuration);
+
+			return services;
+		}
+
 		public static IServiceCollection AddMongo(this IServiceCollection services, IConfiguration configuration)
 		{
 			var mongoClient = new MongoClient(configuration.GetConnectionString("MongoDb"));
@@ -32,16 +41,9 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 			return services;
 		}
 
-
-		public static IServiceCollection AddServices(this IServiceCollection services)
+		public static IServiceCollection AddRepositories(this IServiceCollection services)
 		{
 			services.AddScoped<IItemRepository, ItemRepository>();
-			services.AddScoped<ICreateItemUseCase, CreateItem>();
-			services.AddScoped<IGetAllItemUseCase, GetAllItem>();
-			services.AddScoped<IGetByNameItemsUseCase, GetByNameItems>();
-			services.AddScoped<IUpdateItemPriceUseCase, UpdateItemPrice>();
-			services.AddScoped<IUpdateAllItemUseCase, UpdateAllItem>();
-			services.AddScoped<IDeleteItemUseCase, DeleteItem>();
 
 			return services;
 		}

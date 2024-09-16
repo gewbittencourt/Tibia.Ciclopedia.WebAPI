@@ -12,6 +12,7 @@ using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
 using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Module;
+using Tibia.Ciclopedia.Application;
 
 namespace TibiaItemWebAPI
 {
@@ -37,7 +38,9 @@ namespace TibiaItemWebAPI
 
 			builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
-			builder.Services.AddMongo(configuration);
+
+
+			builder.Services.AddInfrastructure(configuration);
 			builder.Services.AddServices();
 
 			var app = builder.Build();
