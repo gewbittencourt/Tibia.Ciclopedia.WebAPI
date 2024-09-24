@@ -1,6 +1,0 @@
-@TibiaItemWebAPI_HostAddress = http://localhost:5181
-
-GET {{TibiaItemWebAPI_HostAddress}}//
-Accept: application/json
-
-###

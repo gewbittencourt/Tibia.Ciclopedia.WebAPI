@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  tibia_ciclopedia_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5181:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - mongodb_container
+    networks:
+      items-network:
+
+  mongodb_container:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    volumes:
+      - mongodb_data_container:/data/db
+    networks:
+      items-network:
+       aliases:
+        - "mongo"
+    ports:
+        - "27017:27017"
+
+volumes:
+  mongodb_data_container:
+
+networks:
+  items-network:

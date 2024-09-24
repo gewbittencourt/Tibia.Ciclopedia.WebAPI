@@ -5,13 +5,19 @@ VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tibia.Ciclopedia.API", "Tibia.Ciclopedia.API.csproj", "{C8B47850-C92C-4C49-8FDF-6BD40504F9D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tibia.Ciclopedia.Domain", "..\Tibia.Ciclopedia.Domain\Tibia.Ciclopedia.Domain.csproj", "{C75F9D87-A11C-4538-94E3-4D2A6EABCD04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tibia.Ciclopedia.Domain", "..\Tibia.Ciclopedia.Domain\Tibia.Ciclopedia.Domain.csproj", "{C75F9D87-A11C-4538-94E3-4D2A6EABCD04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tibia.Ciclopedia.Application", "..\Tibia.Ciclopedia.Application\Tibia.Ciclopedia.Application.csproj", "{2BB43449-ABF7-4709-8335-0E8EC067BC20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tibia.Ciclopedia.Application", "..\Tibia.Ciclopedia.Application\Tibia.Ciclopedia.Application.csproj", "{2BB43449-ABF7-4709-8335-0E8EC067BC20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tibia.Ciclopedia.Infrastructure.MongoDb", "..\Tibia.Ciclopedia.Infrastructure.MongoDb\Tibia.Ciclopedia.Infrastructure.MongoDb.csproj", "{E19DBAB4-92D7-4A54-BE54-9B12CDE47896}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tibia.Ciclopedia.Infrastructure.MongoDb", "..\Tibia.Ciclopedia.Infrastructure.MongoDb\Tibia.Ciclopedia.Infrastructure.MongoDb.csproj", "{E19DBAB4-92D7-4A54-BE54-9B12CDE47896}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tibia.Ciclopedia.Tests", "..\Tibia.Ciclopedia.Tests\Tibia.Ciclopedia.Tests.csproj", "{5A28472F-2C7D-4A0B-AFD1-C6CE5EFE61D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tibia.Ciclopedia.Tests", "..\Tibia.Ciclopedia.Tests\Tibia.Ciclopedia.Tests.csproj", "{5A28472F-2C7D-4A0B-AFD1-C6CE5EFE61D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{50A76481-3268-43A6-90BA-1F7EAB915786}"
+	ProjectSection(SolutionItems) = preProject
+		..\docker-compose.yml = ..\docker-compose.yml
+		..\Dockerfile = ..\Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
