@@ -41,7 +41,10 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 		public double Price { get; set; }
 
 		[BsonElement("CreationDate")]
-		public DateTime Date { get; set; }
+		public DateTime CreatedAt { get; set; }
+
+		[BsonElement("UpdatedDate")]
+		public DateTime UpdatedAt { get; set; }
 
 		[BsonElement("ImageLink")]
 		public string Image { get; set; }

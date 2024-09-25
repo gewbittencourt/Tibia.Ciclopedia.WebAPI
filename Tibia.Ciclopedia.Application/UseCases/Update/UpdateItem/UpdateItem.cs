@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.BaseOutput;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAll;
 using Tibia.Ciclopedia.Domain.Interface;
 
 namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem
@@ -22,13 +21,12 @@ namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem
 		}
 
 
-		public async Task<Output<bool>> Handle(UpdateItemCommand request, CancellationToken cancellationToken)
+		public async Task<Output<bool>> Handle(UpdateItemInput request, CancellationToken cancellationToken)
 		{
-			var item = await _itemRepository.GetByIdItems(request.Id, cancellationToken);
-			item.UpdateAllItem(request.Input.Name, request.Input.Type.ToString(), request.Input.Vocations.ToString(), request.Input.Slots, request.Input.Image, request.Input.LevelRequired);
-			item.UpdatePriceItem(request.Input.Price);
+			var item = await _itemRepository.GetByIdItems(request.id, cancellationToken);
+			item.UpdateItem(request.Name, request.Type.ToString(), request.Vocations.ToString(), request.Slots, request.Image, request.LevelRequired, request.Price);
 
-			var result = await _itemRepository.UpdateAllItem(item, cancellationToken);
+			var result = await _itemRepository.UpdateItem(item, cancellationToken);
 			return Output<bool>.Success(result);
 
 

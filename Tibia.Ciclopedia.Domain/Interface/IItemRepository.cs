@@ -12,9 +12,7 @@ namespace Tibia.Ciclopedia.Domain.Interface
 
 		Task<Item> GetByIdItems(Guid id, CancellationToken cancellationToken);
 
-		Task<bool> UpdateItemPrice(Item item, CancellationToken cancellationToken);
-
-		Task<bool> UpdateAllItem(Item item, CancellationToken cancellationToken);
+		Task<bool> UpdateItem(Item item, CancellationToken cancellationToken);
 
 		Task<bool> Deletetem(Item item, CancellationToken cancellationToken);
 	}

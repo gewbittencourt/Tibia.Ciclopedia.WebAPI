@@ -7,7 +7,6 @@ using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
 using Tibia.Ciclopedia.Application.UseCases.CreateItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
 using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using System.Reflection;

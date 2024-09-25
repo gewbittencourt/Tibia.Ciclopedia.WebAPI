@@ -23,7 +23,9 @@ namespace Tibia.Ciclopedia.Domain.Entities
 
 		public double Price { get; private set; }
 
-		public DateTime Date { get; private set; }
+		public DateTime CreatedAt { get; private set; }
+
+		public DateTime UpdatedAt { get; private set; }
 
 		public string Image { get; private set; }
 
@@ -47,23 +49,39 @@ namespace Tibia.Ciclopedia.Domain.Entities
 		public void NewItem()
 		{
 			Id = Guid.NewGuid();
-			Date = DateTime.Now;
+			CreatedAt = DateTime.Now;
 		}
 
 		public void UpdatePriceItem(Double price)
 		{
-			Date = DateTime.Now;
+			UpdatedAt = DateTime.Now;
 			Price = price;
 		}
 
-		public void UpdateAllItem(string name, string type, string vocations, SlotsInfo slots, string image, int levelRequired)
+		public void UpdateItem(string name, string type, string vocations, SlotsInfo slots, string image, int? levelRequired, double? price)
 		{
-			Name = name;
-			Type = type;
-			Vocations = vocations;
-			Slots = slots;
-			Image = image;
-			LevelRequired = levelRequired;
+			if (!string.IsNullOrEmpty(name))
+				Name = name;
+
+			if (!string.IsNullOrEmpty(type))
+				Type = type;
+
+			if (!string.IsNullOrEmpty(vocations))
+				Vocations = vocations;
+
+			if (slots != null)
+				Slots = slots;
+
+			if (!string.IsNullOrEmpty(image))
+				Image = image;
+
+			if (levelRequired.HasValue)
+				LevelRequired = levelRequired.Value;
+
+			if (price.HasValue)
+				Price = price.Value;
+
+			UpdatedAt = DateTime.Now;
 		}
 	}
 }

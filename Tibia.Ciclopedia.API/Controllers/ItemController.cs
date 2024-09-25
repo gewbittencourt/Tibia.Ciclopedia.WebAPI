@@ -5,10 +5,7 @@ using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAll;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdatePrice;
 using Tibia.Ciclopedia.Domain.Entities;
 using Tibia.Ciclopedia.Domain.Interface;
 
@@ -50,18 +47,11 @@ namespace TibiaItem.API.Controllers
 
 
 		[HttpPut]
-		[Route("Price")]
-		public async Task<IActionResult> UpdatePrice([FromQuery] Guid id ,[FromBody] UpdateItemPriceInput request)
+		[Route("{id:guid}")]
+		public async Task<IActionResult> UpdateItem([FromRoute] Guid id, [FromBody] UpdateItemInput request)
 		{
-			var result = await _mediator.Send(new UpdateItemPriceCommand(id, request));
-			return Ok(result);
-		}
-
-		[HttpPut]
-		[Route("")]
-		public async Task<IActionResult> UpdateAll([FromQuery] Guid id, [FromBody] UpdateItemInput request)
-		{
-			var result = await _mediator.Send(new UpdateItemCommand(id, request));
+			request.id = id;
+			var result = await _mediator.Send(request);
 			return Ok(result);
 		}
 

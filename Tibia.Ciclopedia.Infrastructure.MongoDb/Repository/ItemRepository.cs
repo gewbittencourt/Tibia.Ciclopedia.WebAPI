@@ -58,20 +58,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 		}
 
 
-		public async Task<bool> UpdateItemPrice(Item item, CancellationToken cancellationToken)
-		{
-
-			var filter = Builders<ItemCollection>.Filter.Eq(x => x.ItemID, item.Id);
-
-			var update = Builders<ItemCollection>.Update
-				.Set(x => x.Price, item.Price)
-				.Set(x => x.Date, item.Date);
-			var result = await _item.UpdateOneAsync(filter, update, null, cancellationToken);
-
-			return result.ModifiedCount == 1;
-		}
-
-		public async Task<bool> UpdateAllItem(Item item, CancellationToken cancellationToken)
+		public async Task<bool> UpdateItem(Item item, CancellationToken cancellationToken)
 		{
 			var filter = Builders<ItemCollection>.Filter.Eq(x => x.ItemID, item.Id);
 
@@ -83,7 +70,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 				.Set(x => x.Slots, item.Slots)
 				.Set(x => x.Price, item.Price)
 				.Set(x => x.Image, item.Image)
-				.Set(x => x.Date, item.Date);
+				.Set(x => x.UpdatedAt, item.UpdatedAt);
 			var result = await _item.UpdateOneAsync(filter, update, null, cancellationToken);
 
 			return result.ModifiedCount == 1;
