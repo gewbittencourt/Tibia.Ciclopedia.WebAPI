@@ -20,6 +20,10 @@ namespace Tibia.Ciclopedia.Application.UseCases.DeleteItem
 		public async Task<Output<bool>> Handle(DeleteItemInput request, CancellationToken cancellationToken)
 		{
 			var item = await _itemRepository.GetByIdItems(request.Id, cancellationToken);
+			if (item == null)
+			{
+				return Output<bool>.Failure(new List<string> { "Não foi possível encontrar o item especificado." });
+			}
 			var result = await _itemRepository.Deletetem(item, cancellationToken);
 			return Output<bool>.Success(result);
 		}
