@@ -24,12 +24,12 @@ namespace Tibia.Ciclopedia.Application.UseCases.CreateItem
             _mapper = mapper;
         }
 
-        public async Task<Output<bool>> Handle(CreateItemInput request, CancellationToken cancellationToken)
+        public async Task<Output<Guid>> Handle(CreateItemInput request, CancellationToken cancellationToken)
         {
             var item = _mapper.Map<Item>(request);
             item.NewItem();
             await _itemRepository.CreateNewItem(item, cancellationToken);
-            return Output<bool>.Success(true);
+            return Output<Guid>.Success(item.Id);
         }
     }
 }

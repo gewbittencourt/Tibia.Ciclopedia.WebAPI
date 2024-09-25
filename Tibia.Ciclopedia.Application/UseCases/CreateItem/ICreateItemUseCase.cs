@@ -8,7 +8,7 @@ using Tibia.Ciclopedia.Application.BaseOutput;
 
 namespace Tibia.Ciclopedia.Application.UseCases.CreateItem
 {
-    public interface ICreateItemUseCase : IRequestHandler<CreateItemInput, Output<bool>>
+    public interface ICreateItemUseCase : IRequestHandler<CreateItemInput, Output<Guid>>
 	{
 	}
 }

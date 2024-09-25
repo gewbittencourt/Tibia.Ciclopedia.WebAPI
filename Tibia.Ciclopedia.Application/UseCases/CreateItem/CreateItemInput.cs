@@ -5,7 +5,7 @@ using Tibia.Ciclopedia.Domain.ValueObjects.Enums;
 
 namespace Tibia.Ciclopedia.Application.UseCases.CreateItem
 {
-    public class CreateItemInput : IRequest<Output<bool>>
+    public class CreateItemInput : IRequest<Output<Guid>>
     {
         public string Name { get; set; }
 
