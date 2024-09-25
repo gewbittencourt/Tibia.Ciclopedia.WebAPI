@@ -11,7 +11,7 @@ using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
 using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Module;
-using Tibia.Ciclopedia.Application;
+using Tibia.Ciclopedia.Application.Extensions;
 
 namespace TibiaItemWebAPI
 {

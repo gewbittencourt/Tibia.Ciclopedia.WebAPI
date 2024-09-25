@@ -14,7 +14,7 @@ using System.Reflection;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 {
-	public static class InfrastructureModule
+	public static class InfrastructureExtensions
 	{
 
 		public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
