@@ -22,7 +22,7 @@ namespace Tibia.Ciclopedia.Application
 			services.AddScoped<IGetAllItemUseCase, GetAllItem>();
 			services.AddScoped<IGetByNameItemsUseCase, GetByNameItems>();
 			services.AddScoped<IUpdateItemPriceUseCase, UpdateItemPrice>();
-			services.AddScoped<IUpdateAllItemUseCase, UpdateAllItem>();
+			services.AddScoped<IUpdateItemUseCase, UpdateItem>();
 			services.AddScoped<IDeleteItemUseCase, DeleteItem>();
 
 			return services;

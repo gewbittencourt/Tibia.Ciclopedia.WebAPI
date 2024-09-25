@@ -118,8 +118,8 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 			// Arrange
 			var id = Guid.NewGuid();
 			var expectedResponse = Output<bool>.Success(true);
-			var request = new UpdateAllItemInput();
-			_mediatorMock.Setup(m => m.Send(It.IsAny<UpdateAllItemCommand>(), default))
+			var request = new UpdateItemInput();
+			_mediatorMock.Setup(m => m.Send(It.IsAny<UpdateItemCommand>(), default))
 				.ReturnsAsync(expectedResponse);
 
 			// Act

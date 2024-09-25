@@ -24,7 +24,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 			var image = "image_path";
 
 			// Act
-			var input = new UpdateAllItemInput
+			var input = new UpdateItemInput
 			{
 				Name = name,
 				Type = type,

@@ -9,7 +9,7 @@ using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAll;
 
 namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem
 {
-	public interface IUpdateAllItemUseCase : IRequestHandler<UpdateAllItemCommand, Output<bool>>
+	public interface IUpdateItemUseCase : IRequestHandler<UpdateItemCommand, Output<bool>>
 	{
 	}
 }

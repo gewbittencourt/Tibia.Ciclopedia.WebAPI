@@ -9,12 +9,12 @@ using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
 
 namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAll
 {
-	public class UpdateAllItemCommand : IRequest<Output<bool>>
+	public class UpdateItemCommand : IRequest<Output<bool>>
 	{
 		public Guid Id { get; }
-		public UpdateAllItemInput Input { get; }
+		public UpdateItemInput Input { get; }
 
-		public UpdateAllItemCommand(Guid id, UpdateAllItemInput input)
+		public UpdateItemCommand(Guid id, UpdateItemInput input)
 		{
 			Id = id;
 			Input = input;

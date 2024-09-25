@@ -59,9 +59,9 @@ namespace TibiaItem.API.Controllers
 
 		[HttpPut]
 		[Route("")]
-		public async Task<IActionResult> UpdateAll([FromQuery] Guid id, [FromBody] UpdateAllItemInput request)
+		public async Task<IActionResult> UpdateAll([FromQuery] Guid id, [FromBody] UpdateItemInput request)
 		{
-			var result = await _mediator.Send(new UpdateAllItemCommand(id, request));
+			var result = await _mediator.Send(new UpdateItemCommand(id, request));
 			return Ok(result);
 		}
 

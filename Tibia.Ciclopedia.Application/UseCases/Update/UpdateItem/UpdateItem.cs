@@ -10,19 +10,19 @@ using Tibia.Ciclopedia.Domain.Interface;
 
 namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem
 {
-	public class UpdateAllItem : IUpdateAllItemUseCase
+	public class UpdateItem : IUpdateItemUseCase
 	{
 
 		private readonly IItemRepository _itemRepository;
 
 
-		public UpdateAllItem(IItemRepository repository, IMapper mapper)
+		public UpdateItem(IItemRepository repository, IMapper mapper)
 		{
 			_itemRepository = repository;
 		}
 
 
-		public async Task<Output<bool>> Handle(UpdateAllItemCommand request, CancellationToken cancellationToken)
+		public async Task<Output<bool>> Handle(UpdateItemCommand request, CancellationToken cancellationToken)
 		{
 			var item = await _itemRepository.GetByIdItems(request.Id, cancellationToken);
 			item.UpdateAllItem(request.Input.Name, request.Input.Type.ToString(), request.Input.Vocations.ToString(), request.Input.Slots, request.Input.Image, request.Input.LevelRequired);

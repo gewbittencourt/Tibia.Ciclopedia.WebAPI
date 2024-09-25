@@ -17,7 +17,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 		{
 			// Arrange
 			var id = Guid.NewGuid();
-			var input = new UpdateAllItemInput
+			var input = new UpdateItemInput
 			{
 				Name = "ItemName",
 				Type = ItemType.Bow,
@@ -29,7 +29,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 			};
 
 			// Act
-			var command = new UpdateAllItemCommand(id, input);
+			var command = new UpdateItemCommand(id, input);
 
 			// Assert
 			Assert.Equal(id, command.Id);

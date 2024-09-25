@@ -10,7 +10,7 @@ using Tibia.Ciclopedia.Domain.ValueObjects;
 
 namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem
 {
-	public class UpdateAllItemInput : IRequest<Output<bool>>
+	public class UpdateItemInput : IRequest<Output<bool>>
 	{
 		public string Name { get; set; }
 		public ItemType Type { get; set; }
