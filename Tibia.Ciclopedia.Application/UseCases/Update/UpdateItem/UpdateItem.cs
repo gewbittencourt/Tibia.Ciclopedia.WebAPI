@@ -31,7 +31,7 @@ namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem
 				}
 			}
 
-			item.UpdateItem(request.Name, request.Type.ToString(), request.Vocations.ToString(), request.Slots, request.Image, request.LevelRequired, request.Price);
+			item.UpdateItem(request.Name, request.Type, request.Vocations, request.Slots, request.Image, request.LevelRequired, request.Price);
 
 			var result = await _itemRepository.UpdateItem(item, cancellationToken);
 			return Output<bool>.Success(result);

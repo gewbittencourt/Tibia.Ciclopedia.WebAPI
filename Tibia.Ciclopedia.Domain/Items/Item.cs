@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Domain.ValueObjects;
+using Tibia.Ciclopedia.Domain.ValueObjects.Enums;
 
 namespace Tibia.Ciclopedia.Domain.Entities
 {
@@ -13,9 +14,9 @@ namespace Tibia.Ciclopedia.Domain.Entities
 
 		public string Name { get; private set; }
 
-		public string Type { get; private set; }
+		public ItemType Type { get; private set; }
 
-		public string Vocations { get; private set; }
+		public Vocations Vocations { get; private set; }
 
 		public SlotsInfoItem Slots { get; private set; }
 
@@ -31,7 +32,7 @@ namespace Tibia.Ciclopedia.Domain.Entities
 
 
 
-		public Item(string name, string type, string vocations, SlotsInfoItem slots, double price, string image, int levelRequired)
+		public Item(string name, ItemType type, Vocations vocations, SlotsInfoItem slots, double price, string image, int levelRequired)
 		{
 			Name = name;
 			Type = type;
@@ -58,16 +59,17 @@ namespace Tibia.Ciclopedia.Domain.Entities
 			Price = price;
 		}
 
-		public void UpdateItem(string name, string type, string vocations, SlotsInfoItem slots, string image, int? levelRequired, double? price)
+		public void UpdateItem(string name, ItemType? type, Vocations? vocations, SlotsInfoItem slots, string image, int? levelRequired, double? price)
 		{
 			if (!string.IsNullOrEmpty(name))
 				Name = name;
 
-			if (!string.IsNullOrEmpty(type))
-				Type = type;
+			if (type.HasValue)
+				Type = (ItemType)type;
 
-			if (!string.IsNullOrEmpty(vocations))
-				Vocations = vocations;
+			if (vocations.HasValue)
+				Vocations = (Vocations)vocations;
+			
 
 			if (slots != null)
 				Slots = slots;

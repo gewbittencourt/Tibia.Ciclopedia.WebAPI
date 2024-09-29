@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Domain.ValueObjects;
+using Tibia.Ciclopedia.Domain.ValueObjects.Enums;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
@@ -26,10 +27,10 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 		public string Name { get; set; }
 
 		[BsonElement("ItemType")]
-		public string Type { get; set; }
+		public ItemType Type { get; set; }
 
 		[BsonElement("Vocations")]
-		public string Vocations { get; set; }
+		public Vocations Vocations { get; set; }
 
 		[BsonElement("LevelRequired")]
 		public int LevelRequired { get; set; }
