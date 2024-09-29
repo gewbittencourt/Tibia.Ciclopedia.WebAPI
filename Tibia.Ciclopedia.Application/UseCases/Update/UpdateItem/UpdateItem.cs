@@ -23,7 +23,7 @@ namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem
 
 		public async Task<Output<bool>> Handle(UpdateItemInput request, CancellationToken cancellationToken)
 		{
-			var item = await _itemRepository.GetByIdItems(request.id, cancellationToken);
+			var item = await _itemRepository.GetByIdItems(request.Id, cancellationToken);
 			if (item == null)
 			{
 				{

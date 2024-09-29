@@ -50,7 +50,7 @@ namespace TibiaItem.API.Controllers
 		[Route("{id:guid}")]
 		public async Task<IActionResult> UpdateItem([FromRoute] Guid id, [FromBody] UpdateItemInput request)
 		{
-			request.id = id;
+			request.Id = id;
 			var result = await _mediator.Send(request);
 			return Ok(result);
 		}

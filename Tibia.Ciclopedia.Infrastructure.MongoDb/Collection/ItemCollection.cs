@@ -35,7 +35,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 		public int LevelRequired { get; set; }
 
 		[BsonElement("ItemSlots")]
-		public SlotsInfo Slots { get; set; }
+		public SlotsInfoItem Slots { get; set; }
 
 		[BsonElement("ItemPrice")]
 		public double Price { get; set; }

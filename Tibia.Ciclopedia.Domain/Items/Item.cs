@@ -17,7 +17,7 @@ namespace Tibia.Ciclopedia.Domain.Entities
 
 		public string Vocations { get; private set; }
 
-		public SlotsInfo Slots { get; private set; }
+		public SlotsInfoItem Slots { get; private set; }
 
 		public int LevelRequired { get; private set; }
 
@@ -31,7 +31,7 @@ namespace Tibia.Ciclopedia.Domain.Entities
 
 
 
-		public Item(string name, string type, string vocations, SlotsInfo slots, double price, string image, int levelRequired)
+		public Item(string name, string type, string vocations, SlotsInfoItem slots, double price, string image, int levelRequired)
 		{
 			Name = name;
 			Type = type;
@@ -58,7 +58,7 @@ namespace Tibia.Ciclopedia.Domain.Entities
 			Price = price;
 		}
 
-		public void UpdateItem(string name, string type, string vocations, SlotsInfo slots, string image, int? levelRequired, double? price)
+		public void UpdateItem(string name, string type, string vocations, SlotsInfoItem slots, string image, int? levelRequired, double? price)
 		{
 			if (!string.IsNullOrEmpty(name))
 				Name = name;
