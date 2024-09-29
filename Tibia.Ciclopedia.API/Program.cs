@@ -1,4 +1,4 @@
-using Tibia.Ciclopedia.Domain.Interface;
+using Tibia.Ciclopedia.Domain.Items;
 using MongoDB.Driver;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 

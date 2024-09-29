@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Domain.Entities;
-using Tibia.Ciclopedia.Domain.Interface;
+using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository

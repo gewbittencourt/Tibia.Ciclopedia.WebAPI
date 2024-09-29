@@ -1,6 +1,6 @@
 ﻿using Tibia.Ciclopedia.Domain.Entities;
 
-namespace Tibia.Ciclopedia.Domain.Interface
+namespace Tibia.Ciclopedia.Domain.Items
 {
 	public interface IItemRepository
 	{

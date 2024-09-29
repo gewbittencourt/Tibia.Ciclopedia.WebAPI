@@ -2,7 +2,7 @@
 using MongoDB.Driver;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 using Microsoft.Extensions.Configuration;
-using Tibia.Ciclopedia.Domain.Interface;
+using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
 using Tibia.Ciclopedia.Application.UseCases.CreateItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;

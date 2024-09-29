@@ -7,7 +7,7 @@ using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
 using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
 using Tibia.Ciclopedia.Domain.Entities;
-using Tibia.Ciclopedia.Domain.Interface;
+using Tibia.Ciclopedia.Domain.Items;
 
 namespace TibiaItem.API.Controllers
 {

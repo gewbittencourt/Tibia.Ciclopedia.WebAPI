@@ -9,7 +9,7 @@ using Tibia.Ciclopedia.Domain.Entities;
 
 namespace Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName
 {
-    public interface IGetByNameItemsUseCase : IRequestHandler<GetByNameItemsInput, Output<IEnumerable<Item>>>
-    {
-    }
+	public interface IGetByNameItemsUseCase : IRequestHandler<GetByNameItemsInput, Output<IEnumerable<Item>>>
+	{
+	}
 }
