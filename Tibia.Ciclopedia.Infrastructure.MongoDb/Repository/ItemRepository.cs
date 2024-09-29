@@ -39,7 +39,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 
 		public async Task<IEnumerable<Item>> GetByNameItems(string name, CancellationToken cancellationToken)
 		{
-			var filter = Builders<ItemCollection>.Filter.Regex(x => x.Name, new BsonRegularExpression(name, "i"));
+			var filter = Builders<ItemCollection>.Filter.Text(name);
 			var itemCollection = await _item.Find(filter).ToListAsync(cancellationToken);
 			return _mapper.Map<IEnumerable<Item>>(itemCollection);
 		}

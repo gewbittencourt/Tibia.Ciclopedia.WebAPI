@@ -4,24 +4,19 @@ using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 using Microsoft.Extensions.Configuration;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
-using Tibia.Ciclopedia.Application.UseCases.CreateItem;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
-using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using System.Reflection;
-
+using Tibia.Ciclopedia.Domain.Entities;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 {
 	public static class InfrastructureExtensions
 	{
-
 		public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
 		{
 			services
 				.AddRepositories()
-				.AddMongo(configuration);
+				.AddMongo(configuration)
+				.AddIndex();
 
 			return services;
 		}
@@ -34,22 +29,31 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 			services.AddSingleton(sp =>
 			{
 				var database = mongoClient.GetDatabase(ItemCollection.CollectionName);
-				return database.GetCollection<ItemCollection>(nameof(ItemCollection));
+				return database.GetCollection<ItemCollection>(ItemCollection.CollectionName);
 			});
+			return services;
+		}
+
+		public static IServiceCollection AddIndex(this IServiceCollection services)
+		{
 			services.AddSingleton<ItemCollectionIndex>(sp =>
 			{
-				var database = mongoClient.GetDatabase(ItemCollection.CollectionName); // Substitua pelo nome correto do banco de dados
-				var itemRepository = new ItemCollectionIndex(database);
-
-				// Garante a criação do índice chamando EnsureIndexesAsync
-				itemRepository.EnsureIndexesAsync().Wait();  // Chama o método de criação de índice na inicialização
-
-				return itemRepository;
+				var mongoClient = sp.GetRequiredService<IMongoClient>();
+				var database = mongoClient.GetDatabase(ItemCollection.CollectionName);
+				return new ItemCollectionIndex(database);
 			});
-
 
 			return services;
 		}
+
+		public static void IndexItemName(this IServiceProvider serviceProvider)
+		{
+			var itemIndexService = serviceProvider.GetRequiredService<ItemCollectionIndex>();
+			itemIndexService.IndexesAsync().Wait();
+		}
+
+
+
 
 		public static IServiceCollection AddRepositories(this IServiceCollection services)
 		{

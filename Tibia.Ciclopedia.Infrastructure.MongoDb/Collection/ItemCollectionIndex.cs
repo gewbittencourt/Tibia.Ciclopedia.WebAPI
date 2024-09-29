@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tibia.Ciclopedia.Domain.Entities;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 {
@@ -18,11 +19,11 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 
 		private void CreateIndex()
 		{
-			var indexModel = new CreateIndexModel<ItemCollection>(Builders<ItemCollection>.IndexKeys.Ascending(m => m.Name));
+			var indexModel = new CreateIndexModel<ItemCollection>(Builders<ItemCollection>.IndexKeys.Text(m => m.Name));
 			_itemCollection.Indexes.CreateOne(indexModel);
 		}
 
-		public async Task EnsureIndexesAsync()
+		public async Task IndexesAsync()
 		{
 			CreateIndex();
 		}

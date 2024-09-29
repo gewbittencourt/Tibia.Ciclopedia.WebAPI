@@ -39,11 +39,11 @@ namespace TibiaItemWebAPI
 
 
 
-			builder.Services.AddInfrastructure(configuration);
-			builder.Services.AddServices();
+			builder.Services.AddInfrastructure(configuration).AddServices();
 
 
 			var app = builder.Build();
+			app.Services.IndexItemName();
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
