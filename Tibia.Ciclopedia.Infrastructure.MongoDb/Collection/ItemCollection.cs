@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 	public class ItemCollection
 	{
 		public const string CollectionName = "ItemCollection";
+
 
 
 		[BsonId]
@@ -49,5 +51,8 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 
 		[BsonElement("ImageLink")]
 		public string Image { get; set; }
+
 	}
+
+
 }

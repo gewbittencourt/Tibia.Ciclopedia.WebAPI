@@ -36,6 +36,17 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 				var database = mongoClient.GetDatabase(ItemCollection.CollectionName);
 				return database.GetCollection<ItemCollection>(nameof(ItemCollection));
 			});
+			services.AddSingleton<ItemCollectionIndex>(sp =>
+			{
+				var database = mongoClient.GetDatabase(ItemCollection.CollectionName); // Substitua pelo nome correto do banco de dados
+				var itemRepository = new ItemCollectionIndex(database);
+
+				// Garante a criação do índice chamando EnsureIndexesAsync
+				itemRepository.EnsureIndexesAsync().Wait();  // Chama o método de criação de índice na inicialização
+
+				return itemRepository;
+			});
+
 
 			return services;
 		}
