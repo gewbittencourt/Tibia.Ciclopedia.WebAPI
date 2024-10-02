@@ -38,16 +38,16 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 
 
 
-		/*public async Task<IEnumerable<Item>> GetByNameItems(string name, CancellationToken cancellationToken)
+		public async Task<IEnumerable<Item>> GetByNameItems(string name, CancellationToken cancellationToken)
 		{
-			var filter = Builders<ItemCollection>.Filter.Regex(x => x.Name, new BsonRegularExpression($"^{Regex.Escape(name)}$", "i"));
-			var sort = Builders<ItemCollection>.Sort.Ascending(s=>s.Name);
+			var filter = Builders<ItemCollection>.Filter.Text($"\"{name}\"");
+			var sort = Builders<ItemCollection>.Sort.Ascending(s => s.Name);
 			var itemCollection = await _item.Find(filter).Sort(sort).ToListAsync(cancellationToken);
 			return _mapper.Map<IEnumerable<Item>>(itemCollection);
-		}*/
+		}
 
 
-		public async Task<IEnumerable<Item>> GetByNameItems(string name, CancellationToken cancellationToken)
+		/*public async Task<IEnumerable<Item>> GetByNameItems(string name, CancellationToken cancellationToken)
 		{
 			{
 				var isExactItem = name.Contains(" ");
@@ -65,7 +65,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 					return _mapper.Map<IEnumerable<Item>>(itemCollection);
 				}
 			}
-		}
+		}*/
 
 
 		public async Task<Item> GetByIdItems(Guid id, CancellationToken cancellationToken)
