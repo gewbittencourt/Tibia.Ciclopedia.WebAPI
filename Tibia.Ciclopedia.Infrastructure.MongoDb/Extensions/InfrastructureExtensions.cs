@@ -15,8 +15,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 		{
 			services
 				.AddRepositories()
-				.AddMongo(configuration)
-				.AddIndex();
+				.AddMongo(configuration);
 
 			return services;
 		}
@@ -29,30 +28,18 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 			services.AddSingleton(sp =>
 			{
 				var database = mongoClient.GetDatabase(ItemCollection.CollectionName);
-				return database.GetCollection<ItemCollection>(ItemCollection.CollectionName);
-			});
-			return services;
-		}
+				var itemCollection = database.GetCollection<ItemCollection>(ItemCollection.CollectionName);
 
-		public static IServiceCollection AddIndex(this IServiceCollection services)
-		{
-			services.AddSingleton<ItemCollectionIndex>(sp =>
-			{
-				var mongoClient = sp.GetRequiredService<IMongoClient>();
-				var database = mongoClient.GetDatabase(ItemCollection.CollectionName);
-				return new ItemCollectionIndex(database);
+				// Criação do índice na coleção
+				var indexKeysDefinition = Builders<ItemCollection>.IndexKeys.Text(x => x.Name);
+				var indexModel = new CreateIndexModel<ItemCollection>(indexKeysDefinition);
+				itemCollection.Indexes.CreateOne(indexModel);
+
+				return itemCollection;
 			});
 
 			return services;
 		}
-
-		public static void IndexItemName(this IServiceProvider serviceProvider)
-		{
-			var itemIndexService = serviceProvider.GetRequiredService<ItemCollectionIndex>();
-			itemIndexService.IndexesAsync().Wait();
-		}
-
-
 
 
 		public static IServiceCollection AddRepositories(this IServiceCollection services)
