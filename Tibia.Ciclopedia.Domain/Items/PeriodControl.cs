@@ -15,7 +15,7 @@ namespace Tibia.Ciclopedia.Domain.Items
 		public PeriodControl()
 		{
 			TimeCheck = DateTime.Now;
-			TimeCheckExpire = DateTime.Now.AddHours(1);
+			TimeCheckExpire = DateTime.Now.AddSeconds(5);
 		}
 	}
 

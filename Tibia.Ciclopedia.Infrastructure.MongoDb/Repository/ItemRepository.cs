@@ -60,6 +60,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 
 			var update = Builders<ItemCollection>.Update
 				.Set(x => x.Name, item.Name)
+				.Set(x=> x.Slug, item.Slug)
 				.Set(x => x.Type, item.Type)
 				.Set(x => x.Vocations, item.Vocations)
 				.Set(x => x.LevelRequired, item.LevelRequired)

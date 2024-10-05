@@ -30,7 +30,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 				var itemCollection = database.GetCollection<ItemCollection>(ItemCollection.CollectionName);
 
 				// Criação do índice na coleção
-				var indexKeysDefinition = Builders<ItemCollection>.IndexKeys.Text(x => x.Name);
+				var indexKeysDefinition = Builders<ItemCollection>.IndexKeys.Text(x => x.Slug);
 				var indexModel = new CreateIndexModel<ItemCollection>(indexKeysDefinition);
 				itemCollection.Indexes.CreateOne(indexModel);
 

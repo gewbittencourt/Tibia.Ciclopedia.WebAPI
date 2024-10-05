@@ -28,6 +28,9 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 		[BsonElement("ItemName")]
 		public string Name { get; set; }
 
+		[BsonElement("Slug")]
+		public string Slug { get; set; }
+
 		[BsonElement("ItemType")]
 		public ItemType Type { get; set; }
 

@@ -20,7 +20,7 @@ namespace Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName
 
 		public async Task<Output<IEnumerable<Item>>> Handle(GetByNameItemsInput request, CancellationToken cancellationToken)
 		{
-			var result = await _itemRepository.GetItemsByName(request.Name, cancellationToken);
+			var result = await _itemRepository.GetItemsByName(request.Name.ToLowerInvariant().Replace(" ",""), cancellationToken);
 			return Output<IEnumerable<Item>>.Success(result);
 		}
 	}
