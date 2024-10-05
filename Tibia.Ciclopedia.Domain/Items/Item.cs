@@ -18,6 +18,8 @@ namespace Tibia.Ciclopedia.Domain.Items
 
 		public double Price { get; private set; }
 
+		public PeriodControl Period { get; private set; }
+
 		public DateTime CreatedAt { get; private set; }
 
 		public DateTime UpdatedAt { get; private set; }

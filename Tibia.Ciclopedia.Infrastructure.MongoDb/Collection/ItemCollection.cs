@@ -37,6 +37,9 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 		[BsonElement("LevelRequired")]
 		public int LevelRequired { get; set; }
 
+		[BsonElement("PeriodControl")]
+		public PeriodControl Period { get; private set; }
+
 		[BsonElement("ItemSlots")]
 		public SlotsInfoItem Slots { get; set; }
 
