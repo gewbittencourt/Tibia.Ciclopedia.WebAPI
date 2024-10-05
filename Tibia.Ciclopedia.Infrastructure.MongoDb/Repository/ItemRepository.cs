@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tibia.Ciclopedia.Domain.Entities;
-using Tibia.Ciclopedia.Domain.Interface;
+using System.Text.RegularExpressions;
+using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
@@ -42,15 +37,16 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 
 
 
-		public async Task<IEnumerable<Item>> GetByNameItems(string name, CancellationToken cancellationToken)
+		public async Task<IEnumerable<Item>> GetItemsByName(string name, CancellationToken cancellationToken)
 		{
-			var filter = Builders<ItemCollection>.Filter.Regex(x => x.Name, new BsonRegularExpression(name, "i"));
-			var itemCollection = await _item.Find(filter).ToListAsync(cancellationToken);
+			var filter = Builders<ItemCollection>.Filter.Text($"\"{name}\"");
+			var sort = Builders<ItemCollection>.Sort.Ascending(s => s.Name);
+			var itemCollection = await _item.Find(filter).Sort(sort).ToListAsync(cancellationToken);
 			return _mapper.Map<IEnumerable<Item>>(itemCollection);
 		}
 
 
-		public async Task<Item> GetByIdItems(Guid id, CancellationToken cancellationToken)
+		public async Task<Item> GetItemById(Guid id, CancellationToken cancellationToken)
 		{
 			var filter = Builders<ItemCollection>.Filter.Eq(x => x.ItemID, id);
 			var itemCollection = await _item.Find(filter).FirstOrDefaultAsync(cancellationToken);
@@ -58,20 +54,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 		}
 
 
-		public async Task<bool> UpdateItemPrice(Item item, CancellationToken cancellationToken)
-		{
-
-			var filter = Builders<ItemCollection>.Filter.Eq(x => x.ItemID, item.Id);
-
-			var update = Builders<ItemCollection>.Update
-				.Set(x => x.Price, item.Price)
-				.Set(x => x.Date, item.Date);
-			var result = await _item.UpdateOneAsync(filter, update, null, cancellationToken);
-
-			return result.ModifiedCount == 1;
-		}
-
-		public async Task<bool> UpdateAllItem(Item item, CancellationToken cancellationToken)
+		public async Task<bool> UpdateItem(Item item, CancellationToken cancellationToken)
 		{
 			var filter = Builders<ItemCollection>.Filter.Eq(x => x.ItemID, item.Id);
 
@@ -83,7 +66,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 				.Set(x => x.Slots, item.Slots)
 				.Set(x => x.Price, item.Price)
 				.Set(x => x.Image, item.Image)
-				.Set(x => x.Date, item.Date);
+				.Set(x => x.UpdatedAt, item.UpdatedAt);
 			var result = await _item.UpdateOneAsync(filter, update, null, cancellationToken);
 
 			return result.ModifiedCount == 1;

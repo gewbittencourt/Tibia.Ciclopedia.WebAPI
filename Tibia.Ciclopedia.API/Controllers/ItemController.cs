@@ -5,12 +5,8 @@ using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAll;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdatePrice;
-using Tibia.Ciclopedia.Domain.Entities;
-using Tibia.Ciclopedia.Domain.Interface;
+using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
+using Tibia.Ciclopedia.Domain.Items;
 
 namespace TibiaItem.API.Controllers
 {
@@ -29,6 +25,10 @@ namespace TibiaItem.API.Controllers
 		public async Task<IActionResult> Create([FromBody] CreateItemInput request)
 		{
 			var result = await _mediator.Send(request);
+			if (!result.IsValid)
+			{
+				return BadRequest(result.Errors.ToString());
+			}
 			return Ok(result);
 		}
 
@@ -37,6 +37,10 @@ namespace TibiaItem.API.Controllers
 		public async Task<IActionResult> GetAll()
 		{
 			var result = await _mediator.Send(new GetAllItemInput());
+			if (!result.IsValid)
+			{
+				return BadRequest(result.Errors.ToString());
+			}
 			return Ok(result);
 		}
 
@@ -45,23 +49,24 @@ namespace TibiaItem.API.Controllers
 		public async Task<IActionResult> GetByName([FromQuery] GetByNameItemsInput request)
 		{
 			var result = await _mediator.Send(request);
+			if (!result.IsValid)
+			{
+				return BadRequest(result.Errors.ToString());
+			}
 			return Ok(result);
 		}
 
 
 		[HttpPut]
-		[Route("Price")]
-		public async Task<IActionResult> UpdatePrice([FromQuery] Guid id ,[FromBody] UpdateItemPriceInput request)
+		[Route("{id:guid}")]
+		public async Task<IActionResult> UpdateItem([FromRoute] Guid id, [FromBody] UpdateItemInput request)
 		{
-			var result = await _mediator.Send(new UpdateItemPriceCommand(id, request));
-			return Ok(result);
-		}
-
-		[HttpPut]
-		[Route("")]
-		public async Task<IActionResult> UpdateAll([FromQuery] Guid id, [FromBody] UpdateAllItemInput request)
-		{
-			var result = await _mediator.Send(new UpdateAllItemCommand(id, request));
+			request.Id = id;
+			var result = await _mediator.Send(request);
+			if (!result.IsValid)
+			{
+				return BadRequest(result.Errors.ToString());
+			}
 			return Ok(result);
 		}
 
@@ -70,6 +75,10 @@ namespace TibiaItem.API.Controllers
 		public async Task<IActionResult> Delete([FromQuery] DeleteItemInput request)
 		{
 			var result = await _mediator.Send(request);
+			if (!result.IsValid)
+			{
+				return BadRequest(result.Errors.ToString());
+			}
 			return Ok(result);
 
 		}

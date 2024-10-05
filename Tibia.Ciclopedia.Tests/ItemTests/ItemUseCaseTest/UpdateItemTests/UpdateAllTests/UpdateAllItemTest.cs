@@ -18,12 +18,12 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 	public class UpdateAllItemTest
 	{
 		private readonly Mock<IItemRepository> _mockItemRepository;
-		private readonly UpdateAllItem _updateAllItem;
+		private readonly UpdateItem _updateAllItem;
 
 		public UpdateAllItemTest()
 		{
 			_mockItemRepository = new Mock<IItemRepository>();
-			_updateAllItem = new UpdateAllItem(_mockItemRepository.Object, null);
+			_updateAllItem = new UpdateItem(_mockItemRepository.Object, null);
 		}
 
 		[Fact]
@@ -31,7 +31,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 		{
 			// Arrange
 			var itemId = Guid.NewGuid();
-			var input = new UpdateAllItemInput
+			var input = new UpdateItemInput
 			{
 				Name = "ItemName",
 				Type = ItemType.Helmet,
@@ -52,7 +52,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 			_mockItemRepository.Setup(repo => repo.UpdateAllItem(item, It.IsAny<CancellationToken>()))
 				.ReturnsAsync(true);
 
-			var command = new UpdateAllItemCommand(itemId, input);
+			var command = new UpdateItemCommand(itemId, input);
 
 			// Act
 			var result = await _updateAllItem.Handle(command, CancellationToken.None);

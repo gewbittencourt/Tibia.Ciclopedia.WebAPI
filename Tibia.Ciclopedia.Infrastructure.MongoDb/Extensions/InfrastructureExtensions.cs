@@ -2,22 +2,14 @@
 using MongoDB.Driver;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 using Microsoft.Extensions.Configuration;
-using Tibia.Ciclopedia.Domain.Interface;
+using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
-using Tibia.Ciclopedia.Application.UseCases.CreateItem;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
-using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using System.Reflection;
-
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 {
-	public static class InfrastructureModule
+	public static class InfrastructureExtensions
 	{
-
 		public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
 		{
 			services
@@ -35,11 +27,19 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 			services.AddSingleton(sp =>
 			{
 				var database = mongoClient.GetDatabase(ItemCollection.CollectionName);
-				return database.GetCollection<ItemCollection>(nameof(ItemCollection));
+				var itemCollection = database.GetCollection<ItemCollection>(ItemCollection.CollectionName);
+
+				// Criação do índice na coleção
+				var indexKeysDefinition = Builders<ItemCollection>.IndexKeys.Text(x => x.Name);
+				var indexModel = new CreateIndexModel<ItemCollection>(indexKeysDefinition);
+				itemCollection.Indexes.CreateOne(indexModel);
+
+				return itemCollection;
 			});
 
 			return services;
 		}
+
 
 		public static IServiceCollection AddRepositories(this IServiceCollection services)
 		{

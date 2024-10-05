@@ -1,14 +1,7 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tibia.Ciclopedia.Application.UseCases;
 using Tibia.Ciclopedia.Application.UseCases.CreateItem;
-using Tibia.Ciclopedia.Domain.Entities;
-using Tibia.Ciclopedia.Domain.Entities;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Tibia.Ciclopedia.Domain.Items;
+
 
 namespace Tibia.Ciclopedia.Application.Mapping
 {

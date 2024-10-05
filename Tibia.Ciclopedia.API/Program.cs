@@ -1,4 +1,4 @@
-using Tibia.Ciclopedia.Domain.Interface;
+using Tibia.Ciclopedia.Domain.Items;
 using MongoDB.Driver;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 
@@ -8,15 +8,14 @@ using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
 using Tibia.Ciclopedia.Application.UseCases.CreateItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
+using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
 using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Module;
-using Tibia.Ciclopedia.Application;
+using Tibia.Ciclopedia.Application.Extensions;
 
 namespace TibiaItemWebAPI
 {
-    public class Program
+	public class Program
 	{
 		public static void Main(string[] args)
 		{
@@ -40,8 +39,8 @@ namespace TibiaItemWebAPI
 
 
 
-			builder.Services.AddInfrastructure(configuration);
-			builder.Services.AddServices();
+			builder.Services.AddInfrastructure(configuration)
+							.AddServices();
 
 
 			var app = builder.Build();
