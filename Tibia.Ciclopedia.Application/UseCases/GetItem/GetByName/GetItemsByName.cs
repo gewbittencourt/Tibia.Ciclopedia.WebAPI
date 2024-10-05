@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.BaseOutput;
-using Tibia.Ciclopedia.Domain.Entities;
 using Tibia.Ciclopedia.Domain.Items;
 
 namespace Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName
 {
-	public class GetByNameItems : IGetByNameItemsUseCase
+	public class GetByNameItems : IGetItemsByNameUseCase
 	{
 		private readonly IItemRepository _itemRepository;
 
@@ -21,7 +20,7 @@ namespace Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName
 
 		public async Task<Output<IEnumerable<Item>>> Handle(GetByNameItemsInput request, CancellationToken cancellationToken)
 		{
-			var result = await _itemRepository.GetByNameItems(request.Name, cancellationToken);
+			var result = await _itemRepository.GetItemsByName(request.Name, cancellationToken);
 			return Output<IEnumerable<Item>>.Success(result);
 		}
 	}

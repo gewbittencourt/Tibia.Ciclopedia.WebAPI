@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tibia.Ciclopedia.Domain.ValueObjects
+namespace Tibia.Ciclopedia.Domain.Items
 {
 	public class SlotsInfoItem
 	{

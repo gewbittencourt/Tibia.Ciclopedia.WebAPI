@@ -8,7 +8,7 @@ using Tibia.Ciclopedia.Application.UseCases.CreateItem;
 using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
+using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
 using Tibia.Ciclopedia.Domain.Items;
 
 namespace Tibia.Ciclopedia.Application.Extensions
@@ -18,8 +18,8 @@ namespace Tibia.Ciclopedia.Application.Extensions
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<ICreateItemUseCase, CreateItem>();
-            services.AddScoped<IGetAllItemUseCase, GetAllItem>();
-            services.AddScoped<IGetByNameItemsUseCase, GetByNameItems>();
+            services.AddScoped<IGetAllItemsUseCase, GetAllItem>();
+            services.AddScoped<IGetItemsByNameUseCase, GetByNameItems>();
             services.AddScoped<IUpdateItemUseCase, UpdateItem>();
             services.AddScoped<IDeleteItemUseCase, DeleteItem>();
 

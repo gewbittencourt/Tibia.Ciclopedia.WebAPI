@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.BaseOutput;
-using Tibia.Ciclopedia.Domain.ValueObjects.Enums;
-using Tibia.Ciclopedia.Domain.ValueObjects;
+using Tibia.Ciclopedia.Domain.Items.Enums;
+using Tibia.Ciclopedia.Domain.Items;
 using System.Text.Json.Serialization;
 
-namespace Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem
+namespace Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem
 {
 	public class UpdateItemInput : IRequest<Output<bool>>
 	{

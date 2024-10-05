@@ -5,8 +5,7 @@ using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
-using Tibia.Ciclopedia.Domain.Entities;
+using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
 using Tibia.Ciclopedia.Domain.Items;
 
 namespace TibiaItem.API.Controllers
@@ -26,6 +25,10 @@ namespace TibiaItem.API.Controllers
 		public async Task<IActionResult> Create([FromBody] CreateItemInput request)
 		{
 			var result = await _mediator.Send(request);
+			if (!result.IsValid)
+			{
+				return BadRequest(result.Errors.ToString());
+			}
 			return Ok(result);
 		}
 
@@ -34,6 +37,10 @@ namespace TibiaItem.API.Controllers
 		public async Task<IActionResult> GetAll()
 		{
 			var result = await _mediator.Send(new GetAllItemInput());
+			if (!result.IsValid)
+			{
+				return BadRequest(result.Errors.ToString());
+			}
 			return Ok(result);
 		}
 
@@ -42,6 +49,10 @@ namespace TibiaItem.API.Controllers
 		public async Task<IActionResult> GetByName([FromQuery] GetByNameItemsInput request)
 		{
 			var result = await _mediator.Send(request);
+			if (!result.IsValid)
+			{
+				return BadRequest(result.Errors.ToString());
+			}
 			return Ok(result);
 		}
 
@@ -52,6 +63,10 @@ namespace TibiaItem.API.Controllers
 		{
 			request.Id = id;
 			var result = await _mediator.Send(request);
+			if (!result.IsValid)
+			{
+				return BadRequest(result.Errors.ToString());
+			}
 			return Ok(result);
 		}
 
@@ -60,6 +75,10 @@ namespace TibiaItem.API.Controllers
 		public async Task<IActionResult> Delete([FromQuery] DeleteItemInput request)
 		{
 			var result = await _mediator.Send(request);
+			if (!result.IsValid)
+			{
+				return BadRequest(result.Errors.ToString());
+			}
 			return Ok(result);
 
 		}

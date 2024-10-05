@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
 using System.Reflection;
-using Tibia.Ciclopedia.Domain.Entities;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 {

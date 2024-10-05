@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.BaseOutput;
-using Tibia.Ciclopedia.Domain.Entities;
+using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Domain.Items;
 
 namespace Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll
 {
-	public class GetAllItem : IGetAllItemUseCase
+	public class GetAllItem : IGetAllItemsUseCase
 	{
 
 		private readonly IItemRepository _itemRepository;

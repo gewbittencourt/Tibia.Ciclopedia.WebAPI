@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tibia.Ciclopedia.Domain.ValueObjects;
-using Tibia.Ciclopedia.Domain.ValueObjects.Enums;
+﻿using Tibia.Ciclopedia.Domain.Items.Enums;
 
-namespace Tibia.Ciclopedia.Domain.Entities
+namespace Tibia.Ciclopedia.Domain.Items
 {
 	public class Item
 	{
@@ -69,7 +63,7 @@ namespace Tibia.Ciclopedia.Domain.Entities
 
 			if (vocations.HasValue)
 				Vocations = (Vocations)vocations;
-			
+
 
 			if (slots != null)
 				Slots = slots;

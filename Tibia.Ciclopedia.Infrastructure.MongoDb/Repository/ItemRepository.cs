@@ -2,7 +2,6 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Text.RegularExpressions;
-using Tibia.Ciclopedia.Domain.Entities;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 
@@ -38,7 +37,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 
 
 
-		public async Task<IEnumerable<Item>> GetByNameItems(string name, CancellationToken cancellationToken)
+		public async Task<IEnumerable<Item>> GetItemsByName(string name, CancellationToken cancellationToken)
 		{
 			var filter = Builders<ItemCollection>.Filter.Text($"\"{name}\"");
 			var sort = Builders<ItemCollection>.Sort.Ascending(s => s.Name);
@@ -47,28 +46,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 		}
 
 
-		/*public async Task<IEnumerable<Item>> GetByNameItems(string name, CancellationToken cancellationToken)
-		{
-			{
-				var isExactItem = name.Contains(" ");
-
-				if (isExactItem)
-				{
-					var filter = Builders<ItemCollection>.Filter.Regex(x => x.Name, new BsonRegularExpression($"^{Regex.Escape(name)}$", "i"));
-					var itemCollection = await _item.Find(filter).ToListAsync(cancellationToken);
-					return _mapper.Map<IEnumerable<Item>>(itemCollection);
-				}
-				else
-				{
-					var filter = Builders<ItemCollection>.Filter.Regex(x => x.Name, new BsonRegularExpression(Regex.Escape(name), "i"));
-					var itemCollection = await _item.Find(filter).ToListAsync(cancellationToken);
-					return _mapper.Map<IEnumerable<Item>>(itemCollection);
-				}
-			}
-		}*/
-
-
-		public async Task<Item> GetByIdItems(Guid id, CancellationToken cancellationToken)
+		public async Task<Item> GetItemById(Guid id, CancellationToken cancellationToken)
 		{
 			var filter = Builders<ItemCollection>.Filter.Eq(x => x.ItemID, id);
 			var itemCollection = await _item.Find(filter).FirstOrDefaultAsync(cancellationToken);

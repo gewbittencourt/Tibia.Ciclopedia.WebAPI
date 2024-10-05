@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tibia.Ciclopedia.Domain.ValueObjects;
-using Tibia.Ciclopedia.Domain.ValueObjects.Enums;
+using Tibia.Ciclopedia.Domain.Items;
+using Tibia.Ciclopedia.Domain.Items.Enums;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection

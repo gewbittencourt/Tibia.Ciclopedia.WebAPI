@@ -1,4 +1,4 @@
-﻿using Tibia.Ciclopedia.Domain.Entities;
+﻿using Tibia.Ciclopedia.Domain.Items;
 
 namespace Tibia.Ciclopedia.Domain.Items
 {
@@ -8,9 +8,9 @@ namespace Tibia.Ciclopedia.Domain.Items
 
 		Task<IEnumerable<Item>> GetAllItems(CancellationToken cancellationToken);
 
-		Task<IEnumerable<Item>> GetByNameItems(String name, CancellationToken cancellationToken);
+		Task<IEnumerable<Item>> GetItemsByName(String name, CancellationToken cancellationToken);
 
-		Task<Item> GetByIdItems(Guid id, CancellationToken cancellationToken);
+		Task<Item> GetItemById(Guid id, CancellationToken cancellationToken);
 
 		Task<bool> UpdateItem(Item item, CancellationToken cancellationToken);
 
