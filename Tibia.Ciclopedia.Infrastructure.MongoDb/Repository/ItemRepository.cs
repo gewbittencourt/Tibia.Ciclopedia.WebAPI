@@ -37,12 +37,12 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 
 
 
-		public async Task<IEnumerable<Item>> GetItemsByName(string name, CancellationToken cancellationToken)
+		public async Task<Item> GetItemsByName(string name, CancellationToken cancellationToken)
 		{
 			var filter = Builders<ItemCollection>.Filter.Text($"\"{name}\"");
 			var sort = Builders<ItemCollection>.Sort.Ascending(s => s.Name);
-			var itemCollection = await _item.Find(filter).Sort(sort).ToListAsync(cancellationToken);
-			return _mapper.Map<IEnumerable<Item>>(itemCollection);
+			var itemCollection = await _item.Find(filter).Sort(sort).FirstOrDefaultAsync(cancellationToken);
+			return _mapper.Map<Item>(itemCollection);
 		}
 
 
@@ -60,14 +60,15 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 
 			var update = Builders<ItemCollection>.Update
 				.Set(x => x.Name, item.Name)
-				.Set(x=> x.Slug, item.Slug)
+				.Set(x => x.Slug, item.Slug)
 				.Set(x => x.Type, item.Type)
 				.Set(x => x.Vocations, item.Vocations)
 				.Set(x => x.LevelRequired, item.LevelRequired)
 				.Set(x => x.Slots, item.Slots)
 				.Set(x => x.Price, item.Price)
 				.Set(x => x.Image, item.Image)
-				.Set(x => x.UpdatedAt, item.UpdatedAt);
+				.Set(x => x.UpdatedAt, item.UpdatedAt)
+				.Set(x => x.Period, item.Period);
 			var result = await _item.UpdateOneAsync(filter, update, null, cancellationToken);
 
 			return result.ModifiedCount == 1;

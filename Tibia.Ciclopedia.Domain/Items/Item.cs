@@ -48,14 +48,14 @@ namespace Tibia.Ciclopedia.Domain.Items
 		public void NewItem()
 		{
 			Id = Guid.NewGuid();
-			CreatedAt = DateTime.Now;
+			CreatedAt = DateTime.UtcNow;
 			Slug = Name.ToLowerInvariant().Replace(" ","");
 		}
 
-		public void UpdatePriceItem(Double price)
+		public void UpdatePriceItem()
 		{
-			UpdatedAt = DateTime.Now;
-			Price = price;
+			Period = new PeriodControl();
+			Price = Price+1;
 		}
 
 		public void UpdateItem(string name, ItemType? type, Vocations? vocations, SlotsInfoItem slots, string image, int? levelRequired, double? price, PeriodControl periodControl)
@@ -86,7 +86,7 @@ namespace Tibia.Ciclopedia.Domain.Items
 			if (price.HasValue)
 				Price = price.Value;
 
-			UpdatedAt = DateTime.Now;
+			UpdatedAt = DateTime.UtcNow;
 		}
 	}
 }

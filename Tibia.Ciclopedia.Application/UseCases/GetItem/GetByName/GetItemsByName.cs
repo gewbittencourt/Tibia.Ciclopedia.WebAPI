@@ -18,10 +18,15 @@ namespace Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName
 			_itemRepository = itemRepository;
 		}
 
-		public async Task<Output<IEnumerable<Item>>> Handle(GetByNameItemsInput request, CancellationToken cancellationToken)
+		public async Task<Output<Item>> Handle(GetByNameItemsInput request, CancellationToken cancellationToken)
 		{
 			var result = await _itemRepository.GetItemsByName(request.Name.ToLowerInvariant().Replace(" ",""), cancellationToken);
-			return Output<IEnumerable<Item>>.Success(result);
+			if (result.Period == null || result.Period.TimeCheckedExpire < DateTime.UtcNow)
+			{
+				result.UpdatePriceItem();
+				await _itemRepository.UpdateItem(result, cancellationToken);
+			}
+			return Output<Item>.Success(result);
 		}
 	}
 }

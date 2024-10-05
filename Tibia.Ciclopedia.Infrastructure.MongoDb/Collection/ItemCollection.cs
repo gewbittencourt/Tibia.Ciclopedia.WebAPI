@@ -50,9 +50,11 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 		public double Price { get; set; }
 
 		[BsonElement("CreationDate")]
+		[BsonDateTimeOptions(Kind = DateTimeKind.Local)]
 		public DateTime CreatedAt { get; set; }
 
 		[BsonElement("UpdatedDate")]
+		[BsonDateTimeOptions(Kind = DateTimeKind.Local)]
 		public DateTime UpdatedAt { get; set; }
 
 		[BsonElement("ImageLink")]

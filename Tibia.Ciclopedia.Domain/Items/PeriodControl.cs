@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +9,14 @@ namespace Tibia.Ciclopedia.Domain.Items
 {
 	public class PeriodControl
 	{
-		public DateTime TimeCheck { get; private set; }
-		public DateTime TimeCheckExpire { get; private set; }
+		public DateTime TimeChecked { get; private set; }
+		public DateTime TimeCheckedExpire { get; private set; }
 
 
 		public PeriodControl()
 		{
-			TimeCheck = DateTime.Now;
-			TimeCheckExpire = DateTime.Now.AddSeconds(5);
+			TimeChecked = DateTime.UtcNow;
+			TimeCheckedExpire = DateTime.UtcNow.AddSeconds(5);
 		}
 	}
 
