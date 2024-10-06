@@ -52,10 +52,10 @@ namespace Tibia.Ciclopedia.Domain.Items
 			Slug = Name.ToLowerInvariant().Replace(" ","");
 		}
 
-		public void UpdatePriceItem()
+		public void UpdatePriceItem(double price)
 		{
 			Period = new PeriodControl();
-			Price = Price+1;
+			Price = price;
 		}
 
 		public void UpdateItem(string name, ItemType? type, Vocations? vocations, SlotsInfoItem slots, string image, int? levelRequired, double? price, PeriodControl periodControl)
