@@ -10,6 +10,7 @@ using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
 using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
 using Tibia.Ciclopedia.Domain.Items;
+using Tibia.Ciclopedia.Infrastructure.CrossCutting;
 
 namespace Tibia.Ciclopedia.Application.Extensions
 {
@@ -22,8 +23,10 @@ namespace Tibia.Ciclopedia.Application.Extensions
             services.AddScoped<IGetItemsByNameUseCase, GetByNameItems>();
             services.AddScoped<IUpdateItemUseCase, UpdateItem>();
             services.AddScoped<IDeleteItemUseCase, DeleteItem>();
+			services.AddHttpClient<ICrossCutting, CrossCutting>();
 
-            return services;
+
+			return services;
         }
     }
 }

@@ -1,25 +1,41 @@
-﻿using System.Text.Json;
+﻿using Polly;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Tibia.Ciclopedia.Infrastructure.CrossCutting
 {
-	public class CrossCutting
+	public class CrossCutting : ICrossCutting
 	{
 
-		private readonly HttpClient _httpClient = new HttpClient();
+		private readonly HttpClient _httpClient;
+
+		public CrossCutting(HttpClient httpClient)
+		{
+			_httpClient = httpClient;
+		}
 
 		public async Task<double> GetPriceAsync()
 		{
-			var url = "https://api.coindesk.com/v1/bpi/currentprice.json";
+			var retryPolicy = Policy
+				.Handle<Exception>()
+				.WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(1));
 
-			var response = await _httpClient.GetAsync(url);
-			response.EnsureSuccessStatusCode();
+			var timeoutPolicy = Policy
+				.TimeoutAsync(TimeSpan.FromSeconds(5));
 
-			var jsonResponse = await response.Content.ReadAsStringAsync();
+			return await retryPolicy.WrapAsync(timeoutPolicy).ExecuteAsync(async () =>
+			{
+				var url = "https://api.coindesk.com/v1/bpi/currentprice.json";
 
-			var price = JsonSerializer.Deserialize<Pricing>(jsonResponse);
+				var response = await _httpClient.GetAsync(url);
+				response.EnsureSuccessStatusCode();
 
-            return price.Bpi.EUR.Rate_float;
+				var jsonResponse = await response.Content.ReadAsStringAsync();
+
+				var price = JsonSerializer.Deserialize<Pricing>(jsonResponse);
+
+				return price.Bpi.EUR.Rate_float;
+			});
 		}
 	}
 }

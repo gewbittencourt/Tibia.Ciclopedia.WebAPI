@@ -27,7 +27,7 @@ namespace TibiaItem.API.Controllers
 			var result = await _mediator.Send(request);
 			if (!result.IsValid)
 			{
-				return BadRequest(result.Errors.ToString());
+				return BadRequest(string.Join(", ", result.Errors));
 			}
 			return Ok(result);
 		}
@@ -39,7 +39,7 @@ namespace TibiaItem.API.Controllers
 			var result = await _mediator.Send(new GetAllItemInput());
 			if (!result.IsValid)
 			{
-				return BadRequest(result.Errors.ToString());
+				return BadRequest(string.Join(", ", result.Errors));
 			}
 			return Ok(result);
 		}
@@ -51,7 +51,7 @@ namespace TibiaItem.API.Controllers
 			var result = await _mediator.Send(request);
 			if (!result.IsValid)
 			{
-				return BadRequest(result.Errors.ToString());
+				return BadRequest(string.Join(", ", result.Errors));
 			}
 			return Ok(result);
 		}
@@ -65,7 +65,7 @@ namespace TibiaItem.API.Controllers
 			var result = await _mediator.Send(request);
 			if (!result.IsValid)
 			{
-				return BadRequest(result.Errors.ToString());
+				return BadRequest(string.Join(", ", result.Errors));
 			}
 			return Ok(result);
 		}
@@ -77,7 +77,7 @@ namespace TibiaItem.API.Controllers
 			var result = await _mediator.Send(request);
 			if (!result.IsValid)
 			{
-				return BadRequest(result.Errors.ToString());
+				return BadRequest(string.Join(", ", result.Errors));
 			}
 			return Ok(result);
 

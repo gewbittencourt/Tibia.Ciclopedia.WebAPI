@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Polly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,24 +15,36 @@ namespace Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName
 	{
 		private readonly IItemRepository _itemRepository;
 
-		private readonly CrossCutting _crossCutting;
+		private readonly ICrossCutting _crossCutting;
 
-		public GetByNameItems(IItemRepository itemRepository)
+		public GetByNameItems(IItemRepository itemRepository, ICrossCutting crossCutting)
 		{
-			_crossCutting = new CrossCutting();
+			_crossCutting = crossCutting;
 			_itemRepository = itemRepository;
 		}
 
 		public async Task<Output<Item>> Handle(GetByNameItemsInput request, CancellationToken cancellationToken)
 		{
-			var result = await _itemRepository.GetItemsByName(request.Name.ToLowerInvariant().Replace(" ",""), cancellationToken);
-			if (result.Period == null || result.Period.TimeCheckedExpire < DateTime.UtcNow)
+			var result = await _itemRepository.GetItemsByName(request.Name.ToLowerInvariant().Replace(" ", ""), cancellationToken);
+			if (result != null)
 			{
-				var price = await _crossCutting.GetPriceAsync();
-				result.UpdatePriceItem(price);
-				await _itemRepository.UpdateItem(result, cancellationToken);
+				if (result.Period == null || result.Period.TimeCheckedExpire < DateTime.UtcNow)
+				{
+					try
+					{
+						double price = await _crossCutting.GetPriceAsync();
+						result.UpdatePriceItem(price);
+						await _itemRepository.UpdateItem(result, cancellationToken);
+					}
+					catch (Exception ex)
+					{
+						return Output<Item>.Failure(new List<string> { "Erro ao obter o preço." });
+					}
+				}
+
+				return Output<Item>.Success(result);
 			}
-			return Output<Item>.Success(result);
+			return Output<Item>.Failure(new List<string> { "Item não encontrado"});
 		}
 	}
 }
