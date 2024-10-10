@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.UseCases.CreateItem;
-using Tibia.Ciclopedia.Domain.ValueObjects.Enums;
-using Tibia.Ciclopedia.Domain.ValueObjects;
+using Tibia.Ciclopedia.Domain.Items.Enums;
+using Tibia.Ciclopedia.Domain.Items;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.CreateItemTests
 {
@@ -21,7 +21,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.CreateItemTests
 				Type = ItemType.Boots,
 				Vocations = Vocations.Knight | Vocations.Paladin,
 				LevelRequired = 20,
-				Slots = new SlotsInfo { HaveSlots = true, Quantity = 1 },
+				Slots = new SlotsInfoItem (true,1),
 				Price = 1500.50,
 				Image = "linktest"
 				

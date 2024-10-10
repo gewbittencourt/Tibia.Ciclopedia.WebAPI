@@ -11,13 +11,13 @@ using Tibia.Ciclopedia.Infrastructure.CrossCutting;
 
 namespace Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName
 {
-	public class GetByNameItems : IGetItemsByNameUseCase
+	public class GetItemsByName : IGetItemsByNameUseCase
 	{
 		private readonly IItemRepository _itemRepository;
 
 		private readonly ICrossCutting _crossCutting;
 
-		public GetByNameItems(IItemRepository itemRepository, ICrossCutting crossCutting)
+		public GetItemsByName(IItemRepository itemRepository, ICrossCutting crossCutting)
 		{
 			_crossCutting = crossCutting;
 			_itemRepository = itemRepository;
