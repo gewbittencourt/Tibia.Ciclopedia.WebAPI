@@ -37,7 +37,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 
 
 
-		public async Task<Item> GetItemsByName(string name, CancellationToken cancellationToken)
+		public async Task<Item> GetItemByName(string name, CancellationToken cancellationToken)
 		{
 			var filter = Builders<ItemCollection>.Filter.Text($"\"{name}\"");
 			var sort = Builders<ItemCollection>.Sort.Ascending(s => s.Name);

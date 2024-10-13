@@ -20,10 +20,9 @@ namespace Tibia.Ciclopedia.Application.Extensions
         {
             services.AddScoped<ICreateItemUseCase, CreateItem>();
             services.AddScoped<IGetAllItemsUseCase, GetAllItem>();
-            services.AddScoped<IGetItemsByNameUseCase, GetItemsByName>();
+            services.AddScoped<IGetItemByNameUseCase, GetItemsByName>();
             services.AddScoped<IUpdateItemUseCase, UpdateItem>();
             services.AddScoped<IDeleteItemUseCase, DeleteItem>();
-			services.AddHttpClient<ICrossCutting, CrossCutting>();
 
 
 			return services;

@@ -46,7 +46,7 @@ namespace TibiaItem.API.Controllers
 
 		[HttpGet]
 		[Route("Name")]
-		public async Task<IActionResult> GetByName([FromQuery] GetByNameItemsInput request)
+		public async Task<IActionResult> GetByName([FromQuery] GetItemByNameInput request)
 		{
 			var result = await _mediator.Send(request);
 			if (!result.IsValid)

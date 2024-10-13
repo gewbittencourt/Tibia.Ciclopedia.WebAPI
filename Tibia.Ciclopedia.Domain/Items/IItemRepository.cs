@@ -8,7 +8,7 @@ namespace Tibia.Ciclopedia.Domain.Items
 
 		Task<IEnumerable<Item>> GetAllItems(CancellationToken cancellationToken);
 
-		Task<Item> GetItemsByName(String name, CancellationToken cancellationToken);
+		Task<Item> GetItemByName(String name, CancellationToken cancellationToken);
 
 		Task<Item> GetItemById(Guid id, CancellationToken cancellationToken);
 

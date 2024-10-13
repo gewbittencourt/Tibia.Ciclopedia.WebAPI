@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tibia.Ciclopedia.Domain.Items.DTO;
 
 namespace Tibia.Ciclopedia.Infrastructure.CrossCutting
 {
-	public interface ICrossCutting
+	public interface IMarketService
 	{
-		public Task<double> GetPriceAsync();
+		public Task<ItemMarketPrice> GetPriceAsync(CancellationToken cancellationToken);
 	}
 }

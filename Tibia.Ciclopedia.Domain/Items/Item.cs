@@ -45,6 +45,15 @@ namespace Tibia.Ciclopedia.Domain.Items
 		{
 		}
 
+		public bool CheckPeriod()
+		{
+			if (Period == null || Period.TimeCheckedExpire < DateTime.UtcNow)
+			{
+				return true;
+			}
+			return false;
+		}
+
 		public void NewItem()
 		{
 			Id = Guid.NewGuid();

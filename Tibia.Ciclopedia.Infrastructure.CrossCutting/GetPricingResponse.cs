@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tibia.Ciclopedia.Infrastructure.CrossCutting
 {
-	public class Pricing
+	public class GetPricingResponse
 	{
 		[JsonPropertyName("bpi")]
 		public Bpi Bpi { get; set; }
