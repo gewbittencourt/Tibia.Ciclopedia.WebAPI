@@ -18,5 +18,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Tibia.Ciclopedia.Domain\Tibia.Ciclopedia.Domain.csproj" />
   </ItemGroup>
-
 </Project>

@@ -58,7 +58,7 @@ namespace Tibia.Ciclopedia.Domain.Items
 		{
 			Id = Guid.NewGuid();
 			CreatedAt = DateTime.UtcNow;
-			Slug = Name.ToLowerInvariant().Replace(" ","");
+			Slug = Name.ToLowerInvariant().Replace(" ", "");
 		}
 
 		public void UpdatePriceItem(double price)
@@ -67,18 +67,18 @@ namespace Tibia.Ciclopedia.Domain.Items
 			Price = price;
 		}
 
-		public void UpdateItem(string name, ItemType? type, Vocations? vocations, SlotsInfoItem slots, string image, int? levelRequired, double? price, PeriodControl periodControl)
+		public void UpdateItem(string? name, ItemType? type, Vocations? vocations, SlotsInfoItem? slots, string image, int? levelRequired, double? price, PeriodControl? periodControl)
 		{
 			if (!string.IsNullOrEmpty(name))
+			{
 				Name = name;
-				Slug = name.ToLowerInvariant().Replace(" ","");
-
+				Slug = name.ToLowerInvariant().Replace(" ", "");
+			}
 			if (type.HasValue)
 				Type = (ItemType)type;
 
 			if (vocations.HasValue)
 				Vocations = (Vocations)vocations;
-
 
 			if (slots != null)
 				Slots = slots;

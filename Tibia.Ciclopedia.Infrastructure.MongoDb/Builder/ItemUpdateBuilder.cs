@@ -11,7 +11,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Builder
 {
 	public class ItemUpdateBuilder
 	{
-		public static UpdateDefinition<ItemCollection> CreateUpdate(Item item)
+		public static UpdateDefinition<ItemCollection> CreateUpdate(ItemCollection item)
 		{
 			var update = Builders<ItemCollection>.Update;
 

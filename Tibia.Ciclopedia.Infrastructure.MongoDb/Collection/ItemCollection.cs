@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Domain.Items.Enums;
+using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection.Members;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
@@ -41,10 +42,10 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 		public int LevelRequired { get; set; }
 
 		[BsonElement("PeriodControl")]
-		public PeriodControl Period { get; private set; }
+		public PeriodControlCollectionMember Period { get; set; }
 
 		[BsonElement("ItemSlots")]
-		public SlotsInfoItem Slots { get; set; }
+		public SlotsInfoItemCollectionMember Slots { get; set; }
 
 		[BsonElement("ItemPrice")]
 		public double Price { get; set; }

@@ -58,8 +58,8 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 		public async Task<bool> UpdateItem(Item item, CancellationToken cancellationToken)
 		{
 			var filter = Builders<ItemCollection>.Filter.Eq(x => x.ItemID, item.Id);
-
-			var update = ItemUpdateBuilder.CreateUpdate(item);
+			var itemUpdate = _mapper.Map<ItemCollection>(item);
+			var update = ItemUpdateBuilder.CreateUpdate(itemUpdate);
 			var result = await _item.UpdateOneAsync(filter, update, null, cancellationToken);
 
 			return result.ModifiedCount == 1;
