@@ -2,10 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 using Tibia.Ciclopedia.Domain.Items.DTO;
+using Tibia.Ciclopedia.Infrastructure.CrossCutting.GetResponse;
 
 namespace Tibia.Ciclopedia.Infrastructure.CrossCutting
 {
-	public class MarketService : IMarketService
+    public class MarketService : IMarketService
 	{
 		private readonly HttpClient _httpClient;
 		private readonly string _apiURL;
@@ -26,7 +27,7 @@ namespace Tibia.Ciclopedia.Infrastructure.CrossCutting
 
 			var jsonResponse = await response.Content.ReadAsStringAsync(cancellationToken);
 
-			var pricingResponse = JsonSerializer.Deserialize<GetPricingResponse>(jsonResponse);
+			var pricingResponse = JsonSerializer.Deserialize<GetPricingResponseBpi>(jsonResponse);
 
 			return _mapper.Map<ItemMarketPrice>(pricingResponse);
 		}

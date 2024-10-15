@@ -28,23 +28,22 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 			{
 				var database = mongoClient.GetDatabase(ItemCollection.CollectionName);
 				var itemCollection = database.GetCollection<ItemCollection>(ItemCollection.CollectionName);
-
-				// Criação do índice na coleção
-				var indexKeysDefinition = Builders<ItemCollection>.IndexKeys.Text(x => x.Slug);
-				var indexModel = new CreateIndexModel<ItemCollection>(indexKeysDefinition);
-				itemCollection.Indexes.CreateOne(indexModel);
-
+				AddIndex(itemCollection, Builders<ItemCollection>.IndexKeys.Text(x => x.Slug));
 				return itemCollection;
 			});
 
 			return services;
 		}
 
+		private static void AddIndex<T>(IMongoCollection<T> collection, IndexKeysDefinition<T> indexKeysDefinition)
+		{
+			var indexModel = new CreateIndexModel<T>(indexKeysDefinition);
+			collection.Indexes.CreateOne(indexModel);
+		}
 
 		public static IServiceCollection AddRepositories(this IServiceCollection services)
 		{
 			services.AddScoped<IItemRepository, ItemRepository>();
-
 			return services;
 		}
 	}
