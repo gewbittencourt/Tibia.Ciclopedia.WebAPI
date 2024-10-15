@@ -27,7 +27,7 @@ namespace TibiaItem.API.Controllers
 			var result = await _mediator.Send(request);
 			if (!result.IsValid)
 			{
-				return BadRequest(result.Errors.ToString());
+				return BadRequest(string.Join(", ", result.Errors));
 			}
 			return Ok(result);
 		}
@@ -39,19 +39,19 @@ namespace TibiaItem.API.Controllers
 			var result = await _mediator.Send(new GetAllItemInput());
 			if (!result.IsValid)
 			{
-				return BadRequest(result.Errors.ToString());
+				return BadRequest(string.Join(", ", result.Errors));
 			}
 			return Ok(result);
 		}
 
 		[HttpGet]
 		[Route("Name")]
-		public async Task<IActionResult> GetByName([FromQuery] GetByNameItemsInput request)
+		public async Task<IActionResult> GetByName([FromQuery] GetItemByNameInput request)
 		{
 			var result = await _mediator.Send(request);
 			if (!result.IsValid)
 			{
-				return BadRequest(result.Errors.ToString());
+				return BadRequest(string.Join(", ", result.Errors));
 			}
 			return Ok(result);
 		}
@@ -65,7 +65,7 @@ namespace TibiaItem.API.Controllers
 			var result = await _mediator.Send(request);
 			if (!result.IsValid)
 			{
-				return BadRequest(result.Errors.ToString());
+				return BadRequest(string.Join(", ", result.Errors));
 			}
 			return Ok(result);
 		}
@@ -77,7 +77,7 @@ namespace TibiaItem.API.Controllers
 			var result = await _mediator.Send(request);
 			if (!result.IsValid)
 			{
-				return BadRequest(result.Errors.ToString());
+				return BadRequest(string.Join(", ", result.Errors));
 			}
 			return Ok(result);
 

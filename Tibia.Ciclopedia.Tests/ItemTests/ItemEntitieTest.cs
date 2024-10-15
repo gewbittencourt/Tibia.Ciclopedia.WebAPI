@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tibia.Ciclopedia.Domain.Entities;
-using Tibia.Ciclopedia.Domain.ValueObjects;
-using Tibia.Ciclopedia.Domain.ValueObjects.Enums;
+using Tibia.Ciclopedia.Domain.Items;
+using Tibia.Ciclopedia.Domain.Items.Enums;
+
 
 namespace Tibia.Ciclopedia.Tests.ItemTests
 {
@@ -15,17 +15,17 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 		public void NewItem_ShouldSetIdAndDate()
 		{
 			// Arrange
-			var item = new Item(name: "test", type: ItemType.Boots.ToString(), vocations: Vocations.Druid.ToString(), new SlotsInfo { HaveSlots = true, Quantity = 1 }, price: 100, image: "linktest", levelRequired: 100);
+			var item = new Item(name: "test", type: ItemType.Boots, vocations: Vocations.Druid, new SlotsInfoItem( true, 1 ), price: 100, image: "linktest", levelRequired: 100);
 
 			// Act
 			item.NewItem();
 
 			// Assert
 			Assert.NotEqual(Guid.Empty, item.Id);
-			Assert.True((DateTime.Now - item.Date).TotalSeconds < 1);
+			Assert.True((DateTime.Now - item.CreatedAt).TotalSeconds < 1);
 			Assert.Equal("test", item.Name);
-			Assert.Equal("Boots", item.Type);
-			Assert.Equal("Druid", item.Vocations);
+			Assert.Equal("Boots", item.Type.ToString());
+			Assert.Equal("Druid", item.Vocations.ToString());
 			Assert.Equal(true, item.Slots.HaveSlots);
 			Assert.Equal(1, item.Slots.Quantity);
 			Assert.Equal(100, item.Price);

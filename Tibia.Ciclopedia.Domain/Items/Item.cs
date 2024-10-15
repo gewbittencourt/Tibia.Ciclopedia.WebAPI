@@ -8,6 +8,8 @@ namespace Tibia.Ciclopedia.Domain.Items
 
 		public string Name { get; private set; }
 
+		public string Slug { get; private set; }
+
 		public ItemType Type { get; private set; }
 
 		public Vocations Vocations { get; private set; }
@@ -17,6 +19,8 @@ namespace Tibia.Ciclopedia.Domain.Items
 		public int LevelRequired { get; private set; }
 
 		public double Price { get; private set; }
+
+		public PeriodControl Period { get; private set; }
 
 		public DateTime CreatedAt { get; private set; }
 
@@ -41,32 +45,46 @@ namespace Tibia.Ciclopedia.Domain.Items
 		{
 		}
 
+		public bool CheckPeriod()
+		{
+			if (Period == null || Period.TimeCheckedExpire < DateTime.UtcNow)
+			{
+				return true;
+			}
+			return false;
+		}
+
 		public void NewItem()
 		{
 			Id = Guid.NewGuid();
-			CreatedAt = DateTime.Now;
+			CreatedAt = DateTime.UtcNow;
+			Slug = Name.ToLowerInvariant().Replace(" ", "");
 		}
 
-		public void UpdatePriceItem(Double price)
+		public void UpdatePriceItem(double price)
 		{
-			UpdatedAt = DateTime.Now;
+			Period = new PeriodControl();
 			Price = price;
 		}
 
-		public void UpdateItem(string name, ItemType? type, Vocations? vocations, SlotsInfoItem slots, string image, int? levelRequired, double? price)
+		public void UpdateItem(string? name, ItemType? type, Vocations? vocations, SlotsInfoItem? slots, string image, int? levelRequired, double? price, PeriodControl? periodControl)
 		{
 			if (!string.IsNullOrEmpty(name))
+			{
 				Name = name;
-
+				Slug = name.ToLowerInvariant().Replace(" ", "");
+			}
 			if (type.HasValue)
 				Type = (ItemType)type;
 
 			if (vocations.HasValue)
 				Vocations = (Vocations)vocations;
 
-
 			if (slots != null)
 				Slots = slots;
+
+			if (periodControl != null)
+				Period = periodControl;
 
 			if (!string.IsNullOrEmpty(image))
 				Image = image;
@@ -77,7 +95,7 @@ namespace Tibia.Ciclopedia.Domain.Items
 			if (price.HasValue)
 				Price = price.Value;
 
-			UpdatedAt = DateTime.Now;
+			UpdatedAt = DateTime.UtcNow;
 		}
 	}
 }
