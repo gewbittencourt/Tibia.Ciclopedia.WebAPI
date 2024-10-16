@@ -1,4 +1,5 @@
-﻿using Tibia.Ciclopedia.Domain.Items.Enums;
+﻿using System.Diagnostics;
+using Tibia.Ciclopedia.Domain.Items.Enums;
 
 namespace Tibia.Ciclopedia.Domain.Items
 {
@@ -18,7 +19,9 @@ namespace Tibia.Ciclopedia.Domain.Items
 
 		public int LevelRequired { get; private set; }
 
-		public double Price { get; private set; }
+		public double SellingPrice { get; private set; }
+
+		public double PurchasePrice { get; private set; }
 
 		public PeriodControl Period { get; private set; }
 
@@ -30,13 +33,14 @@ namespace Tibia.Ciclopedia.Domain.Items
 
 
 
-		public Item(string name, ItemType type, Vocations vocations, SlotsInfoItem slots, double price, string image, int levelRequired)
+		public Item(string name, ItemType type, Vocations vocations, SlotsInfoItem slots, double purchaseprice, double sellingprice, string image, int levelRequired)
 		{
 			Name = name;
 			Type = type;
 			Vocations = vocations;
 			Slots = slots;
-			Price = price;
+			SellingPrice = sellingprice;
+			PurchasePrice = purchaseprice;
 			Image = image;
 			LevelRequired = levelRequired;
 		}
@@ -64,10 +68,11 @@ namespace Tibia.Ciclopedia.Domain.Items
 		public void UpdatePriceItem(double price)
 		{
 			Period = new PeriodControl();
-			Price = price;
+			SellingPrice = price;
+			PurchasePrice = price;
 		}
 
-		public void UpdateItem(string? name, ItemType? type, Vocations? vocations, SlotsInfoItem? slots, string image, int? levelRequired, double? price, PeriodControl? periodControl)
+		public void UpdateItem(string? name, ItemType? type, Vocations? vocations, SlotsInfoItem? slots, string image, int? levelRequired, PeriodControl? periodControl, double? sellingPrice, double? purchasePrice)
 		{
 			if (!string.IsNullOrEmpty(name))
 			{
@@ -92,8 +97,12 @@ namespace Tibia.Ciclopedia.Domain.Items
 			if (levelRequired.HasValue)
 				LevelRequired = levelRequired.Value;
 
-			if (price.HasValue)
-				Price = price.Value;
+			if (sellingPrice.HasValue)
+				SellingPrice = sellingPrice.Value;
+
+			if (purchasePrice.HasValue)
+				PurchasePrice = purchasePrice.Value;
+
 
 			UpdatedAt = DateTime.UtcNow;
 		}

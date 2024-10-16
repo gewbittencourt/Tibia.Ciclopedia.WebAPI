@@ -47,8 +47,13 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 		[BsonElement("ItemSlots")]
 		public SlotsInfoItemCollectionMember Slots { get; set; }
 
-		[BsonElement("ItemPrice")]
-		public double Price { get; set; }
+
+		[BsonElement("SellingPriceItem")]
+		public double SellingPrice { get; set; }
+
+
+		[BsonElement("PurchasePriceItem")]
+		public double PurchasePrice { get; set; }
 
 		[BsonElement("CreationDate")]
 		[BsonDateTimeOptions(Kind = DateTimeKind.Local)]

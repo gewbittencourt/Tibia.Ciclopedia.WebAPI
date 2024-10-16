@@ -22,7 +22,8 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Builder
 				.Set(x => x.Vocations, item.Vocations)
 				.Set(x => x.LevelRequired, item.LevelRequired)
 				.Set(x => x.Slots, item.Slots)
-				.Set(x => x.Price, item.Price)
+				.Set(x => x.SellingPrice, item.SellingPrice)
+				.Set(x => x.PurchasePrice, item.PurchasePrice)
 				.Set(x => x.Image, item.Image)
 				.Set(x => x.UpdatedAt, item.UpdatedAt)
 				.Set(x => x.Period, item.Period);
