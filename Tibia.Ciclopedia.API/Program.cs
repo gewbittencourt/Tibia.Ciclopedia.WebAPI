@@ -4,14 +4,10 @@ using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Mapping;
 using MappingItem = Tibia.Ciclopedia.Application.Mapping.MappingItem;
-using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
-using Tibia.Ciclopedia.Application.UseCases.CreateItem;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
-using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
-using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Module;
 using Tibia.Ciclopedia.Application.Extensions;
+using Tibia.Ciclopedia.Infrastructure.CrossCutting.Extensions;
+using Tibia.Ciclopedia.Infrastructure.CrossCutting.Mapping;
 
 namespace TibiaItemWebAPI
 {
@@ -28,6 +24,7 @@ namespace TibiaItemWebAPI
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
 			builder.Services.AddAutoMapper(typeof(MappingItem));
+			builder.Services.AddAutoMapper(typeof(MappingItemMarketPrice));
 			builder.Services.AddAutoMapper(typeof(MappingItemCollection));
 			IConfiguration configuration = new ConfigurationBuilder()
 				.SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
@@ -40,7 +37,8 @@ namespace TibiaItemWebAPI
 
 
 			builder.Services.AddInfrastructure(configuration)
-							.AddServices();
+							.AddServices()
+							.AddCrossCutting(configuration);
 
 
 			var app = builder.Build();

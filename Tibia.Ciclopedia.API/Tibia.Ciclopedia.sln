@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens
 		..\Dockerfile = ..\Dockerfile
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tibia.Ciclopedia.Infrastructure.CrossCutting", "..\Tibia.Ciclopedia.Infrastructure.CrossCutting\Tibia.Ciclopedia.Infrastructure.CrossCutting.csproj", "{88CC4DF3-6FAF-45B3-BE98-BE06905EE0F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{5A28472F-2C7D-4A0B-AFD1-C6CE5EFE61D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A28472F-2C7D-4A0B-AFD1-C6CE5EFE61D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A28472F-2C7D-4A0B-AFD1-C6CE5EFE61D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88CC4DF3-6FAF-45B3-BE98-BE06905EE0F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88CC4DF3-6FAF-45B3-BE98-BE06905EE0F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88CC4DF3-6FAF-45B3-BE98-BE06905EE0F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88CC4DF3-6FAF-45B3-BE98-BE06905EE0F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
-using Tibia.Ciclopedia.Domain.ValueObjects.Enums;
-using Tibia.Ciclopedia.Domain.ValueObjects;
+using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
+using Tibia.Ciclopedia.Domain.Items;
+using Tibia.Ciclopedia.Domain.Items.Enums;
+
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.UpdateAllTest
 {
@@ -19,7 +20,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 			var type = ItemType.Boots;
 			var vocations = Vocations.Sorcerer;
 			var levelRequired = 10;
-			var slots = new SlotsInfo();
+			var slots = new SlotsInfoItem(true, 1);
 			var price = 99.99;
 			var image = "image_path";
 

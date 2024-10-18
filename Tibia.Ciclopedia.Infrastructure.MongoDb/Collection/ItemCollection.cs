@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Domain.Items.Enums;
+using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection.Members;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
@@ -28,6 +29,9 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 		[BsonElement("ItemName")]
 		public string Name { get; set; }
 
+		[BsonElement("Slug")]
+		public string Slug { get; set; }
+
 		[BsonElement("ItemType")]
 		public ItemType Type { get; set; }
 
@@ -37,16 +41,26 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 		[BsonElement("LevelRequired")]
 		public int LevelRequired { get; set; }
 
-		[BsonElement("ItemSlots")]
-		public SlotsInfoItem Slots { get; set; }
+		[BsonElement("PeriodControl")]
+		public PeriodControlCollectionMember Period { get; set; }
 
-		[BsonElement("ItemPrice")]
-		public double Price { get; set; }
+		[BsonElement("ItemSlots")]
+		public SlotsInfoItemCollectionMember Slots { get; set; }
+
+
+		[BsonElement("SellingPriceItem")]
+		public double SellingPrice { get; set; }
+
+
+		[BsonElement("PurchasePriceItem")]
+		public double PurchasePrice { get; set; }
 
 		[BsonElement("CreationDate")]
+		[BsonDateTimeOptions(Kind = DateTimeKind.Local)]
 		public DateTime CreatedAt { get; set; }
 
 		[BsonElement("UpdatedDate")]
+		[BsonDateTimeOptions(Kind = DateTimeKind.Local)]
 		public DateTime UpdatedAt { get; set; }
 
 		[BsonElement("ImageLink")]

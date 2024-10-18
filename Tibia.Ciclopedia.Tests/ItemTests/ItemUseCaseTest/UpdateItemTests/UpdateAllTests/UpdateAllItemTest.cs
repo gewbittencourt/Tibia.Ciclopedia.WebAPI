@@ -4,14 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAll;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateAllItem;
-using Tibia.Ciclopedia.Domain.Entities;
-using Tibia.Ciclopedia.Domain.Interface;
-using Tibia.Ciclopedia.Domain.ValueObjects.Enums;
-using Tibia.Ciclopedia.Domain.ValueObjects;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem.UpdateItemPrice;
+using Tibia.Ciclopedia.Domain.Items;
+using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
+using Tibia.Ciclopedia.Domain.Items.Enums;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.UpdateAllTest
 {
@@ -23,7 +19,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 		public UpdateAllItemTest()
 		{
 			_mockItemRepository = new Mock<IItemRepository>();
-			_updateAllItem = new UpdateItem(_mockItemRepository.Object, null);
+			_updateAllItem = new UpdateItem(_mockItemRepository.Object, null);  // O segundo argumento (mapper) é null, se não for usado
 		}
 
 		[Fact]
@@ -33,33 +29,33 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 			var itemId = Guid.NewGuid();
 			var input = new UpdateItemInput
 			{
+				Id = itemId,
 				Name = "ItemName",
 				Type = ItemType.Helmet,
 				Vocations = Vocations.Druid,
 				LevelRequired = 10,
-				Slots = new SlotsInfo(),
+				Slots = new SlotsInfoItem(true, 1),
 				Price = 99.99,
 				Image = "image_path"
 			};
 
-			var item = new Item();
+			var item = new Item();  // Criação de um objeto Item real
 
-			item.UpdateAllItem(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SlotsInfo>(), It.IsAny<string>(), It.IsAny<int>());
-			item.UpdatePriceItem(It.IsAny<double>());
-
-			_mockItemRepository.Setup(repo => repo.GetByIdItems(itemId, It.IsAny<CancellationToken>()))
+			// Setup para retorno do item a partir do repositório
+			_mockItemRepository.Setup(repo => repo.GetItemById(itemId, It.IsAny<CancellationToken>()))
 				.ReturnsAsync(item);
-			_mockItemRepository.Setup(repo => repo.UpdateAllItem(item, It.IsAny<CancellationToken>()))
+
+			// Setup para o método de atualização
+			_mockItemRepository.Setup(repo => repo.UpdateItem(item, It.IsAny<CancellationToken>()))
 				.ReturnsAsync(true);
 
-			var command = new UpdateItemCommand(itemId, input);
-
 			// Act
-			var result = await _updateAllItem.Handle(command, CancellationToken.None);
+			var result = await _updateAllItem.Handle(input, CancellationToken.None);
 
 			// Assert
 			Assert.True(result.IsValid);
-			_mockItemRepository.Verify(i => i.UpdateAllItem(item, CancellationToken.None), Times.Once);
+			_mockItemRepository.Verify(i => i.UpdateItem(item, It.IsAny<CancellationToken>()), Times.Once);  // Verifica se o método correto foi chamado
 		}
 	}
+
 }
