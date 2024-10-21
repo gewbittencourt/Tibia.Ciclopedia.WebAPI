@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
+using Tibia.Ciclopedia.Application.UseCases.Item.GetItem.GetAll;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.GetItem.GetAll;
 using Tibia.Ciclopedia.Domain.Items;
 using Xunit.Abstractions;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.GetItemTests.GetAll
 {
-	public class GetAllItemTest
+    public class GetAllItemTest
 	{
 		
         private readonly Mock<IItemRepository> _mockItemRepository;

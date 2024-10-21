@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.GetItem.GetByName;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Infrastructure.CrossCutting;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.GetItemTests.GetByName
 {
-	public class GetByNameItemsTest
+    public class GetByNameItemsTest
 	{
 		private readonly Mock<IItemRepository> _mockItemRepository;
 		private readonly GetItemsByName _getByNameItemsUseCase;

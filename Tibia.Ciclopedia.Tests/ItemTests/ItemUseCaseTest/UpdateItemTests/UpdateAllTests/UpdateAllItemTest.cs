@@ -8,10 +8,13 @@ using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
 using Tibia.Ciclopedia.Domain.Items.Enums;
+using Tibia.Ciclopedia.Application.UseCases.Item.UpdateItem;
+using Tibia.Ciclopedia.Application.UseCases.UpdateItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.UpdateItem;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.UpdateAllTest
 {
-	public class UpdateAllItemTest
+    public class UpdateAllItemTest
 	{
 		private readonly Mock<IItemRepository> _mockItemRepository;
 		private readonly UpdateItem _updateAllItem;

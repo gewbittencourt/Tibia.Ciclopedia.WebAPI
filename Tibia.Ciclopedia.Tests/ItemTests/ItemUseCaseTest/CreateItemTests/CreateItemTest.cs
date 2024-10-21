@@ -6,12 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.UseCases.CreateItem;
+using Tibia.Ciclopedia.Application.UseCases.Item.CreateItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.CreateItem;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Domain.Items.Enums;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.CreateItemTests
 {
-	public class CreateItemTest
+    public class CreateItemTest
 	{
 		private readonly Mock<IItemRepository> _itemRepositoryMock;
 		private readonly Mock<IMapper> _mapperMock;

@@ -7,11 +7,11 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 using AutoMapper;
 using Tibia.Ciclopedia.Domain.Items;
-using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection.Members;
+using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection.Members.ItemMember;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Mapping
 {
-	public class MappingItemCollection : Profile
+    public class MappingItemCollection : Profile
 	{
 		public MappingItemCollection()
 		{

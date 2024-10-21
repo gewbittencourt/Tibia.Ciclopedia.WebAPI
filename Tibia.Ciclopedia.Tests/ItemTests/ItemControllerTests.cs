@@ -2,18 +2,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Tibia.Ciclopedia.Application.BaseOutput;
-using Tibia.Ciclopedia.Application.UseCases.CreateItem;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
 using TibiaItem.API.Controllers;
 using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Domain.Items.Enums;
-using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.CreateItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.UpdateItem;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests
 {
-	public class ItemControllerTests
+    public class ItemControllerTests
 	{
 		private readonly Mock<IMediator> _mediatorMock;
 		private readonly ItemController _controller;

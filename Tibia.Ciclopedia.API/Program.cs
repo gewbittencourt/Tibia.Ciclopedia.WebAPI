@@ -8,6 +8,7 @@ using Tibia.Ciclopedia.Infrastructure.MongoDb.Module;
 using Tibia.Ciclopedia.Application.Extensions;
 using Tibia.Ciclopedia.Infrastructure.CrossCutting.Extensions;
 using Tibia.Ciclopedia.Infrastructure.CrossCutting.Mapping;
+using Tibia.Ciclopedia.Application.Mapping;
 
 namespace TibiaItemWebAPI
 {
@@ -26,6 +27,8 @@ namespace TibiaItemWebAPI
 			builder.Services.AddAutoMapper(typeof(MappingItem));
 			builder.Services.AddAutoMapper(typeof(MappingItemMarketPrice));
 			builder.Services.AddAutoMapper(typeof(MappingItemCollection));
+			builder.Services.AddAutoMapper(typeof(MappingMonster));
+			builder.Services.AddAutoMapper(typeof(MappingMonsterCollection));
 			IConfiguration configuration = new ConfigurationBuilder()
 				.SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
 				.AddJsonFile("appsettings.json")
