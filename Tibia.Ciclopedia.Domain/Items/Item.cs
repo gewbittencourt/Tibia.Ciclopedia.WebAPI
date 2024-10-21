@@ -1,4 +1,5 @@
-﻿using Tibia.Ciclopedia.Domain.Items.Enums;
+﻿using System.Diagnostics;
+using Tibia.Ciclopedia.Domain.Items.Enums;
 
 namespace Tibia.Ciclopedia.Domain.Items
 {
@@ -8,6 +9,8 @@ namespace Tibia.Ciclopedia.Domain.Items
 
 		public string Name { get; private set; }
 
+		public string Slug { get; private set; }
+
 		public ItemType Type { get; private set; }
 
 		public Vocations Vocations { get; private set; }
@@ -16,7 +19,11 @@ namespace Tibia.Ciclopedia.Domain.Items
 
 		public int LevelRequired { get; private set; }
 
-		public double Price { get; private set; }
+		public double SellingPrice { get; private set; }
+
+		public double PurchasePrice { get; private set; }
+
+		public PeriodControl Period { get; private set; }
 
 		public DateTime CreatedAt { get; private set; }
 
@@ -26,13 +33,14 @@ namespace Tibia.Ciclopedia.Domain.Items
 
 
 
-		public Item(string name, ItemType type, Vocations vocations, SlotsInfoItem slots, double price, string image, int levelRequired)
+		public Item(string name, ItemType type, Vocations vocations, SlotsInfoItem slots, double purchaseprice, double sellingprice, string image, int levelRequired)
 		{
 			Name = name;
 			Type = type;
 			Vocations = vocations;
 			Slots = slots;
-			Price = price;
+			SellingPrice = sellingprice;
+			PurchasePrice = purchaseprice;
 			Image = image;
 			LevelRequired = levelRequired;
 		}
@@ -41,32 +49,47 @@ namespace Tibia.Ciclopedia.Domain.Items
 		{
 		}
 
+		public bool CheckPeriod()
+		{
+			if (Period == null || Period.TimeCheckedExpire < DateTime.UtcNow)
+			{
+				return true;
+			}
+			return false;
+		}
+
 		public void NewItem()
 		{
 			Id = Guid.NewGuid();
-			CreatedAt = DateTime.Now;
+			CreatedAt = DateTime.UtcNow;
+			Slug = Name.ToLowerInvariant().Replace(" ", "");
 		}
 
-		public void UpdatePriceItem(Double price)
+		public void UpdatePriceItem(double price)
 		{
-			UpdatedAt = DateTime.Now;
-			Price = price;
+			Period = new PeriodControl();
+			SellingPrice = price;
+			PurchasePrice = price;
 		}
 
-		public void UpdateItem(string name, ItemType? type, Vocations? vocations, SlotsInfoItem slots, string image, int? levelRequired, double? price)
+		public void UpdateItem(string? name, ItemType? type, Vocations? vocations, SlotsInfoItem? slots, string image, int? levelRequired, PeriodControl? periodControl, double? sellingPrice, double? purchasePrice)
 		{
 			if (!string.IsNullOrEmpty(name))
+			{
 				Name = name;
-
+				Slug = name.ToLowerInvariant().Replace(" ", "");
+			}
 			if (type.HasValue)
 				Type = (ItemType)type;
 
 			if (vocations.HasValue)
 				Vocations = (Vocations)vocations;
 
-
 			if (slots != null)
 				Slots = slots;
+
+			if (periodControl != null)
+				Period = periodControl;
 
 			if (!string.IsNullOrEmpty(image))
 				Image = image;
@@ -74,10 +97,14 @@ namespace Tibia.Ciclopedia.Domain.Items
 			if (levelRequired.HasValue)
 				LevelRequired = levelRequired.Value;
 
-			if (price.HasValue)
-				Price = price.Value;
+			if (sellingPrice.HasValue)
+				SellingPrice = sellingPrice.Value;
 
-			UpdatedAt = DateTime.Now;
+			if (purchasePrice.HasValue)
+				PurchasePrice = purchasePrice.Value;
+
+
+			UpdatedAt = DateTime.UtcNow;
 		}
 	}
 }

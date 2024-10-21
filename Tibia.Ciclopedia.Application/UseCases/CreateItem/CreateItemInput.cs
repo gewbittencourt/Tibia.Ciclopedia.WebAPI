@@ -21,7 +21,9 @@ namespace Tibia.Ciclopedia.Application.UseCases.CreateItem
 
 		public SlotsInfoItem Slots { get; set; }
 
-		public double Price { get; set; }
+		public double SellingPrice { get; set; }
+
+		public double PurchasePrice { get; set; }
 
 		public string Image { get; set; }
 

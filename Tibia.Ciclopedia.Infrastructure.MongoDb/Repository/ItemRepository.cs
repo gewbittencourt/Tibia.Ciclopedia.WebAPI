@@ -3,6 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Text.RegularExpressions;
 using Tibia.Ciclopedia.Domain.Items;
+using Tibia.Ciclopedia.Infrastructure.MongoDb.Builder;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
@@ -37,12 +38,12 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 
 
 
-		public async Task<IEnumerable<Item>> GetItemsByName(string name, CancellationToken cancellationToken)
+		public async Task<Item> GetItemByName(string name, CancellationToken cancellationToken)
 		{
 			var filter = Builders<ItemCollection>.Filter.Text($"\"{name}\"");
 			var sort = Builders<ItemCollection>.Sort.Ascending(s => s.Name);
-			var itemCollection = await _item.Find(filter).Sort(sort).ToListAsync(cancellationToken);
-			return _mapper.Map<IEnumerable<Item>>(itemCollection);
+			var itemCollection = await _item.Find(filter).Sort(sort).FirstOrDefaultAsync(cancellationToken);
+			return _mapper.Map<Item>(itemCollection);
 		}
 
 
@@ -57,16 +58,8 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 		public async Task<bool> UpdateItem(Item item, CancellationToken cancellationToken)
 		{
 			var filter = Builders<ItemCollection>.Filter.Eq(x => x.ItemID, item.Id);
-
-			var update = Builders<ItemCollection>.Update
-				.Set(x => x.Name, item.Name)
-				.Set(x => x.Type, item.Type)
-				.Set(x => x.Vocations, item.Vocations)
-				.Set(x => x.LevelRequired, item.LevelRequired)
-				.Set(x => x.Slots, item.Slots)
-				.Set(x => x.Price, item.Price)
-				.Set(x => x.Image, item.Image)
-				.Set(x => x.UpdatedAt, item.UpdatedAt);
+			var itemUpdate = _mapper.Map<ItemCollection>(item);
+			var update = ItemUpdateBuilder.CreateUpdate(itemUpdate);
 			var result = await _item.UpdateOneAsync(filter, update, null, cancellationToken);
 
 			return result.ModifiedCount == 1;

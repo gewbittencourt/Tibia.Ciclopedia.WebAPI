@@ -6,10 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.UseCases.CreateItem;
-using Tibia.Ciclopedia.Domain.Entities;
-using Tibia.Ciclopedia.Domain.Interface;
-using Tibia.Ciclopedia.Domain.ValueObjects;
-using Tibia.Ciclopedia.Domain.ValueObjects.Enums;
+using Tibia.Ciclopedia.Domain.Items;
+using Tibia.Ciclopedia.Domain.Items.Enums;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.CreateItemTests
 {
@@ -35,7 +33,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.CreateItemTests
 				Name = "name",
 				LevelRequired = 0,
 				Price = 0,
-				Slots = new Domain.ValueObjects.SlotsInfo { HaveSlots = true, Quantity = 0 },
+				Slots = new SlotsInfoItem(true,0 ),
 				Type = ItemType.Armor,
 				Vocations = Vocations.Knight,
 				Image = "linktest"
@@ -51,7 +49,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.CreateItemTests
 
 			// Assert
 			Assert.True(result.IsValid);
-			Assert.True(result.Result);
+			Assert.IsType<Guid>(result.Result);
 
 			_mapperMock.Verify(m => m.Map<Item>(request), Times.Once);
 			_itemRepositoryMock.Verify(r => r.CreateNewItem(item, It.IsAny<CancellationToken>()), Times.Once);

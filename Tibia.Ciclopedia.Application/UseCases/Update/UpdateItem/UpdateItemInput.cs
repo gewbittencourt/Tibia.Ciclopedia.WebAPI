@@ -21,7 +21,6 @@ namespace Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem
 		public Vocations? Vocations { get; set; }
 		public int? LevelRequired { get; set; }
 		public SlotsInfoItem? Slots { get; set; }
-		public double? Price { get; set; }
 		public string? Image { get; set; }
 
 		[JsonConstructor]
