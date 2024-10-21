@@ -31,6 +31,20 @@ namespace Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName
 				return Output<Item>.Failure(new List<string> { "Item não encontrado" });
 			}
 
+			var priceUpdateResult = await UpdateItemPriceIfNecessary(itemResult, cancellationToken);
+			if (!priceUpdateResult.IsValid)
+			{
+				return priceUpdateResult;
+			}
+
+			return Output<Item>.Success(itemResult);
+		}
+
+
+
+
+		private async Task<Output<Item>> UpdateItemPriceIfNecessary(Item itemResult, CancellationToken cancellationToken)
+		{
 			if (itemResult.CheckPeriod())
 			{
 				try
@@ -42,7 +56,7 @@ namespace Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName
 						await _itemRepository.UpdateItem(itemResult, cancellationToken);
 					}
 				}
-				catch (Exception ex)
+				catch (Exception)
 				{
 					return Output<Item>.Failure(new List<string> { "Erro ao obter o preço." });
 				}
@@ -50,5 +64,8 @@ namespace Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName
 
 			return Output<Item>.Success(itemResult);
 		}
+
+
+
 	}
 }
