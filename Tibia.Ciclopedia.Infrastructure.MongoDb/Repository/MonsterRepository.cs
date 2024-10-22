@@ -29,5 +29,39 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 			await _monsterCollection.InsertOneAsync(itemCollection, new InsertOneOptions(), cancellationToken);
 
 		}
+
+		public async Task<IEnumerable<Monster>> GetAllMonsters(CancellationToken cancellationToken)
+		{
+			var monsterCollectionList = await _monsterCollection.Find(_ => true).ToListAsync(cancellationToken);
+			return _mapper.Map<IEnumerable<Monster>>(monsterCollectionList);
+		}
+
+
+		public async Task<Monster> GetMonsterByName(string name, CancellationToken cancellationToken)
+		{
+			var filter = Builders<MonsterCollection>.Filter.Text($"\"{name}\"");
+			var monsterCollection = await _monsterCollection.Find(filter).FirstOrDefaultAsync(cancellationToken);
+			return _mapper.Map<Monster>(monsterCollection);
+		}
+
+
+		public async Task<Monster> GetMonsterById(Guid id, CancellationToken cancellationToken)
+		{
+			var filter = Builders<MonsterCollection>.Filter.Eq(x => x.MonsterId, id);
+			var monsterCollection = await _monsterCollection.Find(filter).FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);	
+			return _mapper.Map<Monster>(monsterCollection);
+		}
+
+		public Task<bool> UpdateMonster(Monster monster, CancellationToken cancellationToken)
+		{
+			throw new NotImplementedException();
+		}
+
+		public async Task<bool> DeleteMonster(Guid id, CancellationToken cancellationToken)
+		{
+			var filter = Builders<MonsterCollection>.Filter.Eq(x=>x.MonsterId, id);
+			var result = await _monsterCollection.DeleteOneAsync(filter, cancellationToken);
+			return result.DeletedCount == 1;
+		}
 	}
 }

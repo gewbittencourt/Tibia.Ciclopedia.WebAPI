@@ -2,6 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Tibia.Ciclopedia.Application.UseCases.ItemUC.CreateItem;
 using Tibia.Ciclopedia.Application.UseCases.MonsterUC.CreateMonster;
+using Tibia.Ciclopedia.Application.UseCases.MonsterUC.DeleteMonster;
+using Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetAll;
+using Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetByName;
+using ZstdSharp.Unsafe;
 
 namespace Tibia.Ciclopedia.API.Controllers
 {
@@ -29,23 +33,40 @@ namespace Tibia.Ciclopedia.API.Controllers
 
 		[HttpGet]
 		[Route("")]
-		public int GetAll()
+		public async Task<IActionResult> GetAll()
 		{
-			return 0;
+			var result = await _mediator.Send(new GetAllMonsterInput());
+			if (!result.IsValid)
+			{
+				return BadRequest(string.Join(", ", result.Errors));
+			}
+			return Ok(result);
 		}
+
 
 		[HttpGet]
 		[Route("Name")]
-		public int GetByName()
+		public async Task<IActionResult> GetByName([FromQuery]GetMonsterByNameInput request)
 		{
-			return 0;
+			var result =  await _mediator.Send(request);
+			if (!result.IsValid)
+			{
+				return BadRequest(string.Join(",", result.Errors));
+			}
+			return Ok(result);
+			
 		}
 
 		[HttpDelete]
 		[Route("")]
-		public int Delete()
+		public async Task<IActionResult> Delete([FromQuery] DeleteMonsterInput request)
 		{
-			return 0;
+			var result = await _mediator.Send(request);
+			if(!result.IsValid)
+			{
+				return BadRequest(string.Join(",", result.Errors));
+			}
+			return Ok(result);
 		}
 
 		[HttpPut]

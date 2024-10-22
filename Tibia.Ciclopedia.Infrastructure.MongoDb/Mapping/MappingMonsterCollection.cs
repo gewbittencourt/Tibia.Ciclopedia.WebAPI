@@ -13,8 +13,12 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Mapping
 	{
 		public MappingMonsterCollection() 
 		{
-			CreateMap<Monster, MonsterCollection>().ForMember(dest => dest.Id, opt => opt.Ignore())
+			CreateMap<Monster, MonsterCollection>()
+				.ForMember(dest => dest.Id, opt => opt.Ignore())
 				.ForMember(dest => dest.MonsterId, opt => opt.MapFrom(src => src.Id));
+
+			CreateMap<MonsterCollection, Monster>()
+				.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.MonsterId));
 		}
 	}
 }
