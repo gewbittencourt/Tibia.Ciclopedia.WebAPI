@@ -11,7 +11,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Mapping
 {
 	public class MappingMonsterCollection : Profile
 	{
-		public MappingMonsterCollection() 
+		public MappingMonsterCollection()
 		{
 			CreateMap<Monster, MonsterCollection>()
 				.ForMember(dest => dest.Id, opt => opt.Ignore())

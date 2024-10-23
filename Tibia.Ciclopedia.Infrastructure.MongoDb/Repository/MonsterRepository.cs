@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tibia.Ciclopedia.Application.BaseOutput;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Domain.Monsters;
+using Tibia.Ciclopedia.Infrastructure.MongoDb.Builder;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
@@ -52,9 +54,13 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 			return _mapper.Map<Monster>(monsterCollection);
 		}
 
-		public Task<bool> UpdateMonster(Monster monster, CancellationToken cancellationToken)
+		public async Task<bool> UpdateMonster(Monster monster, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+			var filter = Builders<MonsterCollection>.Filter.Eq(x=>x.MonsterId, monster.Id);
+			var monsterUpdate = _mapper.Map<MonsterCollection>(monster);
+			var update = MonsterUpdateBuilder.CreateUpdate(monsterUpdate);
+			var result = await _monsterCollection.UpdateOneAsync(filter, update, null, cancellationToken);
+			return result.ModifiedCount == 1;
 		}
 
 		public async Task<bool> DeleteMonster(Guid id, CancellationToken cancellationToken)

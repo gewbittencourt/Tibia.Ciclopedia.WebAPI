@@ -5,6 +5,7 @@ using Tibia.Ciclopedia.Application.UseCases.MonsterUC.CreateMonster;
 using Tibia.Ciclopedia.Application.UseCases.MonsterUC.DeleteMonster;
 using Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetByName;
+using Tibia.Ciclopedia.Application.UseCases.MonsterUC.UpdateMonster;
 using ZstdSharp.Unsafe;
 
 namespace Tibia.Ciclopedia.API.Controllers
@@ -71,9 +72,16 @@ namespace Tibia.Ciclopedia.API.Controllers
 
 		[HttpPut]
 		[Route("{id:guid}")]
-		public int Update()
+		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateMonsterInput request)
 		{
-			return 0;
+			request.Id = id;
+			var result = await _mediator.Send(request);
+			if(!result.IsValid)
+			{
+				return BadRequest(string.Join(",", result.Errors));
+			}
+			return Ok(result);
+
 		}
 
 	}

@@ -13,6 +13,7 @@ using Tibia.Ciclopedia.Application.UseCases.MonsterUC.CreateMonster;
 using Tibia.Ciclopedia.Application.UseCases.MonsterUC.DeleteMonster;
 using Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetAll;
 using Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetByName;
+using Tibia.Ciclopedia.Application.UseCases.MonsterUC.UpdateMonster;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Infrastructure.CrossCutting;
 
@@ -31,6 +32,7 @@ namespace Tibia.Ciclopedia.Application.Extensions
 			services.AddScoped<IGetAllMonstersUseCase, GetAllMonsters>();
             services.AddScoped<IGetMonsterByNameUseCase, GetMonsterByName>();
             services.AddScoped<IDeleteMonsterUseCase, DeleteMonster>();
+            services.AddScoped<IUpdateMonsterUseCase, UpdateMonster>();
 
 
 			return services;
