@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.BaseOutput;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Domain.Monsters;
+using Tibia.Ciclopedia.Domain.Monsters.Enums;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Builder;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 
@@ -46,6 +47,15 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 			return _mapper.Map<Monster>(monsterCollection);
 		}
 
+		public async Task<IEnumerable<Monster>> GetMonsterByElementAndDifficulty(string element, MonsterDifficulty difficulty, CancellationToken cancellationToken)
+		{
+			var difficultyFilter = Builders<MonsterCollection>.Filter.Eq("DifficultyCategory", difficulty);
+			var elementWeaknessFilter = Builders<MonsterCollection>.Filter.Gt($"ElementsWeaknessMonster.{element}", 100);
+			var combinedFilter = Builders<MonsterCollection>.Filter.And(difficultyFilter, elementWeaknessFilter);
+			var monsterCollection = await _monsterCollection.Find(combinedFilter).ToListAsync(cancellationToken);
+			return _mapper.Map<IEnumerable<Monster>>(monsterCollection);
+		}
+
 
 		public async Task<Monster> GetMonsterById(Guid id, CancellationToken cancellationToken)
 		{
@@ -69,5 +79,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Repository
 			var result = await _monsterCollection.DeleteOneAsync(filter, cancellationToken);
 			return result.DeletedCount == 1;
 		}
+
+
 	}
 }

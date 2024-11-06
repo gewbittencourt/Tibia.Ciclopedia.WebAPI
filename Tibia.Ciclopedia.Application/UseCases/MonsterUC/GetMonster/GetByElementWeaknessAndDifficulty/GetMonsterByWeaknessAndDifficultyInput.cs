@@ -8,14 +8,13 @@ using Tibia.Ciclopedia.Application.BaseOutput;
 using Tibia.Ciclopedia.Domain.Monsters;
 using Tibia.Ciclopedia.Domain.Monsters.Enums;
 
-namespace Tibia.Ciclopedia.Application.UseCases.MonsterUC.CreateMonster
+namespace Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetByElementWeaknessAndDifficulty
 {
-	public class CreateMonsterInput : IRequest<Output<Guid>>
+
+	public class GetMonsterByWeaknessAndDifficultyInput : IRequest<Output<IEnumerable<Monster>>>
 	{
-		public string Name { get; set; }
-		public int HitPoints { get; set; }
-		public int Experience { get; set; }
+
+		public string Element {  get; set; }
 		public MonsterDifficulty DifficultyCategory { get; set; }
-		public ElementsWeaknessMonster ElementsWeaknessMonster { get; set; }
 	}
 }

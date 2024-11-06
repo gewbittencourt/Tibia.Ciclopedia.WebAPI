@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Domain.Items;
+using Tibia.Ciclopedia.Domain.Monsters.Enums;
 
 namespace Tibia.Ciclopedia.Domain.Monsters
 {
@@ -14,6 +15,8 @@ namespace Tibia.Ciclopedia.Domain.Monsters
 		Task<IEnumerable<Monster>> GetAllMonsters(CancellationToken cancellationToken);
 
 		Task<Monster> GetMonsterByName(string name, CancellationToken cancellationToken);
+
+		Task<IEnumerable<Monster>> GetMonsterByElementAndDifficulty(string name, MonsterDifficulty difficulty, CancellationToken cancellationToken);
 
 		Task<Monster> GetMonsterById(Guid id, CancellationToken cancellationToken);
 

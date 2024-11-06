@@ -29,7 +29,7 @@ namespace Tibia.Ciclopedia.Application.UseCases.MonsterUC.UpdateMonster
 					return Output<bool>.Failure(new List<string> { "Não foi possível encontrar o monstro especificado." });
 				}
 
-				monster.UpdateMonster(request.Name, request.HitPoints, request.Experience, request.DifficultyCategory);
+				monster.UpdateMonster(request.Name, request.HitPoints, request.Experience, request.DifficultyCategory, request.ElementsWeaknessMonster);
 				var result = await _monsterRepository.UpdateMonster(monster, cancellationToken);
 
 				return Output<bool>.Success(result);

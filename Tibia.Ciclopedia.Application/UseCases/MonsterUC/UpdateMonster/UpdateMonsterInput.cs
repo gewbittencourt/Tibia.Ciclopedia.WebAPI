@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.BaseOutput;
+using Tibia.Ciclopedia.Domain.Monsters;
 using Tibia.Ciclopedia.Domain.Monsters.Enums;
 
 namespace Tibia.Ciclopedia.Application.UseCases.MonsterUC.UpdateMonster
@@ -22,5 +23,7 @@ namespace Tibia.Ciclopedia.Application.UseCases.MonsterUC.UpdateMonster
 		public int? Experience { get;  set; }
 
 		public MonsterDifficulty? DifficultyCategory { get;  set; }
+
+		public ElementsWeaknessMonster? ElementsWeaknessMonster { get; set; }
 	}
 }

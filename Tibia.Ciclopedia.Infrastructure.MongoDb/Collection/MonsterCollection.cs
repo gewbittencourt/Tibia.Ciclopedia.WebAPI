@@ -32,5 +32,8 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 
 		[BsonElement("MonsterCategory")]
 		public MonsterDifficultyCollectionMember DifficultyCategory { get; set; }
+
+		[BsonElement("ElementWeakness")]
+		public ElementsWeaknessMonsterCollectionMember ElementsWeaknessMonster { get; set; }
 	}
 }

@@ -2,10 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Tibia.Ciclopedia.Application.BaseOutput;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
 using TibiaItem.API.Controllers;
-using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Domain.Items.Enums;
 using Tibia.Ciclopedia.Application.UseCases.ItemUC.CreateItem;

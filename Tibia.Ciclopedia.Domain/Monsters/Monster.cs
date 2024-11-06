@@ -20,13 +20,17 @@ namespace Tibia.Ciclopedia.Domain.Monsters
 
 		public MonsterDifficulty DifficultyCategory { get; private set; }
 
+
+		public ElementsWeaknessMonster ElementsWeaknessMonster {  get; private set; }
+
+
 		public void NewMonster()
 		{
 			Id = Guid.NewGuid();
 		}
 
 
-		public void UpdateMonster(string? name, int? hitPoints, int? experience, MonsterDifficulty? difficultyCategory)
+		public void UpdateMonster(string? name, int? hitPoints, int? experience, MonsterDifficulty? difficultyCategory, ElementsWeaknessMonster? elementsWeaknessMonster)
 		{
 			if (!string.IsNullOrEmpty(name))
 			{
@@ -40,6 +44,11 @@ namespace Tibia.Ciclopedia.Domain.Monsters
 
 			if (difficultyCategory.HasValue)
 				DifficultyCategory = (MonsterDifficulty)difficultyCategory;
+
+			if (elementsWeaknessMonster != null)
+			{
+				ElementsWeaknessMonster = (ElementsWeaknessMonster)elementsWeaknessMonster;
+			}
 		}
 
 	}

@@ -14,7 +14,7 @@ namespace Tibia.Ciclopedia.Application.Mapping
 		public MappingMonster()
 		{
 
-			CreateMap<CreateMonsterInput, Monster>().AfterMap((src, dest) => dest.NewMonster()); ;
+			CreateMap<CreateMonsterInput, Monster>().AfterMap((src, dest) => dest.NewMonster());
 
 		}
 	}

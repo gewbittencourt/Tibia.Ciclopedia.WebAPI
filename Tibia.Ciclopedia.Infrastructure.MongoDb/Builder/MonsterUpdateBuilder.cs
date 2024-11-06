@@ -18,7 +18,8 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Builder
 				.Set(x => x.Name, monster.Name)
 				.Set(x => x.DifficultyCategory, monster.DifficultyCategory)
 				.Set(x => x.Experience, monster.Experience)
-				.Set(x => x.HitPoints, monster.HitPoints);
+				.Set(x => x.HitPoints, monster.HitPoints)
+				.Set(x => x.ElementsWeaknessMonster, monster.ElementsWeaknessMonster);
 		}
 	}
 }

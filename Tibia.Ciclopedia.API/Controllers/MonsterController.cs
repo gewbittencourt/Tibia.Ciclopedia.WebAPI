@@ -4,6 +4,7 @@ using Tibia.Ciclopedia.Application.UseCases.ItemUC.CreateItem;
 using Tibia.Ciclopedia.Application.UseCases.MonsterUC.CreateMonster;
 using Tibia.Ciclopedia.Application.UseCases.MonsterUC.DeleteMonster;
 using Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetAll;
+using Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetByElementWeaknessAndDifficulty;
 using Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetByName;
 using Tibia.Ciclopedia.Application.UseCases.MonsterUC.UpdateMonster;
 using ZstdSharp.Unsafe;
@@ -56,6 +57,19 @@ namespace Tibia.Ciclopedia.API.Controllers
 			}
 			return Ok(result);
 			
+		}
+
+		[HttpGet]
+		[Route("ElementAndDifficulty")]
+		public async Task<IActionResult> GetByElementAndDifficulty([FromQuery] GetMonsterByWeaknessAndDifficultyInput request)
+		{
+			var result = await _mediator.Send(request);
+			if (!result.IsValid)
+			{
+				return BadRequest(string.Join(",", result.Errors));
+			}
+			return Ok(result);
+
 		}
 
 		[HttpDelete]
