@@ -15,7 +15,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 		public void NewItem_ShouldSetIdAndDate()
 		{
 			// Arrange
-			var item = new Item(name: "test", type: ItemType.Boots, vocations: Vocations.Druid, new SlotsInfoItem( true, 1 ), price: 100, image: "linktest", levelRequired: 100);
+			var item = new Item(name: "test", type: ItemType.Boots, vocations: Vocations.Druid, new SlotsInfoItem( true, 1 ), purchaseprice: 100,sellingprice: 100, image: "linktest", levelRequired: 100);
 
 			// Act
 			item.NewItem();
@@ -28,7 +28,8 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 			Assert.Equal("Druid", item.Vocations.ToString());
 			Assert.Equal(true, item.Slots.HaveSlots);
 			Assert.Equal(1, item.Slots.Quantity);
-			Assert.Equal(100, item.Price);
+			Assert.Equal(100, item.PurchasePrice);
+			Assert.Equal(100, item.SellingPrice);
 			Assert.Equal("linktest", item.Image);
 		}
 
@@ -36,8 +37,8 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 		public void NewItem_ShouldGenerateUniqueId()
 		{
 			// Arrange
-			var item1 = new Item();
-			var item2 = new Item();
+			var item1 = new Item("Item1");
+			var item2 = new Item("Item2");
 
 			// Act
 			item1.NewItem();
@@ -45,6 +46,8 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 
 			// Assert
 			Assert.NotEqual(item1.Id, item2.Id);
+			Assert.NotEqual(Guid.Empty, item1.Id);
+			Assert.NotEqual(Guid.Empty, item2.Id);
 		}
 	}
 }

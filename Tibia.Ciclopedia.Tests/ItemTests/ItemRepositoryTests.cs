@@ -15,6 +15,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver.Linq;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Domain.Items.Enums;
+using Tibia.Ciclopedia.Infrastructure.MongoDb.Builder;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests
 {
@@ -75,8 +76,8 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 			var cancellationToken = new CancellationToken();
 			var items = new List<ItemCollection> {
 
-				new ItemCollection{Name = "test", Price = 100},
-				new ItemCollection{Name = "test2", Price = 200}
+				new ItemCollection{Name = "test", PurchasePrice = 100},
+				new ItemCollection{Name = "test2", PurchasePrice = 200}
 			};
 
 			//SIMULAÇÃO DO FIND
@@ -101,9 +102,10 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 		public async Task GetByNameItems_ReturnsOneItem_WhenSuccessful()
 		{
 			// Arrange
-			var itemCollection = new ItemCollection { Name = "test", Price = 100 };
-			var item = new Item();  // O nome aqui deve corresponder ao que está na coleção
+			var itemCollection = new ItemCollection { Name = "test"};
 			var name = "test";
+			var item = new Item(name);  // O nome aqui deve corresponder ao que está na coleção
+
 
 			// SIMULAÇÃO DO FIND
 			var mockCursor = new Mock<IAsyncCursor<ItemCollection>>();
@@ -120,7 +122,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 					   .Returns(item);
 
 			// Act
-			var result = await _itemRepository.GetItemsByName(name, It.IsAny<CancellationToken>());
+			var result = await _itemRepository.GetItemByName(name, It.IsAny<CancellationToken>());
 
 			// Assert
 			Assert.NotNull(result);
@@ -131,38 +133,31 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 
 
 		[Fact]
-
-		public async Task UpdateAll_ReturnBool_WhenSuccessfull()
+		public async Task UpdateAll_ReturnsTrue_WhenSuccessful()
 		{
 			// Arrange
-			var item = new Item(name: "test", type: ItemType.Boots, vocations: Vocations.Druid, new SlotsInfoItem(true,1), price: 100, image: "linktest", levelRequired: 100);
-			var updatedTask = new Item(name: "test1", type: ItemType.Boots, vocations: Vocations.Druid, new SlotsInfoItem(true,1), price: 100, image: "linktest", levelRequired: 100);
-			var mockResult = new UpdateResult.Acknowledged(1, 1, null);
+			var item = new Item(name: "test", type: ItemType.Boots, vocations: Vocations.Druid,
+								new SlotsInfoItem(true, 1), purchaseprice: 100, sellingprice: 100,
+								image: "linktest", levelRequired: 100);
 
-			var mockCursor = new Mock<IAsyncCursor<Item>>();
-			mockCursor.SetupSequence(x => x.MoveNext(It.IsAny<CancellationToken>())).Returns(true).Returns(false);
-			mockCursor.SetupSequence(x => x.MoveNextAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true).ReturnsAsync(false);
-			mockCursor.Setup(x => x.Current).Returns(new List<Item> { item });
+			var itemCollection = new ItemCollection();
 
-			_mockMongoCollection.Setup(x => x.FindAsync(
-				It.IsAny<FilterDefinition<ItemCollection>>(),
-				It.IsAny<FindOptions<ItemCollection, Item>>(),
-				It.IsAny<CancellationToken>())).ReturnsAsync(mockCursor.Object);
+			_mockMapper.Setup(m => m.Map<ItemCollection>(item)).Returns(itemCollection);
 
+			var updateResultMock = new Mock<UpdateResult>();
+			updateResultMock.Setup(r => r.ModifiedCount).Returns(1);
 
-			_mockMongoCollection.Setup(x => x.UpdateOneAsync(
-			It.IsAny<FilterDefinition<ItemCollection>>(),
-			It.IsAny<UpdateDefinition<ItemCollection>>(),
-			null,
-			It.IsAny<CancellationToken>())).ReturnsAsync(mockResult);
-
-
+			_mockMongoCollection.Setup(i => i.UpdateOneAsync(
+					It.IsAny<FilterDefinition<ItemCollection>>(),
+					It.IsAny<UpdateDefinition<ItemCollection>>(),
+					null,
+					It.IsAny<CancellationToken>()
+				)).ReturnsAsync(updateResultMock.Object);
 
 			// Act
-			var result = await _itemRepository.UpdateItem(updatedTask, It.IsAny<CancellationToken>());
+			var result = await _itemRepository.UpdateItem(item, CancellationToken.None);
 
-			// Asserts
-			Assert.NotNull(result);
+			// Assert
 			Assert.True(result);
 		}
 

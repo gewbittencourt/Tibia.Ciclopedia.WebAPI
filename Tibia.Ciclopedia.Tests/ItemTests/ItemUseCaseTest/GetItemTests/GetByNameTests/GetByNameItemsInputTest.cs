@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Application.BaseOutput;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.GetItem.GetByName;
 using Tibia.Ciclopedia.Domain.Items;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.GetItemTests.GetByName
@@ -19,7 +19,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.GetItemTests.GetByNam
 			var name = "test";
 
 			// Act
-			var input = new GetByNameItemsInput
+			var input = new GetItemByNameInput
 			{
 				Name = name
 			};
@@ -32,10 +32,10 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.GetItemTests.GetByNam
 		public void GetByNameItemsInput_ShouldImplementIRequestWithOutputOfIEnumerableItem()
 		{
 			// Arrange
-			var input = new GetByNameItemsInput();
+			var input = new GetItemByNameInput();
 
 			// Act & Assert
-			Assert.IsAssignableFrom<IRequest<Output<IEnumerable<Item>>>>(input);
+			Assert.IsAssignableFrom<IRequest<Output<Item>>>(input);
 		}
 	}
 }
