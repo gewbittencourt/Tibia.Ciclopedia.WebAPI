@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.DeleteItem;
 using Tibia.Ciclopedia.Domain.Items;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.DeleteItemTests

@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tibia.Ciclopedia.Application.UseCases.CreateItem;
-using Tibia.Ciclopedia.Application.UseCases.Item.CreateItem;
 using Tibia.Ciclopedia.Application.UseCases.ItemUC.CreateItem;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Domain.Items.Enums;
@@ -34,14 +32,13 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.CreateItemTests
 			{
 				Name = "name",
 				LevelRequired = 0,
-				Price = 0,
 				Slots = new SlotsInfoItem(true,0 ),
 				Type = ItemType.Armor,
 				Vocations = Vocations.Knight,
 				Image = "linktest"
 			};
 
-			var item = new Item();
+			var item = new Item("name");
 
 			_mapperMock.Setup(mapper => mapper.Map<Item>(request)).Returns(item);
 			_itemRepositoryMock.Setup(r => r.CreateNewItem(item, It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);

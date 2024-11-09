@@ -6,10 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
 using Tibia.Ciclopedia.Domain.Items;
-using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
 using Tibia.Ciclopedia.Domain.Items.Enums;
-using Tibia.Ciclopedia.Application.UseCases.Item.UpdateItem;
-using Tibia.Ciclopedia.Application.UseCases.UpdateItem;
 using Tibia.Ciclopedia.Application.UseCases.ItemUC.UpdateItem;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.UpdateAllTest
@@ -38,7 +35,6 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 				Vocations = Vocations.Druid,
 				LevelRequired = 10,
 				Slots = new SlotsInfoItem(true, 1),
-				Price = 99.99,
 				Image = "image_path"
 			};
 

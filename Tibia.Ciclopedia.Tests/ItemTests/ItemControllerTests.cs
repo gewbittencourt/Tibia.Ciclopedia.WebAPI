@@ -7,6 +7,9 @@ using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Domain.Items.Enums;
 using Tibia.Ciclopedia.Application.UseCases.ItemUC.CreateItem;
 using Tibia.Ciclopedia.Application.UseCases.ItemUC.UpdateItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.GetItem.GetAll;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.GetItem.GetByName;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.DeleteItem;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests
 {
@@ -44,11 +47,10 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 		public async Task GetAll_ReturnsOkResult_WithListOfItems()
 		{
 			// Arrange
+			var expectedItems = new List<Item>(); // Lista vazia ou itens conforme esperado
+			var expectedResponse = Output<IEnumerable<Item>>.Success(expectedItems);
 
-			var expectedResponse = Output<IEnumerable<Item>>.Success(new List<Item>());
-
-
-			_mediatorMock.Setup(mediator => mediator.Send(new GetAllItemInput(), It.IsAny<CancellationToken>()))
+			_mediatorMock.Setup(mediator => mediator.Send(It.IsAny<GetAllItemInput>(), It.IsAny<CancellationToken>()))
 						 .ReturnsAsync(expectedResponse);
 
 			// Act
@@ -56,6 +58,9 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 
 			// Assert
 			var okResult = Assert.IsType<OkObjectResult>(result);
+			var actualResult = Assert.IsType<Output<IEnumerable<Item>>>(okResult.Value);
+			Assert.True(actualResult.IsValid);
+			Assert.Equal(expectedItems, actualResult.Result);
 		}
 
 
@@ -63,10 +68,10 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 		public async Task GetByName_ReturnsOkResult_WithListOfItems()
 		{
 			// Arrange
-			var request = new GetByNameItemsInput { Name = "TestItem" };
+			var request = new GetItemByNameInput { Name = "TestItem" };
 			var itemlist = new Item();
 			{
-				new Item(name: "test", type: ItemType.Boots, vocations: Vocations.Druid, new SlotsInfoItem(true, 1), price: 100, image: "linktest", levelRequired: 100);
+				new Item(name: "test", type: ItemType.Boots, vocations: Vocations.Druid, new SlotsInfoItem(true, 1), purchaseprice: 100, sellingprice: 100, image: "linktest", levelRequired: 100);
 			}
 			var expectedResponse = Output<Item>.Success(itemlist);
 

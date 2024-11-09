@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.UpdateItem;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Domain.Items.Enums;
 
@@ -32,7 +32,6 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 				Vocations = vocations,
 				LevelRequired = levelRequired,
 				Slots = slots,
-				Price = price,
 				Image = image
 			};
 
@@ -42,7 +41,6 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 			Assert.Equal(vocations, input.Vocations);
 			Assert.Equal(levelRequired, input.LevelRequired);
 			Assert.Equal(slots, input.Slots);
-			Assert.Equal(price, input.Price);
 			Assert.Equal(image, input.Image);
 		}
 	}
