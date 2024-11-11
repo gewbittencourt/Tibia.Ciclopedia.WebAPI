@@ -19,16 +19,16 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 		public ObjectId Id { get; set; }
 
 		[BsonElement("MonsterId")]
-		public Guid MonsterId { get; private set; }
+		public Guid MonsterId { get;  set; }
 
 		[BsonElement("MonsterName")]
-		public string Name { get; private set; }
+		public string Name { get;  set; }
 
 		[BsonElement("MonsterHitPoints")]
-		public int HitPoints { get; private set; }
+		public int HitPoints { get;  set; }
 
 		[BsonElement("MonsterExperience")]
-		public int Experience { get; private set; }
+		public int Experience { get;  set; }
 
 		[BsonElement("MonsterCategory")]
 		public MonsterDifficultyCollectionMember DifficultyCategory { get; set; }

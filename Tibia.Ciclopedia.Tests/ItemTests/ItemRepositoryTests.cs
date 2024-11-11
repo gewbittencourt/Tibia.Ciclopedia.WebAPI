@@ -36,13 +36,12 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 			_mockDatabase = new Mock<IMongoDatabase>();
 			_mockMongoCollection = new Mock<IMongoCollection<ItemCollection>>();
 
-			// Configurações para retornar a coleção mockada
+
 			_mockMongoClient.Setup(client => client.GetDatabase("ItemCollection", null))
 							.Returns(_mockDatabase.Object);
 			_mockDatabase.Setup(db => db.GetCollection<ItemCollection>(nameof(ItemCollection), null))
 							 .Returns(_mockMongoCollection.Object);
 
-			// Inicializa o ItemRepository com os mocks
 			_itemRepository = new ItemRepository(_mockMongoCollection.Object, _mockMapper.Object);
 		}
 
@@ -66,6 +65,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 			_mockMapper.Verify(m => m.Map<ItemCollection>(item), Times.Once);
 			_mockMongoCollection.Verify(i => i.InsertOneAsync(itemCollection, It.IsAny<InsertOneOptions>(), It.IsAny<CancellationToken>()), Times.Once);
 		}
+
 
 
 
@@ -102,16 +102,16 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 		public async Task GetByNameItems_ReturnsOneItem_WhenSuccessful()
 		{
 			// Arrange
-			var itemCollection = new ItemCollection { Name = "test"};
+			var itemCollection = new ItemCollection { Name = "test" };
 			var name = "test";
-			var item = new Item(name);  // O nome aqui deve corresponder ao que está na coleção
+			var item = new Item(name);
 
 
 			// SIMULAÇÃO DO FIND
 			var mockCursor = new Mock<IAsyncCursor<ItemCollection>>();
 			mockCursor.SetupSequence(x => x.MoveNext(It.IsAny<CancellationToken>())).Returns(true).Returns(false);
 			mockCursor.SetupSequence(x => x.MoveNextAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true).ReturnsAsync(false);
-			mockCursor.Setup(x => x.Current).Returns(new List<ItemCollection> { itemCollection });  // Retorna uma lista com o itemCollection
+			mockCursor.Setup(x => x.Current).Returns(new List<ItemCollection> { itemCollection });
 
 			_mockMongoCollection.Setup(x => x.FindAsync(
 				It.IsAny<FilterDefinition<ItemCollection>>(),
@@ -127,7 +127,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 			// Assert
 			Assert.NotNull(result);
 			Assert.IsType<Item>(result);
-			Assert.Equal(name, result.Name);  // Verifica se o nome do item é o esperado
+			Assert.Equal(name, result.Name);
 		}
 
 

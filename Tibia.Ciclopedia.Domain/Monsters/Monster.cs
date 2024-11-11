@@ -23,6 +23,14 @@ namespace Tibia.Ciclopedia.Domain.Monsters
 
 		public ElementsWeaknessMonster ElementsWeaknessMonster {  get; private set; }
 
+		public Monster(string name)
+		{
+			Name = name;
+		}
+
+		public Monster()
+		{
+		}
 
 		public void NewMonster()
 		{
