@@ -18,10 +18,10 @@ namespace Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetByElemen
 			_monsterRepository = monsterRepository;
 		}
 
-		async Task<Output<IEnumerable<Monster>>> IRequestHandler<GetMonsterByWeaknessAndDifficultyInput, Output<IEnumerable<Monster>>>.Handle(GetMonsterByWeaknessAndDifficultyInput request, CancellationToken cancellationToken)
+		public async Task<Output<IEnumerable<Monster>>> Handle(GetMonsterByWeaknessAndDifficultyInput request, CancellationToken cancellationToken)
 		{
 			string element = char.ToUpper(request.Element[0]) + request.Element.Substring(1);
-			var monsterReturn = await _monsterRepository.GetMonsterByElementAndDifficulty(element, request.DifficultyCategory,  cancellationToken);
+			var monsterReturn = await _monsterRepository.GetMonsterByElementAndDifficulty(element, request.DifficultyCategory, cancellationToken);
 			return Output<IEnumerable<Monster>>.Success(monsterReturn);
 		}
 	}

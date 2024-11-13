@@ -13,7 +13,7 @@ using Tibia.Ciclopedia.Application.UseCases.MonsterUC.UpdateMonster;
 using Xunit;
 using Tibia.Ciclopedia.Application.BaseOutput;
 
-namespace Tibia.Ciclopedia.Tests.API.Controllers
+namespace Tibia.Ciclopedia.Tests.MonsterTests
 {
 	public class MonsterControllerTests
 	{

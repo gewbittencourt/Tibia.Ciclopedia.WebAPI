@@ -32,7 +32,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 			var expectedResponse = Output<Guid>.Success(Guid.NewGuid());
 
 			_mediatorMock.Setup(m => m.Send(It.IsAny<CreateItemInput>(), default))
-						 .ReturnsAsync(expectedResponse);  // Correção aqui: ReturnsAsync
+						 .ReturnsAsync(expectedResponse);
 
 			// ActS
 			var result = await _controller.Create(request);
@@ -47,7 +47,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 		public async Task GetAll_ReturnsOkResult_WithListOfItems()
 		{
 			// Arrange
-			var expectedItems = new List<Item>(); // Lista vazia ou itens conforme esperado
+			var expectedItems = new List<Item>();
 			var expectedResponse = Output<IEnumerable<Item>>.Success(expectedItems);
 
 			_mediatorMock.Setup(mediator => mediator.Send(It.IsAny<GetAllItemInput>(), It.IsAny<CancellationToken>()))

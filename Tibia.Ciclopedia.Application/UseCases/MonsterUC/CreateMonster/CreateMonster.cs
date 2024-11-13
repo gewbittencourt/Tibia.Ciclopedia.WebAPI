@@ -23,9 +23,17 @@ namespace Tibia.Ciclopedia.Application.UseCases.MonsterUC.CreateMonster
 
 		public async Task<Output<Guid>> Handle(CreateMonsterInput request, CancellationToken cancellationToken)
 		{
-			var monster = _mapper.Map<Monster>(request);
-			await _mosterRepository.CreateNewMonster(monster, cancellationToken);
-			return Output<Guid>.Success(monster.Id);
+			try
+			{
+				var monster = _mapper.Map<Monster>(request);
+				await _mosterRepository.CreateNewMonster(monster, cancellationToken);
+				return Output<Guid>.Success(monster.Id);
+			}
+			catch (Exception ex)
+			{
+				return Output<Guid>.Failure(new List<string> { $"Não foi possível cadastrar o monstro.{ex.Message}" });
+			}
+
 		}
 	}
 }

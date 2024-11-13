@@ -11,7 +11,7 @@ using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
 using Xunit;
 
-namespace Tibia.Ciclopedia.Tests.Infrastructure.MongoDb.Repository
+namespace Tibia.Ciclopedia.Tests.MonsterTests
 {
 	public class MonsterRepositoryTests
 	{

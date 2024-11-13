@@ -4,7 +4,7 @@ using Tibia.Ciclopedia.Domain.Items.Enums;
 using Tibia.Ciclopedia.Domain.Monsters.Enums;
 using Xunit;
 
-namespace Tibia.Ciclopedia.Tests.Domain.Monsters
+namespace Tibia.Ciclopedia.Tests.MonsterTests
 {
 	public class MonsterEntitieTests
 	{
