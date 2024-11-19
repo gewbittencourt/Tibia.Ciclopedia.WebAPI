@@ -11,5 +11,5 @@ namespace Tibia.Ciclopedia.Infrastructure.CrossCutting.GetResponse
     {
         [JsonPropertyName("EUR")]
         public GetPricingResponseRateFloat EUR { get; set; }
-    }
+	}
 }

@@ -130,6 +130,39 @@ namespace Tibia.Ciclopedia.Tests.ItemTests
 			Assert.Equal(name, result.Name);
 		}
 
+		[Fact]
+		public async Task GetItemById_ReturnsItem_WhenSuccessful()
+		{
+			// Arrange
+			var item = new Item("test");
+			item.NewItem();
+			var itemCollection = new ItemCollection { ItemID = item.Id, Name = "test" };
+
+
+			// Simulação do Find
+			var mockCursor = new Mock<IAsyncCursor<ItemCollection>>();
+			mockCursor.SetupSequence(x => x.MoveNext(It.IsAny<CancellationToken>())).Returns(true).Returns(false);
+			mockCursor.SetupSequence(x => x.MoveNextAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true).ReturnsAsync(false);
+			mockCursor.Setup(x => x.Current).Returns(new List<ItemCollection> { itemCollection });
+
+			_mockMongoCollection.Setup(x => x.FindAsync(
+				It.IsAny<FilterDefinition<ItemCollection>>(),
+				It.IsAny<FindOptions<ItemCollection, ItemCollection>>(),
+				It.IsAny<CancellationToken>())).ReturnsAsync(mockCursor.Object);
+
+			_mockMapper.Setup(mapper => mapper.Map<Item>(itemCollection))
+					   .Returns(item);
+
+			// Act
+			var result = await _itemRepository.GetItemById(item.Id, It.IsAny<CancellationToken>());
+
+			// Assert
+			Assert.NotNull(result);
+			Assert.IsType<Item>(result);
+			Assert.Equal(item.Name, result.Name);
+			Assert.Equal(item.Id, result.Id);
+		}
+
 
 
 		[Fact]

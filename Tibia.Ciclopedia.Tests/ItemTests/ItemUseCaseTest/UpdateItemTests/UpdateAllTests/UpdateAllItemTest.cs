@@ -19,7 +19,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 		public UpdateAllItemTest()
 		{
 			_mockItemRepository = new Mock<IItemRepository>();
-			_updateAllItem = new UpdateItem(_mockItemRepository.Object, null);  // O segundo argumento (mapper) é null, se não for usado
+			_updateAllItem = new UpdateItem(_mockItemRepository.Object, null);
 		}
 
 		[Fact]
@@ -38,13 +38,10 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 				Image = "image_path"
 			};
 
-			var item = new Item();  // Criação de um objeto Item real
+			var item = new Item();
 
-			// Setup para retorno do item a partir do repositório
 			_mockItemRepository.Setup(repo => repo.GetItemById(itemId, It.IsAny<CancellationToken>()))
 				.ReturnsAsync(item);
-
-			// Setup para o método de atualização
 			_mockItemRepository.Setup(repo => repo.UpdateItem(item, It.IsAny<CancellationToken>()))
 				.ReturnsAsync(true);
 
@@ -53,7 +50,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 
 			// Assert
 			Assert.True(result.IsValid);
-			_mockItemRepository.Verify(i => i.UpdateItem(item, It.IsAny<CancellationToken>()), Times.Once);  // Verifica se o método correto foi chamado
+			_mockItemRepository.Verify(i => i.UpdateItem(item, It.IsAny<CancellationToken>()), Times.Once);
 		}
 	}
 

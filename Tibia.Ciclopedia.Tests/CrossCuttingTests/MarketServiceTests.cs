@@ -33,8 +33,8 @@ namespace Tibia.Ciclopedia.Tests.CrossCuttingTests
 
 			var mockMapper = new Mock<IMapper>();
 
-			var mockPricingResponse = new GetPricingResponseBpi { /* Inicialize as propriedades conforme necessário */ };
-			var expectedMarketPrice = new ItemMarketPrice { /* Inicialize as propriedades conforme necessário */ };
+			var mockPricingResponse = new GetPricingResponseBpi { };
+			var expectedMarketPrice = new ItemMarketPrice {  };
 
 			var jsonResponse = JsonSerializer.Serialize(mockPricingResponse);
 
@@ -62,8 +62,6 @@ namespace Tibia.Ciclopedia.Tests.CrossCuttingTests
 			// Assert
 			Assert.NotNull(result);
 			Assert.Equal(expectedMarketPrice, result);
-
-			// Verifica se o mapper foi chamado com a entrada correta
 			mockMapper.Verify(mapper => mapper.Map<ItemMarketPrice>(It.IsAny<GetPricingResponseBpi>()), Times.Once);
 		}
 	}

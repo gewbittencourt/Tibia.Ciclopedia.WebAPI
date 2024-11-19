@@ -60,7 +60,7 @@ namespace Tibia.Ciclopedia.Tests.MonsterTests.MonsterUseCaseTests.CreateMonsterT
 
 			// Assert
 			Assert.False(result.IsValid);
-			Assert.NotEmpty(result.Errors); // Verifica se Errors contém uma mensagem apropriada
+			Assert.NotEmpty(result.Errors);
 			_mapperMock.Verify(m => m.Map<Monster>(input), Times.Once);
 			_monsterRepositoryMock.Verify(r => r.CreateNewMonster(It.IsAny<Monster>(), It.IsAny<CancellationToken>()), Times.Never);
 		}

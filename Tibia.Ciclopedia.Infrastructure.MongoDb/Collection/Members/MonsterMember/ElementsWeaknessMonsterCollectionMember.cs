@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tibia.Ciclopedia.Domain.Monsters;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection.Members.MonsterMember
 {

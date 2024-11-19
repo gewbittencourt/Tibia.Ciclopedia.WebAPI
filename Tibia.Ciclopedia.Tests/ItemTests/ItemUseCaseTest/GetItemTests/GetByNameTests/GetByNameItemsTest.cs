@@ -2,16 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Xunit;
 using Tibia.Ciclopedia.Application.BaseOutput;
 using Tibia.Ciclopedia.Application.UseCases.ItemUC.GetItem.GetByName;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Infrastructure.CrossCutting;
+using Tibia.Ciclopedia.Infrastructure.CrossCutting.GetResponse;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.GetItemTests.GetByName
 {
-    public class GetByNameItemsTest
+	public class GetByNameItemsTest
 	{
 		private readonly Mock<IItemRepository> _mockItemRepository;
 		private readonly GetItemsByName _getByItemByNameUseCase;
@@ -30,13 +32,13 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.GetItemTests.GetByNam
 			// Arrange
 			var item = new Item
 			{
-				// Adicione as propriedades necessárias do item aqui
 			};
 			item.UpdatePriceItem(100);
 
 			_mockItemRepository
 				.Setup(repo => repo.GetItemByName(It.IsAny<string>(), It.IsAny<CancellationToken>()))
 				.ReturnsAsync(item);
+			
 
 			var input = new GetItemByNameInput { Name = "test" };
 			var cancellationToken = CancellationToken.None;
@@ -49,8 +51,6 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.GetItemTests.GetByNam
 			Assert.True(result.IsValid);
 			Assert.Equal(item, result.Result);
 		}
-
-
 
 		[Fact]
 		public async Task Handle_ShouldReturnFailureOutput_WhenNoItemExists()

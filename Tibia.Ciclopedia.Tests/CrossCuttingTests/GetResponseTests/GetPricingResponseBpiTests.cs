@@ -13,7 +13,7 @@ namespace Tibia.Ciclopedia.Tests.CrossCuttingTests.GetResponseTests
 		[Fact]
 		public void GetPricingResponseBpi_ShouldDeserializeCorrectly()
 		{
-			// Arrange: JSON example to simulate API response
+			// Arrange
 			var json = @"{
                 ""bpi"": {
                     ""EUR"": {
@@ -22,15 +22,15 @@ namespace Tibia.Ciclopedia.Tests.CrossCuttingTests.GetResponseTests
                 }
             }";
 
-			// Act: Deserialize JSON to GetPricingResponseBpi object
+			// Act
 			var result = JsonSerializer.Deserialize<GetPricingResponseBpi>(json);
 
-			// Assert: Check if the deserialization was successful
+			// Assert
 			Assert.NotNull(result);
 			Assert.NotNull(result.Bpi);
 			Assert.NotNull(result.Bpi.EUR);
 
-			// Assert exact equality for the rate_float value
+			// Assert
 			Assert.Equal(1.2345d, result.Bpi.EUR.Ratefloat);
 		}
 	}

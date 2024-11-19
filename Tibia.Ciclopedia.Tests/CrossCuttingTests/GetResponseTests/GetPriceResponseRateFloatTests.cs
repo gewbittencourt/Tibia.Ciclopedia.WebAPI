@@ -13,15 +13,15 @@ namespace Tibia.Ciclopedia.Tests.CrossCuttingTests.GetResponseTests
 		[Fact]
 		public void GetPricingResponseRateFloat_ShouldDeserializeCorrectly()
 		{
-			// Arrange: JSON example to simulate API response
+			// Arrange
 			var json = @"{
                 ""rate_float"": 1.2345
             }";
 
-			// Act: Deserialize JSON to GetPricingResponseRateFloat object
+			// Act
 			var result = JsonSerializer.Deserialize<GetPricingResponseRateFloat>(json);
 
-			// Assert: Check if the deserialization was successful and the value is correct
+			// Assert
 			Assert.NotNull(result);
 			Assert.Equal(1.2345, result.Ratefloat);
 		}

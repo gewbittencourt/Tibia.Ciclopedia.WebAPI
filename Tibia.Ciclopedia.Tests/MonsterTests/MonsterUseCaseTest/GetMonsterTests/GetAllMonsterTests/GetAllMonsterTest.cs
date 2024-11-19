@@ -48,7 +48,7 @@ namespace Tibia.Ciclopedia.Tests.MonsterTests.MonsterUseCaseTests.GetMonsterTest
 		public async Task Handle_ShouldReturnEmptyList_WhenNoMonstersAreAvailable()
 		{
 			// Arrange
-			var monsters = new List<Monster>(); // lista vazia para simular ausência de monstros
+			var monsters = new List<Monster>();
 
 			_monsterRepositoryMock.Setup(r => r.GetAllMonsters(It.IsAny<CancellationToken>()))
 								  .ReturnsAsync(monsters);

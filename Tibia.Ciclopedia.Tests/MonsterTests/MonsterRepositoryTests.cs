@@ -112,6 +112,36 @@ namespace Tibia.Ciclopedia.Tests.MonsterTests
 			Assert.Equal(name, result.Name);
 		}
 
+		[Fact]
+		public async Task GetMonsterById_ReturnsMonster_WhenSuccessful()
+		{
+			// Arrange
+			var monster = new Monster("Dragon");
+			var monsterCollection = new MonsterCollection { MonsterId = monster.Id, Name = "Dragon" };
+
+			// SIMULAÇÃO DO FIND
+			var mockCursor = new Mock<IAsyncCursor<MonsterCollection>>();
+			mockCursor.SetupSequence(x => x.MoveNext(It.IsAny<CancellationToken>())).Returns(true).Returns(false);
+			mockCursor.SetupSequence(x => x.MoveNextAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true).ReturnsAsync(false);
+			mockCursor.Setup(x => x.Current).Returns(new List<MonsterCollection> { monsterCollection });
+
+			_monsterCollectionMock.Setup(x => x.FindAsync(
+				It.IsAny<FilterDefinition<MonsterCollection>>(),
+				It.IsAny<FindOptions<MonsterCollection, MonsterCollection>>(),
+				It.IsAny<CancellationToken>())).ReturnsAsync(mockCursor.Object);
+
+			_mapperMock.Setup(mapper => mapper.Map<Monster>(monsterCollection))
+					   .Returns(monster);
+
+			// Act
+			var result = await _repository.GetMonsterById(monster.Id, It.IsAny<CancellationToken>());
+
+			// Assert
+			Assert.NotNull(result);
+			Assert.IsType<Monster>(result);
+			Assert.Equal(monster.Id, result.Id);
+		}
+
 
 
 
