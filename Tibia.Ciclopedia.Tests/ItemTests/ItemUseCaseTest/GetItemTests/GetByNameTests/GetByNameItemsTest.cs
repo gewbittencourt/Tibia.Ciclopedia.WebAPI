@@ -2,25 +2,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
+using Xunit;
+using Tibia.Ciclopedia.Application.BaseOutput;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.GetItem.GetByName;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Infrastructure.CrossCutting;
+using Tibia.Ciclopedia.Infrastructure.CrossCutting.GetResponse;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.GetItemTests.GetByName
 {
 	public class GetByNameItemsTest
 	{
 		private readonly Mock<IItemRepository> _mockItemRepository;
-		private readonly GetItemsByName _getByNameItemsUseCase;
-		private readonly Mock<ICrossCutting> _mockCrossCutting;
+		private readonly GetItemsByName _getByItemByNameUseCase;
+		private readonly Mock<IMarketService> _mockCrossCutting;
 
 		public GetByNameItemsTest()
 		{
 			_mockItemRepository = new Mock<IItemRepository>();
-			_mockCrossCutting = new Mock<ICrossCutting>();
-			_getByNameItemsUseCase = new GetItemsByName(_mockItemRepository.Object, _mockCrossCutting.Object);
+			_mockCrossCutting = new Mock<IMarketService>();
+			_getByItemByNameUseCase = new GetItemsByName(_mockItemRepository.Object, _mockCrossCutting.Object);
 		}
 
 		[Fact]
@@ -30,16 +33,18 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.GetItemTests.GetByNam
 			var item = new Item
 			{
 			};
+			item.UpdatePriceItem(100);
 
 			_mockItemRepository
-				.Setup(repo => repo.GetItemsByName(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+				.Setup(repo => repo.GetItemByName(It.IsAny<string>(), It.IsAny<CancellationToken>()))
 				.ReturnsAsync(item);
+			
 
-			var input = new GetByNameItemsInput { Name = "test" };
+			var input = new GetItemByNameInput { Name = "test" };
 			var cancellationToken = CancellationToken.None;
 
 			// Act
-			var result = await _getByNameItemsUseCase.Handle(input, cancellationToken);
+			var result = await _getByItemByNameUseCase.Handle(input, cancellationToken);
 
 			// Assert
 			Assert.NotNull(result);
@@ -47,20 +52,19 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.GetItemTests.GetByNam
 			Assert.Equal(item, result.Result);
 		}
 
-
 		[Fact]
 		public async Task Handle_ShouldReturnFailureOutput_WhenNoItemExists()
 		{
 			// Arrange
 			_mockItemRepository
-				.Setup(repo => repo.GetItemsByName(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+				.Setup(repo => repo.GetItemByName(It.IsAny<string>(), It.IsAny<CancellationToken>()))
 				.ReturnsAsync((Item)null);
 
-			var input = new GetByNameItemsInput { Name = "test" };
+			var input = new GetItemByNameInput { Name = "test" };
 			var cancellationToken = CancellationToken.None;
 
 			// Act
-			var result = await _getByNameItemsUseCase.Handle(input, cancellationToken);
+			var result = await _getByItemByNameUseCase.Handle(input, cancellationToken);
 
 			// Assert
 			Assert.NotNull(result);

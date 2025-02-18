@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
 using System.Reflection;
+using Tibia.Ciclopedia.Domain.Monsters;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 {
@@ -14,12 +15,13 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 		{
 			services
 				.AddRepositories()
-				.AddMongo(configuration);
+				.AddMongoItem(configuration)
+				.AddMongoMonster(configuration);
 
 			return services;
 		}
 
-		public static IServiceCollection AddMongo(this IServiceCollection services, IConfiguration configuration)
+		public static IServiceCollection AddMongoItem(this IServiceCollection services, IConfiguration configuration)
 		{
 			var mongoClient = new MongoClient(configuration.GetConnectionString("MongoDb"));
 
@@ -35,6 +37,23 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 			return services;
 		}
 
+
+		public static IServiceCollection AddMongoMonster(this IServiceCollection services, IConfiguration configuration)
+		{
+			var mongoClient = new MongoClient(configuration.GetConnectionString("MongoDb"));
+
+			services.AddSingleton<IMongoClient>(mongoClient);
+			services.AddSingleton(sp =>
+			{
+				var database = mongoClient.GetDatabase(MonsterCollection.CollectionName);
+				var monsterCollection = database.GetCollection<MonsterCollection>(MonsterCollection.CollectionName);
+				AddIndex(monsterCollection, Builders<MonsterCollection>.IndexKeys.Text(x => x.Name));
+				return monsterCollection;
+			});
+
+			return services;
+		}
+
 		private static void AddIndex<T>(IMongoCollection<T> collection, IndexKeysDefinition<T> indexKeysDefinition)
 		{
 			var indexModel = new CreateIndexModel<T>(indexKeysDefinition);
@@ -44,6 +63,7 @@ namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Module
 		public static IServiceCollection AddRepositories(this IServiceCollection services)
 		{
 			services.AddScoped<IItemRepository, ItemRepository>();
+			services.AddScoped<IMonsterRepository, MonsterRepository>();
 			return services;
 		}
 	}

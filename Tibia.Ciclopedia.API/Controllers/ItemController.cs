@@ -1,16 +1,16 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Tibia.Ciclopedia.Application.UseCases.CreateItem;
-using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
-using Tibia.Ciclopedia.Application.UseCases.GetItem;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
-using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.GetItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.GetItem.GetAll;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.CreateItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.DeleteItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.GetItem.GetByName;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.UpdateItem;
 using Tibia.Ciclopedia.Domain.Items;
 
 namespace TibiaItem.API.Controllers
 {
-	[ApiController]
+    [ApiController]
 	[Route("api/v1/[controller]")]
 	public class ItemController : ControllerBase
 	{

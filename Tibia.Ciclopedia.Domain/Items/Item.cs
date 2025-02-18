@@ -49,6 +49,11 @@ namespace Tibia.Ciclopedia.Domain.Items
 		{
 		}
 
+		public Item(string name)
+		{
+			Name = name;
+		}
+
 		public bool CheckPeriod()
 		{
 			if (Period == null || Period.TimeCheckedExpire < DateTime.UtcNow)

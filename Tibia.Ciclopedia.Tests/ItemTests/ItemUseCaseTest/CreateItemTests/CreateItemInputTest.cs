@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tibia.Ciclopedia.Application.UseCases.CreateItem;
 using Tibia.Ciclopedia.Domain.Items.Enums;
 using Tibia.Ciclopedia.Domain.Items;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.CreateItem;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.CreateItemTests
 {
@@ -22,7 +22,6 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.CreateItemTests
 				Vocations = Vocations.Knight | Vocations.Paladin,
 				LevelRequired = 20,
 				Slots = new SlotsInfoItem (true,1),
-				Price = 1500.50,
 				Image = "linktest"
 				
 			};
@@ -34,7 +33,6 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.CreateItemTests
 			Assert.Equal(20, createItemInput.LevelRequired);
 			Assert.True(createItemInput.Slots.HaveSlots);
 			Assert.Equal(1, createItemInput.Slots.Quantity);
-			Assert.Equal(1500.50, createItemInput.Price);
 		}
 	}
 }

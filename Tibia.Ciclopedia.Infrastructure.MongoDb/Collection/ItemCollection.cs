@@ -8,12 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Domain.Items.Enums;
-using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection.Members;
+using Tibia.Ciclopedia.Infrastructure.MongoDb.Collection.Members.ItemMember;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Tibia.Ciclopedia.Infrastructure.MongoDb.Collection
 {
-	public class ItemCollection
+    public class ItemCollection
 	{
 		public const string CollectionName = "ItemCollection";
 

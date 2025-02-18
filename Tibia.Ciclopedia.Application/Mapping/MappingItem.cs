@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Tibia.Ciclopedia.Application.UseCases.CreateItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.CreateItem;
 using Tibia.Ciclopedia.Domain.Items;
 
 
 namespace Tibia.Ciclopedia.Application.Mapping
 {
-	public class MappingItem : Profile
+    public class MappingItem : Profile
 	{
 
 		public MappingItem()

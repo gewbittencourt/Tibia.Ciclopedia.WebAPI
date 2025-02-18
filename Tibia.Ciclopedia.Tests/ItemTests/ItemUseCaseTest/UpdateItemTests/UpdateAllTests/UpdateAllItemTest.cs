@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Tibia.Ciclopedia.Infrastructure.MongoDb.Repository;
 using Tibia.Ciclopedia.Domain.Items;
-using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
 using Tibia.Ciclopedia.Domain.Items.Enums;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.UpdateItem;
 
 namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.UpdateAllTest
 {
-	public class UpdateAllItemTest
+    public class UpdateAllItemTest
 	{
 		private readonly Mock<IItemRepository> _mockItemRepository;
 		private readonly UpdateItem _updateAllItem;
@@ -19,7 +19,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 		public UpdateAllItemTest()
 		{
 			_mockItemRepository = new Mock<IItemRepository>();
-			_updateAllItem = new UpdateItem(_mockItemRepository.Object, null);  // O segundo argumento (mapper) é null, se não for usado
+			_updateAllItem = new UpdateItem(_mockItemRepository.Object, null);
 		}
 
 		[Fact]
@@ -35,17 +35,13 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 				Vocations = Vocations.Druid,
 				LevelRequired = 10,
 				Slots = new SlotsInfoItem(true, 1),
-				Price = 99.99,
 				Image = "image_path"
 			};
 
-			var item = new Item();  // Criação de um objeto Item real
+			var item = new Item();
 
-			// Setup para retorno do item a partir do repositório
 			_mockItemRepository.Setup(repo => repo.GetItemById(itemId, It.IsAny<CancellationToken>()))
 				.ReturnsAsync(item);
-
-			// Setup para o método de atualização
 			_mockItemRepository.Setup(repo => repo.UpdateItem(item, It.IsAny<CancellationToken>()))
 				.ReturnsAsync(true);
 
@@ -54,7 +50,7 @@ namespace Tibia.Ciclopedia.Tests.ItemTests.ItemUseCaseTest.UpdateItemTest.Update
 
 			// Assert
 			Assert.True(result.IsValid);
-			_mockItemRepository.Verify(i => i.UpdateItem(item, It.IsAny<CancellationToken>()), Times.Once);  // Verifica se o método correto foi chamado
+			_mockItemRepository.Verify(i => i.UpdateItem(item, It.IsAny<CancellationToken>()), Times.Once);
 		}
 	}
 

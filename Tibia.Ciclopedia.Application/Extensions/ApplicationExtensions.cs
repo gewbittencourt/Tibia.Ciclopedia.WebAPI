@@ -4,11 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tibia.Ciclopedia.Application.UseCases.CreateItem;
-using Tibia.Ciclopedia.Application.UseCases.DeleteItem;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetAll;
-using Tibia.Ciclopedia.Application.UseCases.GetItem.GetByName;
-using Tibia.Ciclopedia.Application.UseCases.Update.UpdateItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.CreateItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.DeleteItem;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.GetItem.GetAll;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.GetItem.GetByName;
+using Tibia.Ciclopedia.Application.UseCases.ItemUC.UpdateItem;
+using Tibia.Ciclopedia.Application.UseCases.MonsterUC.CreateMonster;
+using Tibia.Ciclopedia.Application.UseCases.MonsterUC.DeleteMonster;
+using Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetAll;
+using Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetByElementWeaknessAndDifficulty;
+using Tibia.Ciclopedia.Application.UseCases.MonsterUC.GetMonster.GetByName;
+using Tibia.Ciclopedia.Application.UseCases.MonsterUC.UpdateMonster;
 using Tibia.Ciclopedia.Domain.Items;
 using Tibia.Ciclopedia.Infrastructure.CrossCutting;
 
@@ -23,6 +29,12 @@ namespace Tibia.Ciclopedia.Application.Extensions
             services.AddScoped<IGetItemByNameUseCase, GetItemsByName>();
             services.AddScoped<IUpdateItemUseCase, UpdateItem>();
             services.AddScoped<IDeleteItemUseCase, DeleteItem>();
+			services.AddScoped<ICreateMonsterUseCase, CreateMonster>();
+			services.AddScoped<IGetAllMonstersUseCase, GetAllMonsters>();
+            services.AddScoped<IGetMonsterByNameUseCase, GetMonsterByName>();
+            services.AddScoped<IDeleteMonsterUseCase, DeleteMonster>();
+            services.AddScoped<IUpdateMonsterUseCase, UpdateMonster>();
+			services.AddScoped<IGetMonsterByWeaknessAndDifficultyUseCase, GetMonsterByWeaknessAndDifficulty>();
 
 
 			return services;
