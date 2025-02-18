@@ -11,7 +11,7 @@ COPY ["Tibia.Ciclopedia.API/Tibia.Ciclopedia.API.csproj", "Tibia.Ciclopedia.API/
 COPY ["Tibia.Ciclopedia.Application/Tibia.Ciclopedia.Application.csproj", "Tibia.Ciclopedia.Application/"]
 COPY ["Tibia.Ciclopedia.Domain/Tibia.Ciclopedia.Domain.csproj", "Tibia.Ciclopedia.Domain/"]
 COPY ["Tibia.Ciclopedia.Infrastructure.MongoDb/Tibia.Ciclopedia.Infrastructure.MongoDb.csproj", "Tibia.Ciclopedia.Infrastructure.MongoDb/"]
-COPY ["Tibia.Ciclopedia.Infrastructure.MongoDb/Tibia.Ciclopedia.Infrastructure.CrossCutting.csproj", "Tibia.Ciclopedia.Infrastructure.CrossCutting/"]
+COPY ["Tibia.Ciclopedia.Infrastructure.CrossCutting/Tibia.Ciclopedia.Infrastructure.CrossCutting.csproj", "Tibia.Ciclopedia.Infrastructure.CrossCutting/"]
 COPY ["Tibia.Ciclopedia.Tests/Tibia.Ciclopedia.Tests.csproj", "Tibia.Ciclopedia.Tests/"]
 
 
