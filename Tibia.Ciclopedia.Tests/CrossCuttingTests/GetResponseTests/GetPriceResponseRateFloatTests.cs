@@ -19,11 +19,11 @@ namespace Tibia.Ciclopedia.Tests.CrossCuttingTests.GetResponseTests
             }";
 
 			// Act
-			var result = JsonSerializer.Deserialize<GetPricingResponseRateFloat>(json);
+			var result = JsonSerializer.Deserialize<GetPricingResponse>(json);
 
 			// Assert
 			Assert.NotNull(result);
-			Assert.Equal(1.2345, result.Ratefloat);
+			Assert.Equal(1.2345, result.Price);
 		}
 	}
 }

@@ -31,15 +31,11 @@ namespace Tibia.Ciclopedia.Tests.MappingTest.CrossCuttingTest
         public void Mapping_GetPricingResponseBpi_To_ItemMarketPrice_MapsCorrectly()
         {
             // Arrange
-            var source = new GetPricingResponseBpi
+            var source = new GetPricingResponse
             {
-                Bpi = new GetPriceResponseEUR
-                {
-                    EUR = new GetPricingResponseRateFloat
-                    {
-                        Ratefloat = 123.45
-                    }
-                }
+
+             Price = 123.45
+
             };
 
             // Act

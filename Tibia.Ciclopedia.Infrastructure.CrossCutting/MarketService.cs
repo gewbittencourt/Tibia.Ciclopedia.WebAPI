@@ -21,15 +21,21 @@ namespace Tibia.Ciclopedia.Infrastructure.CrossCutting
 
 		public async Task<ItemMarketPrice> GetPriceAsync(CancellationToken cancellationToken)
 		{
-
-			var response = await _httpClient.GetAsync(_apiURL);
+			var response = await _httpClient.GetAsync(_apiURL, cancellationToken);
 			response.EnsureSuccessStatusCode();
-
 			var jsonResponse = await response.Content.ReadAsStringAsync(cancellationToken);
+			string numericValue = jsonResponse.Trim('[', ']', '\n');
 
-			var pricingResponse = JsonSerializer.Deserialize<GetPricingResponseBpi>(jsonResponse);
+			if (!double.TryParse(numericValue, out var price))
+			{
+				throw new InvalidOperationException("Falha ao converter a resposta.");
+			}
 
-			return _mapper.Map<ItemMarketPrice>(pricingResponse);
+			var priceResponse = new GetPricingResponse
+			{
+				Price = price
+			};
+			return _mapper.Map<ItemMarketPrice>(priceResponse);
 		}
 	}
 }

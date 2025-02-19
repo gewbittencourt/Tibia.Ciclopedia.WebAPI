@@ -13,8 +13,8 @@ namespace Tibia.Ciclopedia.Infrastructure.CrossCutting.Mapping
 	{
 		public MappingItemMarketPrice()
 		{
-			CreateMap<GetPricingResponseBpi, ItemMarketPrice>()
-				.ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Bpi.EUR.Ratefloat));
+			CreateMap<GetPricingResponse, ItemMarketPrice>()
+				.ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price));
 		}
 	}
 }

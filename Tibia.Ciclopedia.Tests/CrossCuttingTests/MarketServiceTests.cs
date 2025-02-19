@@ -24,21 +24,31 @@ namespace Tibia.Ciclopedia.Tests.CrossCuttingTests
 			var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
 
 			var mockConfiguration = new Mock<IConfiguration>();
-			mockConfiguration.Setup(config => config["GetPriceAPI:Url"]).Returns("http://testapi.com");
+			mockConfiguration.Setup(config => config["GetPriceAPI:Url"]).Returns("https://testapi.com");
 
 			var mockHttpClient = new HttpClient(mockHttpMessageHandler.Object)
 			{
-				BaseAddress = new Uri("http://testapi.com")
+				BaseAddress = new Uri("https://testapi.com")
 			};
 
 			var mockMapper = new Mock<IMapper>();
 
-			var mockPricingResponse = new GetPricingResponseBpi { };
+			var mockPricingResponse = new GetPricingResponse { };
 			var expectedMarketPrice = new ItemMarketPrice {  };
 
 			var jsonResponse = JsonSerializer.Serialize(mockPricingResponse);
 
-			mockHttpMessageHandler.Protected()
+			string price = "";
+			using (JsonDocument doc = JsonDocument.Parse(jsonResponse))
+			{
+				if (doc.RootElement.TryGetProperty("Price", out JsonElement priceElement))
+				{
+					price = priceElement.GetDouble().ToString();
+				}
+			}
+
+
+				mockHttpMessageHandler.Protected()
 				.Setup<Task<HttpResponseMessage>>(
 					"SendAsync",
 					ItExpr.IsAny<HttpRequestMessage>(),
@@ -47,11 +57,11 @@ namespace Tibia.Ciclopedia.Tests.CrossCuttingTests
 				.ReturnsAsync(new HttpResponseMessage
 				{
 					StatusCode = HttpStatusCode.OK,
-					Content = new StringContent(jsonResponse)
+					Content = new StringContent(price)
 				});
 
 			mockMapper
-				.Setup(mapper => mapper.Map<ItemMarketPrice>(It.IsAny<GetPricingResponseBpi>()))
+				.Setup(mapper => mapper.Map<ItemMarketPrice>(It.IsAny<GetPricingResponse>()))
 				.Returns(expectedMarketPrice);
 
 			var marketService = new MarketService(mockHttpClient, mockConfiguration.Object, mockMapper.Object);
@@ -62,7 +72,7 @@ namespace Tibia.Ciclopedia.Tests.CrossCuttingTests
 			// Assert
 			Assert.NotNull(result);
 			Assert.Equal(expectedMarketPrice, result);
-			mockMapper.Verify(mapper => mapper.Map<ItemMarketPrice>(It.IsAny<GetPricingResponseBpi>()), Times.Once);
+			mockMapper.Verify(mapper => mapper.Map<ItemMarketPrice>(It.IsAny<GetPricingResponse>()), Times.Once);
 		}
 	}
 }
